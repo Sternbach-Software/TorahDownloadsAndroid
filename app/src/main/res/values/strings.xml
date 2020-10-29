@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">TorahDownloadsAndroid</string>
+    <string name="home">Home</string>
+    <string name="now_playing">Now Playing</string>
+    <string name="categories">Categories</string>
+    <string name="speakers">Speakers</string>
+    <string name="series">Series</string>
+    <string name="playlists">Playlists</string>
+    <string name="favorites">Favorites</string>
+    <string name="downloads">Downloads</string>
+    <string name="history">History</string>
+    <string name="nav_header_desc">nav header description</string>
+    <string name="nav_header_title">nav header title</string>
+    <string name="nav_header_subtitle">nav header subtitle</string>
 </resources>

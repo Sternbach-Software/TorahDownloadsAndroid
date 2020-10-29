@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/homeFragment"
+            android:title="@string/home" />
+        <item
+            android:id="@+id/playbackFragment"
+            android:title="@string/now_playing" />
+        <item
+            android:id="@+id/categoriesFragment"
+            android:title="@string/categories" />
+        <item
+            android:id="@+id/speakersFragment"
+            android:title="@string/speakers" />
+        <item
+            android:id="@+id/seriesFragment"
+            android:title="@string/series" />
+        <item
+            android:id="@+id/playlistsFragment"
+            android:title="@string/playlists" />
+        <item
+            android:id="@+id/favoritesFragment"
+            android:icon="@android:drawable/star_big_off"
+            android:title="@string/favorites" />
+        <item
+            android:id="@+id/downloadsFragment"
+            android:title="@string/downloads" />
+        <item
+            android:id="@+id/historyFragment"
+            android:title="@string/history" />
+    </group>
+</menu>

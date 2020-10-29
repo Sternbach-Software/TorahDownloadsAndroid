@@ -1,106 +1,136 @@
-package tech.torah.aldis.androidapp
+    package tech.torah.aldis.androidapp
 
-import android.R.drawable
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.view.inputmethod.EditorInfo
+import android.widget.Filter
+import android.widget.Filterable
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.l4digital.fastscroll.FastScrollRecyclerView
 import com.l4digital.fastscroll.FastScroller
-import java.lang.reflect.Field
+import java.util.*
 
 
-private var speakerPictureCount = 0
+    private var speakerPictureCount = 0
 private var drawables = listOf(
+        R.drawable.a,
         R.drawable.ab,
-                R.drawable.ac,
-                R.drawable.ad,
-                R.drawable.ae,
-                R.drawable.af,
-                R.drawable.ag,
-                R.drawable.ah,
-                R.drawable.ai,
-                R.drawable.aj,
-                R.drawable.ak,
-                R.drawable.al,
-                R.drawable.am,
-                R.drawable.an,
-                R.drawable.ao,
-                R.drawable.ap,
-                R.drawable.aq,
-                R.drawable.ar,
-                R.drawable.`as`,
-                R.drawable.at,
-                R.drawable.au,
-                R.drawable.av,
-                R.drawable.aw,
-                R.drawable.ax,
-                R.drawable.ay,
-                R.drawable.az,
-                R.drawable.ba,
-                R.drawable.bb,
-                R.drawable.bc,
-                R.drawable.bd,
-                R.drawable.be,
-                R.drawable.bf,
-                R.drawable.bg,
-                R.drawable.bh,
-                R.drawable.bi,
-                R.drawable.bj,
-                R.drawable.bk,
-                R.drawable.bl,
-                R.drawable.bm,
-                R.drawable.bn,
-                R.drawable.bo,
-                R.drawable.bp,
-                R.drawable.bq,
-                R.drawable.br,
-                R.drawable.bs,
-                R.drawable.bt,
-                R.drawable.bu,
-                R.drawable.bv,
-                R.drawable.bw,
-                R.drawable.bx,
-                R.drawable.by,
-                R.drawable.bz,
-                R.drawable.ca,
-                R.drawable.cb,
-                R.drawable.cc,
-                R.drawable.cd,
-                R.drawable.ce,
-                R.drawable.cf,
-                R.drawable.cg,
-                R.drawable.ch,
-                R.drawable.ci,
-                R.drawable.cj,
-                R.drawable.ck,
-                R.drawable.cl,
-                R.drawable.cm,
-                R.drawable.cn,
+        R.drawable.ac,
+        R.drawable.ad,
+        R.drawable.ae,
+        R.drawable.af,
+        R.drawable.ag,
+        R.drawable.ah,
+        R.drawable.ai,
+        R.drawable.aj,
+        R.drawable.ak,
+        R.drawable.al,
+        R.drawable.am,
+        R.drawable.an,
+        R.drawable.ao,
+        R.drawable.ap,
+        R.drawable.aq,
+        R.drawable.ar,
+        R.drawable.`as`,
+        R.drawable.at,
+        R.drawable.au,
+        R.drawable.av,
+        R.drawable.aw,
+        R.drawable.ax,
+        R.drawable.ay,
+        R.drawable.az,
+        R.drawable.ba,
+        R.drawable.bb,
+        R.drawable.bc,
+        R.drawable.bd,
+        R.drawable.be,
+        R.drawable.bf,
+        R.drawable.bg,
+        R.drawable.bh,
+        R.drawable.bi,
+        R.drawable.bj,
+        R.drawable.bk,
+        R.drawable.bl,
+        R.drawable.bm,
+        R.drawable.bn,
+        R.drawable.bo,
+        R.drawable.bp,
+        R.drawable.bq,
+        R.drawable.br,
+        R.drawable.bs,
+        R.drawable.bt,
+        R.drawable.bu,
+        R.drawable.bv,
+        R.drawable.bw,
+        R.drawable.bx,
+        R.drawable.by,
+        R.drawable.bz,
+        R.drawable.ca,
+        R.drawable.cb,
+        R.drawable.cc,
+        R.drawable.cd,
+        R.drawable.ce,
+        R.drawable.cf,
+        R.drawable.cg,
+        R.drawable.ch,
+        R.drawable.ci,
+        R.drawable.cj,
+        R.drawable.ck,
+        R.drawable.cl,
+        R.drawable.cm,
+        R.drawable.cn,
 )
 private const val TAG = "BrowseActivity"
 private lateinit var speakerImageView: ImageView
 
     class BrowseActivity : AppCompatActivity() {
+        private lateinit var speakerAdapter: SpeakerAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d(TAG, "RAN SUCCESSFULL!")
         setContentView(R.layout.speaker_page_recycler_view_layout)
 
         val recyclerView: FastScrollRecyclerView? = findViewById(R.id.recycler_view)
         recyclerView?.layoutManager = LinearLayoutManager(this)
-        val listOfSpeakers = mutableListOf<Speaker>()
-        val listOfSpeakerJson = Constants.speaker.split("},").take(300)
-        listOfSpeakerJson.forEach { listOfSpeakers.add(parseSpeakerFromJSON(it)) }
-        Log.d(TAG, listOfSpeakers[15].toString())
-        recyclerView?.adapter = SpeakerAdapter(listOfSpeakers)
+
+        val listOfSpeakers = listOfSpeakersFromJson(300)
+
+        speakerAdapter = SpeakerAdapter(listOfSpeakers)
+        recyclerView?.adapter = speakerAdapter
     }
+
+        private fun listOfSpeakersFromJson(n: Int): MutableList<Speaker> {
+            val listOfSpeakers = mutableListOf<Speaker>()
+            val listOfSpeakerJson = Constants.speaker.split("},").take(n)
+            listOfSpeakerJson.forEach { listOfSpeakers.add(parseSpeakerFromJSON(it)) }
+            return listOfSpeakers
+        }
+
+        override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+            super.onCreateOptionsMenu(menu) //TODO not sure if this line will cause bugs
+            val inflater = menuInflater
+            inflater.inflate(R.menu.speaker_page_menu, menu)
+            val searchItem: MenuItem = menu!!.findItem(R.id.actionSearch)
+            val searchView: SearchView = searchItem.actionView as SearchView
+            searchView.imeOptions = EditorInfo.IME_ACTION_DONE
+            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    speakerAdapter.filter(query?:"")
+                    return false
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    speakerAdapter.filter(newText?:"")
+                    return false
+                }
+            })
+            return true
+        }
 }
 
 private fun parseSpeakerFromJSON(json: String): Speaker {
@@ -123,25 +153,22 @@ private fun parseSpeakerFromJSON(json: String): Speaker {
     return speaker
 }
 
-private class SpeakerAdapter(val speakerList: MutableList<Speaker>) :
-    RecyclerView.Adapter<SpeakerAdapter.SpeakerViewHolder>(), FastScroller.SectionIndexer {
-
-    //this method is returning the view for each item in the list
+private class SpeakerAdapter(val originalSpeakerList: MutableList<Speaker>) :
+    RecyclerView.Adapter<SpeakerAdapter.SpeakerViewHolder>(), FastScroller.SectionIndexer, Filterable {
+    val speakerList: MutableList<Speaker> = originalSpeakerList.toMutableList()
     override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
+            parent: ViewGroup,
+            viewType: Int
     ): SpeakerViewHolder {
         val v = LayoutInflater.from(parent.context)
             .inflate(R.layout.individual_speaker_card_layout, parent, false)
         return SpeakerViewHolder(v)
     }
 
-    //this method is binding the data on the list
     override fun onBindViewHolder(holder: SpeakerViewHolder, position: Int) {
         holder.bindItems(speakerList[position])
     }
 
-    //this method is giving the size of the list
     override fun getItemCount(): Int {
         return speakerList.size
     }
@@ -151,7 +178,21 @@ private class SpeakerAdapter(val speakerList: MutableList<Speaker>) :
         //TODO not sure if I implemented this right.
     }
 
-    //the class is hodling the list view
+    fun filter(constraint: String){
+        speakerList.clear()
+        if (constraint.isEmpty()) {
+            speakerList.addAll(originalSpeakerList)
+        } else {
+            val filterPattern = constraint.toLowerCase(Locale.ROOT).trim()
+            for (speaker in originalSpeakerList) {
+                if (speaker.name.toLowerCase(Locale.ROOT).contains(filterPattern)) {
+                    speakerList.add(speaker)
+                }
+            }
+        }
+        notifyDataSetChanged()
+    }
+    
     class SpeakerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bindItems(speaker: Speaker) {
@@ -166,7 +207,11 @@ private class SpeakerAdapter(val speakerList: MutableList<Speaker>) :
             }
             speakerImageView = itemView.findViewById(R.id.speaker_image)
             speakerImageView.setImageResource(drawables[speakerPictureCount])
-            if(speakerPictureCount<64)speakerPictureCount++ else speakerPictureCount=0
+            if(speakerPictureCount<65)speakerPictureCount++ else speakerPictureCount=0
         }
+    }
+
+    override fun getFilter(): Filter {
+        TODO("Not yet implemented")
     }
 }
