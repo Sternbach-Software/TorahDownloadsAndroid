@@ -15,7 +15,7 @@ import tech.torah.aldis.androidapp.Speaker
 import java.io.File
 
 
-private const val TAG = "BrowseActivity"
+private const val TAG = "SpeakerPageActivity"
 private lateinit var speakerImageView: ImageView
 
 private class BrowseActivity : AppCompatActivity() {

@@ -4,11 +4,9 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.view.inputmethod.EditorInfo
-import android.widget.Filter
-import android.widget.Filterable
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatCheckBox
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,7 +15,7 @@ import com.l4digital.fastscroll.FastScroller
 import java.util.*
 
 
-    private var speakerPictureCount = 0
+private var speakerPictureCount = 0
 private var drawables = listOf(
         R.drawable.a,
         R.drawable.ab,
@@ -86,10 +84,10 @@ private var drawables = listOf(
         R.drawable.cm,
         R.drawable.cn,
 )
-private const val TAG = "BrowseActivity"
+private const val TAG = "SpeakerPageActivity"
 private lateinit var speakerImageView: ImageView
 
-    class BrowseActivity : AppCompatActivity() {
+    class SpeakerPageActivity : AppCompatActivity() {
         private lateinit var speakerAdapter: SpeakerAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -112,7 +110,6 @@ private lateinit var speakerImageView: ImageView
         }
 
         override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-            super.onCreateOptionsMenu(menu) //TODO not sure if this line will cause bugs
             val inflater = menuInflater
             inflater.inflate(R.menu.speaker_page_menu, menu)
             val searchItem: MenuItem = menu!!.findItem(R.id.actionSearch)
@@ -134,7 +131,6 @@ private lateinit var speakerImageView: ImageView
 }
 
 private fun parseSpeakerFromJSON(json: String): Speaker {
-//    Log.d(TAG,"json===$json")
     val id = "(?<=\"id\": \")\\d+(?=\")".toRegex().find(json)?.value?.toInt() ?: 64
 
     Log.d(TAG, "json===$json")
@@ -153,32 +149,82 @@ private fun parseSpeakerFromJSON(json: String): Speaker {
     return speaker
 }
 
-private class SpeakerAdapter(val originalSpeakerList: MutableList<Speaker>) :
-    RecyclerView.Adapter<SpeakerAdapter.SpeakerViewHolder>(), FastScroller.SectionIndexer, Filterable {
+private class SpeakerAdapter(val originalSpeakerList: MutableList<Speaker>) : RecyclerView.Adapter<SpeakerAdapter.SpeakerViewHolder>(), FastScroller.SectionIndexer {
+
     val speakerList: MutableList<Speaker> = originalSpeakerList.toMutableList()
-    override fun onCreateViewHolder(
-            parent: ViewGroup,
-            viewType: Int
-    ): SpeakerViewHolder {
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SpeakerViewHolder {
         val v = LayoutInflater.from(parent.context)
             .inflate(R.layout.individual_speaker_card_layout, parent, false)
         return SpeakerViewHolder(v)
     }
 
-    override fun onBindViewHolder(holder: SpeakerViewHolder, position: Int) {
-        holder.bindItems(speakerList[position])
-    }
+    override fun getItemCount(): Int = speakerList.size
 
-    override fun getItemCount(): Int {
-        return speakerList.size
-    }
+    override fun getSectionText(position: Int): CharSequence = speakerList[position].last_name.first().toString()
 
-    override fun getSectionText(position: Int): CharSequence {
-        return speakerList[position].last_name.first().toString()
-        //TODO not sure if I implemented this right.
-    }
+    override fun onBindViewHolder(holder: SpeakerViewHolder, position: Int) = holder.bindItems(speakerList[position])
 
     fun filter(constraint: String){
+
+
+        /*
+fun filter(query: String?) {
+    var completeListIndex = 0
+    var filteredListIndex = 0
+    while (completeListIndex < completeList.size()) {
+        val speaker: Movie = completeList.get(completeListIndex)
+        if (speaker.getName().toLowerCase().contains(query)) {
+            if (filteredListIndex < filteredList.size()) {
+                val filter: Movie = filteredList.get(filteredListIndex)
+                if (!speaker.getName().equals(filter.getName())) {
+                    filteredList.add(filteredListIndex, speaker)
+                    notifyItemInserted(filteredListIndex)
+                }
+            } else {
+                filteredList.add(filteredListIndex, speaker)
+                notifyItemInserted(filteredListIndex)
+            }
+            filteredListIndex++
+        } else if (filteredListIndex < filteredList.size()) {
+            val filter: Movie = filteredList.get(filteredListIndex)
+            if (speaker.getName().equals(filter.getName())) {
+                filteredList.remove(filteredListIndex)
+                notifyItemRemoved(filteredListIndex)
+            }
+        }
+        completeListIndex++
+    }
+}*/
+
+        var completeListIndex = 0
+        var filteredListIndex = 0
+
+
+        while (completeListIndex < originalSpeakerList.size) {
+            val speaker: Speaker = originalSpeakerList[completeListIndex]
+            if (speaker.name.toLowerCase(Locale.ROOT).trim().contains(constraint)) {
+                if (filteredListIndex < speakerList.size) {
+                    val filter: Speaker = speakerList[filteredListIndex]
+                    if (speaker.name != filter.name) {
+                        speakerList.add(filteredListIndex, speaker)
+                        notifyItemInserted(filteredListIndex)
+                    }
+                } else {
+                    speakerList.add(filteredListIndex, speaker)
+                    notifyItemInserted(filteredListIndex)
+                }
+                filteredListIndex++
+            } else if (filteredListIndex < speakerList.size) {
+                val filter: Speaker = speakerList[filteredListIndex]
+                if (speaker.name==filter.name) {
+                    speakerList.removeAt(filteredListIndex)
+                    notifyItemRemoved(filteredListIndex)
+                }
+            }
+            completeListIndex++
+        }
+        /*
         speakerList.clear()
         if (constraint.isEmpty()) {
             speakerList.addAll(originalSpeakerList)
@@ -190,9 +236,9 @@ private class SpeakerAdapter(val originalSpeakerList: MutableList<Speaker>) :
                 }
             }
         }
-        notifyDataSetChanged()
+        notifyDataSetChanged()*/
     }
-    
+
     class SpeakerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bindItems(speaker: Speaker) {
@@ -209,9 +255,5 @@ private class SpeakerAdapter(val originalSpeakerList: MutableList<Speaker>) :
             speakerImageView.setImageResource(drawables[speakerPictureCount])
             if(speakerPictureCount<65)speakerPictureCount++ else speakerPictureCount=0
         }
-    }
-
-    override fun getFilter(): Filter {
-        TODO("Not yet implemented")
     }
 }

@@ -6,7 +6,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linear_layout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingEnd="16dp">
 
     <com.google.android.material.card.MaterialCardView
 
@@ -30,9 +31,9 @@
                 android:id="@+id/speaker_image"
                 android:layout_width="match_parent"
                 android:layout_height="270dp"
-                app:srcCompat="@drawable/e"
+                tools:src="@drawable/e"
                 android:scaleType="centerCrop"
-                android:contentDescription="ddd" />
+                android:contentDescription="Speaker Image" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -45,7 +46,7 @@
                     android:id="@+id/speaker_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="title"
+                    tools:text="Rabbi Anemer"
                     android:textAppearance="?attr/textAppearanceHeadline6" />
                 <!--
                             <TextView
@@ -62,7 +63,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="description"
+                    tools:text="Description"
                     android:textAppearance="?attr/textAppearanceBody2"
                     android:textColor="?android:attr/textColorSecondary" />
 

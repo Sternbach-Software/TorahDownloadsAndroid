@@ -1,20 +1,39 @@
 package tech.torah.aldis.androidapp.randomTests
 
-import java.io.File
+import java.text.DecimalFormat
+
 
 fun main() {
-    val file =
-        File("C:\\My Web Sites\\torahdownloadspictures\\torahdownloads.com\\assets\\speakers").walk()
-            .toList()
-    for (i in 0..68) {
-        val x = mutableListOf<String>()
-        ('a'..'z').toList().forEach { it1 ->
-            ('a'..'z').toList().forEach { it2 ->
-                x.add("$it1$it2")
+    val decimalFormat = DecimalFormat("#,###.00")
+    val resultSubTotalAmount = 12345678901 / 100
+    val resultFormatSubTotalAmount = decimalFormat.format(resultSubTotalAmount)
+    println(resultFormatSubTotalAmount)
+}
+/*
+fun filter(query: String?) {
+    var completeListIndex = 0
+    var filteredListIndex = 0
+    while (completeListIndex < completeList.size()) {
+        val item: Movie = completeList.get(completeListIndex)
+        if (item.getName().toLowerCase().contains(query)) {
+            if (filteredListIndex < filteredList.size()) {
+                val filter: Movie = filteredList.get(filteredListIndex)
+                if (!item.getName().equals(filter.getName())) {
+                    filteredList.add(filteredListIndex, item)
+                    notifyItemInserted(filteredListIndex)
+                }
+            } else {
+                filteredList.add(filteredListIndex, item)
+                notifyItemInserted(filteredListIndex)
+            }
+            filteredListIndex++
+        } else if (filteredListIndex < filteredList.size()) {
+            val filter: Movie = filteredList.get(filteredListIndex)
+            if (item.getName().equals(filter.getName())) {
+                filteredList.remove(filteredListIndex)
+                notifyItemRemoved(filteredListIndex)
             }
         }
-//        file[i].renameTo(File("C:\\My Web Sites\\torahdownloadspictures\\torahdownloads.com\\assets\\speakers\\${x[i]}.jpg"))
-        println("R.drawable.${x[i]}"
-        )
+        completeListIndex++
     }
-}
+}*/
