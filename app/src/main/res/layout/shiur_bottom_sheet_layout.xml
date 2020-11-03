@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Shiur Title"
+    android:textAlignment="center"
+    android:textAppearance="?attr/textAppearanceHeadline6"
+    android:paddingBottom="5dp"
+    android:paddingTop="5dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawablePadding="10dp"
+        android:paddingStart="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:text="View speaker"
+        android:textAppearance="?attr/textAppearanceHeadline6"
+        app:drawableStartCompat="@drawable/ic_person_black_24dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawablePadding="10dp"
+        android:paddingStart="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:text="Add to playlist"
+        android:textAppearance="?attr/textAppearanceHeadline6"
+        app:drawableStartCompat="@drawable/ic_playlist_add_black_24dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawablePadding="10dp"
+        android:paddingStart="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:text="Download"
+        android:textAppearance="?attr/textAppearanceHeadline6"
+        app:drawableStartCompat="@drawable/ic_cloud_download_black_24dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawablePadding="10dp"
+        android:paddingStart="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:text="Share"
+        android:textAppearance="?attr/textAppearanceHeadline6"
+        app:drawableStartCompat="@drawable/ic_share_black_24dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawablePadding="10dp"
+        android:paddingStart="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:text="Favorite"
+        android:textAppearance="?attr/textAppearanceHeadline6"
+        app:drawableStartCompat="@android:drawable/btn_star" />
+
+
+</LinearLayout><!--    </androidx.core.widget.NestedScrollView>-->
+    <!--    </com.sothree.slidinguppanel.SlidingUpPanelLayout>-->

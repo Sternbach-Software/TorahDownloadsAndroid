@@ -4,13 +4,10 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-    <com.l4digital.fastscroll.FastScrollRecyclerView
-        tools:listitem="@layout/individual_speaker_card_layout"
-        tools:itemCount="5"
+    <androidx.recyclerview.widget.RecyclerView
+        tools:listitem="@layout/individual_shiur_card_layout"
+        tools:itemCount="10"
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:bubbleColor="#FF9800"
-        app:bubbleTextColor="#ffffff"
-        app:handleColor="#999999" />
+        android:layout_height="match_parent" />
 </FrameLayout>

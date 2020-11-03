@@ -1,4 +1,4 @@
-    package tech.torah.aldis.androidapp
+package tech.torah.aldis.androidapp
 
 import android.os.Bundle
 import android.util.Log
@@ -6,7 +6,6 @@ import android.view.*
 import android.view.inputmethod.EditorInfo
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatCheckBox
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,7 +14,7 @@ import com.l4digital.fastscroll.FastScroller
 import java.util.*
 
 
-private var speakerPictureCount = 0
+    private var speakerPictureCount = 0
 private var drawables = listOf(
         R.drawable.a,
         R.drawable.ab,
@@ -91,7 +90,7 @@ private lateinit var speakerImageView: ImageView
         private lateinit var speakerAdapter: SpeakerAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.speaker_page_recycler_view_layout)
+        setContentView(R.layout.fast_scroll_recycler_view_layout)
 
         val recyclerView: FastScrollRecyclerView? = findViewById(R.id.recycler_view)
         recyclerView?.layoutManager = LinearLayoutManager(this)
@@ -100,6 +99,32 @@ private lateinit var speakerImageView: ImageView
 
         speakerAdapter = SpeakerAdapter(listOfSpeakers)
         recyclerView?.adapter = speakerAdapter
+
+/*This animation wasn't working
+        // get the center for the clipping circle
+        val cx = (browse_shiurim_recycler_view?.width)?.div(2)
+        val cy = (browse_shiurim_recycler_view?.height)?.div(2)
+
+        // get the final radius for the clipping circle
+        val finalRadius = cx?.toDouble()?.let { cy?.toDouble()?.let { it1 ->
+            hypot(it,
+                it1
+            ).toFloat()
+        } }
+        browse_shiurim_recycler_view?.visibility = View.VISIBLE
+
+        // create the animator for this view (the start radius is zero) with null
+        val anim =
+            cx?.let {it1->
+                cy?.let {it2->
+                    finalRadius?.let{it3->
+                        ViewAnimationUtils.createCircularReveal(browse_shiurim_recycler_view,
+                            it1, it2, 0f, it3)
+                    }
+                }
+            }
+        // make the view visible and start the animation
+        anim?.start()*/
     }
 
         private fun listOfSpeakersFromJson(n: Int): MutableList<Speaker> {
@@ -167,40 +192,9 @@ private class SpeakerAdapter(val originalSpeakerList: MutableList<Speaker>) : Re
 
     fun filter(constraint: String){
 
-
-        /*
-fun filter(query: String?) {
-    var completeListIndex = 0
-    var filteredListIndex = 0
-    while (completeListIndex < completeList.size()) {
-        val speaker: Movie = completeList.get(completeListIndex)
-        if (speaker.getName().toLowerCase().contains(query)) {
-            if (filteredListIndex < filteredList.size()) {
-                val filter: Movie = filteredList.get(filteredListIndex)
-                if (!speaker.getName().equals(filter.getName())) {
-                    filteredList.add(filteredListIndex, speaker)
-                    notifyItemInserted(filteredListIndex)
-                }
-            } else {
-                filteredList.add(filteredListIndex, speaker)
-                notifyItemInserted(filteredListIndex)
-            }
-            filteredListIndex++
-        } else if (filteredListIndex < filteredList.size()) {
-            val filter: Movie = filteredList.get(filteredListIndex)
-            if (speaker.getName().equals(filter.getName())) {
-                filteredList.remove(filteredListIndex)
-                notifyItemRemoved(filteredListIndex)
-            }
-        }
-        completeListIndex++
-    }
-}*/
-
+/*
         var completeListIndex = 0
         var filteredListIndex = 0
-
-
         while (completeListIndex < originalSpeakerList.size) {
             val speaker: Speaker = originalSpeakerList[completeListIndex]
             if (speaker.name.toLowerCase(Locale.ROOT).trim().contains(constraint)) {
@@ -224,7 +218,7 @@ fun filter(query: String?) {
             }
             completeListIndex++
         }
-        /*
+*/
         speakerList.clear()
         if (constraint.isEmpty()) {
             speakerList.addAll(originalSpeakerList)
@@ -236,7 +230,7 @@ fun filter(query: String?) {
                 }
             }
         }
-        notifyDataSetChanged()*/
+        notifyDataSetChanged()
     }
 
     class SpeakerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

@@ -9,14 +9,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialComponents.DayNight">
     <activity
-        android:name=".SpeakerPageActivity"
-        android:label="@string/speakers_activity_name" >
+        android:name=".ShiurimPageActivity"
+        android:label="@string/shiurim_activity_name" >
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
 
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
     </activity>
+        <activity android:name=".SpeakerPageActivity">
+        </activity>
 
     </application>
 

@@ -23,7 +23,7 @@
             android:title="@string/playlists" />
         <item
             android:id="@+id/favoritesFragment"
-            android:icon="@android:drawable/star_big_off"
+            android:icon="@android:drawable/btn_star"
             android:title="@string/favorites" />
         <item
             android:id="@+id/downloadsFragment"

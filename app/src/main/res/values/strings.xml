@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">TorahDownloads</string>
     <string name="speakers_activity_name">Speakers</string>
+    <string name="shiurim_activity_name">Shiurim</string>
     <string name="home">Home</string>
     <string name="now_playing">Now Playing</string>
     <string name="categories">Categories</string>

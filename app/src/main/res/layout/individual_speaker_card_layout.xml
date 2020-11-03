@@ -16,7 +16,7 @@
         android:layout_height="match_parent"
         app:strokeWidth="1dp"
         app:strokeColor="@color/material_on_surface_stroke"
-        app:cardElevation="0dp"
+        app:cardElevation="2dp"
         android:layout_margin="8dp"
         android:clickable="true"
         android:focusable="true">
