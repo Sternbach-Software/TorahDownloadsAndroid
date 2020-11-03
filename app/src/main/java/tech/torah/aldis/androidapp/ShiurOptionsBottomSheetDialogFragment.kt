@@ -16,7 +16,8 @@ class ShiurOptionsBottomSheetDialogFragment : BottomSheetDialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        tag?.let { Log.d("TAG", it) }
+
         return inflater.inflate(R.layout.shiur_bottom_sheet_layout, container, false)
+
     }
 }

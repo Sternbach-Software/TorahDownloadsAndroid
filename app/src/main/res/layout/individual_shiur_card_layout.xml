@@ -59,7 +59,7 @@
              android:textColor="?android:attr/textColorSecondary"
              app:layout_constraintStart_toEndOf="@id/shiur_speaker_image"
              app:layout_constraintTop_toBottomOf="@+id/shiur_title"
-             tools:text="Rabbi Yisroel Belsky" />
+             android:text="Rabbi Yisroel Belsky" />
 
         <ImageView
             android:id="@+id/more_options_button"
@@ -68,7 +68,7 @@
             android:layout_marginTop="28dp"
             android:layout_marginEnd="4dp"
             android:onClick="openOptionsMenu"
-            android:src="@drawable/ic_more_vert_black_24dp"
+            android:src="@drawable/ic_more_vert"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>

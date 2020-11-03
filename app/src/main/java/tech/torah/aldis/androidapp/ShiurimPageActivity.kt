@@ -221,7 +221,7 @@ class ShiurimPageActivity : AppCompatActivity() {
                     shiurTitle.text = shiur.title
                 }
                 if (shiurSpeaker != null) {
-                    shiurSpeaker.text = shiur.description
+                    shiurSpeaker.text = shiur.speaker
                 }
             }
         }
