@@ -18,11 +18,11 @@ setContentView(R.layout.home_page)
             val intent = Intent(this@HomePageActivity, SpeakerPageActivity::class.java)
             this@HomePageActivity.startActivity(intent)
         }
-        recentlyAddedButton.setOnClickListener {/*
-            val intent = Intent(this@HomePageActivity, RecentlyAddedActivity::class.java)
-            this@HomePageActivity.startActivity(intent)*/
-            val snackBar = Snackbar.make(it,"TO BE IMPLEMENTED",Snackbar.LENGTH_LONG).setAction("Action",null)
-            snackBar.show()
+        recentlyAddedButton.setOnClickListener {
+            val intent = Intent(this@HomePageActivity, ShiurimPageActivity::class.java)
+            this@HomePageActivity.startActivity(intent)
+            /*val snackBar = Snackbar.make(it,"TO BE IMPLEMENTED",Snackbar.LENGTH_LONG).setAction("Action",null)
+            snackBar.show()*/
         }
         myPlaylistsButton.setOnClickListener {/*
             val intent = Intent(this@HomePageActivity, PlaylistsActivity::class.java)
