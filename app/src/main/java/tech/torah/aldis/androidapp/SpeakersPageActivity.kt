@@ -92,10 +92,34 @@ private lateinit var speakerImageView: ImageView
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fast_scroll_recycler_view_layout)
 
-        val recyclerView: FastScrollRecyclerView? = findViewById(R.id.recycler_view)
+        val recyclerView: FastScrollRecyclerView? = findViewById(R.id.fast_scroller)
         recyclerView?.layoutManager = LinearLayoutManager(this)
 
-        val listOfSpeakers = listOfSpeakersFromJson(300)
+        val listOfSpeakers = listOfSpeakersFromJson(300)/*mutableListOf(
+            Speaker(),
+            Speaker(),
+            Speaker(),
+            Speaker(),
+            Speaker(),
+            Speaker(),
+            Speaker(),
+            Speaker(),
+            Speaker(),
+            Speaker(),
+            Speaker(),
+            Speaker(),
+            Speaker(),
+            Speaker(),
+            Speaker(),
+            Speaker(),
+            Speaker(),
+            Speaker(),
+            Speaker(),
+            Speaker(),
+            Speaker(),
+            Speaker(),
+        )*/
+
 
         speakerAdapter = SpeakerAdapter(listOfSpeakers)
         recyclerView?.adapter = speakerAdapter
