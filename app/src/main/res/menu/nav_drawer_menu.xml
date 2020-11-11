@@ -10,6 +10,9 @@
             android:id="@+id/playbackFragment"
             android:title="@string/now_playing" />
         <item
+            android:id="@+id/searchFragment"
+            android:title="Search" />
+        <item
             android:id="@+id/categoriesFragment"
             android:title="@string/categories" />
         <item

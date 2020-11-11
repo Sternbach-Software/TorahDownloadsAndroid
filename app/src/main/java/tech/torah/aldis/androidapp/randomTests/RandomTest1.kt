@@ -1,13 +1,15 @@
 package tech.torah.aldis.androidapp.randomTests
 
+import java.io.File
 import java.text.DecimalFormat
 
 
 fun main() {
-    val decimalFormat = DecimalFormat("#,###.00")
-    val resultSubTotalAmount = 12345678901 / 100
-    val resultFormatSubTotalAmount = decimalFormat.format(resultSubTotalAmount)
-    println(resultFormatSubTotalAmount)
+    var linesOfCode = 0
+    for (file in File("C:\\Users\\shmue\\AndroidStudioProjects\\vlc-android\\application\\vlc-android\\src").walk().toList().filter{it.extension=="kt"}) {
+        linesOfCode+=file.readLines().size
+    }
+    println(linesOfCode)
 }
 /*
 fun filter(query: String?) {

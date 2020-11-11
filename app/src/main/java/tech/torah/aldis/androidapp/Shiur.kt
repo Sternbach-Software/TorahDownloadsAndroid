@@ -1,6 +1,7 @@
 package tech.torah.aldis.androidapp
 
-
+import android.os.Parcelable
+import java.io.Serializable
 
 data class Shiur(
     val id: String = "1008064",
@@ -26,7 +27,8 @@ data class Shiur(
     val series: String = "",
     val quickseries: String = "",
     val quickseries_name: String = ""
-)
+) : Serializable, TorahFilter
+
 
 /*
 internal class MyDeserializer : JsonDeserializer<javax.swing.text.AbstractDocument.Content?> {

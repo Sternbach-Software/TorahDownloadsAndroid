@@ -19,7 +19,7 @@ setContentView(R.layout.home_page)
             this@HomePageActivity.startActivity(intent)
         }
         recentlyAddedButton.setOnClickListener {
-            val intent = Intent(this@HomePageActivity, ShiurimPageActivity::class.java)
+            val intent = Intent(this@HomePageActivity, RecentlyAddedShiurimPageActivity::class.java)
             this@HomePageActivity.startActivity(intent)
             /*val snackBar = Snackbar.make(it,"TO BE IMPLEMENTED",Snackbar.LENGTH_LONG).setAction("Action",null)
             snackBar.show()*/
@@ -27,13 +27,13 @@ setContentView(R.layout.home_page)
         myPlaylistsButton.setOnClickListener {/*
             val intent = Intent(this@HomePageActivity, PlaylistsActivity::class.java)
             this@HomePageActivity.startActivity(intent)*/
-            val snackBar = Snackbar.make(it,"TO BE IMPLEMENTED",Snackbar.LENGTH_LONG).setAction("Action",null)
-            snackBar.show()        }
-        categoriesButton.setOnClickListener {/*
-            val intent = Intent(this@HomePageActivity, CategoriesPageActivity::class.java)
-            this@HomePageActivity.startActivity(intent)*/
-            val snackBar = Snackbar.make(it,"TO BE IMPLEMENTED",Snackbar.LENGTH_LONG).setAction("Action",null)
-            snackBar.show()
+            val snackBar = Snackbar.make(it,"TO BE IMPLEMENTED",Snackbar.LENGTH_SHORT).setAction("Action",null)
+            snackBar.show()}
+        categoriesButton.setOnClickListener {
+            val intent = Intent(this@HomePageActivity, TabsActivity::class.java)
+            this@HomePageActivity.startActivity(intent)/*
+            val snackBar = Snackbar.make(it,"TO BE IMPLEMENTED",Snackbar.LENGTH_SHORT).setAction("Action",null)
+            snackBar.show()*/
         }
     }
 }

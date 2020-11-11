@@ -34,6 +34,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".RecentlyAddedShiurimPageActivity"
+            android:label="Recently Added Shiurim"/>
+        <activity android:name=".TabsActivity"/>
     </application>
 
 </manifest>

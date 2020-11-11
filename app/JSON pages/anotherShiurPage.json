@@ -210,6 +210,142 @@
         "SpeakerSE": "rabbi-eliyahu-reingold"
       }
     ],
-    "quickseries_name": "Daily Halacha - Dinei Bais Hakenesses"
+    "quickseries_name": "Daily Halacha - Dinei Bais Hakenesses",
+    "others_from": {
+      "speaker": [
+        {
+          "ShiurID": "19733",
+          "Title": "Pas Shebishlo (25 Cheshvan 5770)",
+          "Name": "Halacha",
+          "sName": "Rabbi Eliyahu Reingold",
+          "Speaker": "Rabbi Eliyahu Reingold"
+        },
+        {
+          "ShiurID": "19785",
+          "Title": "Gambling(5770)",
+          "Name": "Halacha",
+          "sName": "Rabbi Eliyahu Reingold",
+          "Speaker": "Rabbi Eliyahu Reingold"
+        },
+        {
+          "ShiurID": "20619",
+          "Title": "Blev Echad Mitzvah Project 1- Hilchos Loshon Hara",
+          "Name": "Halacha",
+          "sName": "Rabbi Eliyahu Reingold",
+          "Speaker": "Rabbi Eliyahu Reingold"
+        },
+        {
+          "ShiurID": "20620",
+          "Title": "Blev Echad Mitzvah Project 2-Judging Favorably",
+          "Name": "Halacha",
+          "sName": "Rabbi Eliyahu Reingold",
+          "Speaker": "Rabbi Eliyahu Reingold"
+        },
+        {
+          "ShiurID": "20621",
+          "Title": "Blev Echad Mitzvah Project 3-Halbanas Panim",
+          "Name": "Halacha",
+          "sName": "Rabbi Eliyahu Reingold",
+          "Speaker": "Rabbi Eliyahu Reingold"
+        },
+        {
+          "ShiurID": "20622",
+          "Title": "Blev Echad Mitzvah Project 4-Lo Sachmod",
+          "Name": "Halacha",
+          "sName": "Rabbi Eliyahu Reingold",
+          "Speaker": "Rabbi Eliyahu Reingold"
+        },
+        {
+          "ShiurID": "20623",
+          "Title": "Blev Echad Mitzvah Project 5- Kiddush Shabbos Bdevarim",
+          "Name": "Halacha",
+          "sName": "Rabbi Eliyahu Reingold",
+          "Speaker": "Rabbi Eliyahu Reingold"
+        },
+        {
+          "ShiurID": "20624",
+          "Title": "Blev Echad Mitzvah Project 6- Kibud Av Veim",
+          "Name": "Halacha",
+          "sName": "Rabbi Eliyahu Reingold",
+          "Speaker": "Rabbi Eliyahu Reingold"
+        },
+        {
+          "ShiurID": "20625",
+          "Title": "Blev Echad Mitzvah Project 7- Emunah",
+          "Name": "Halacha",
+          "sName": "Rabbi Eliyahu Reingold",
+          "Speaker": "Rabbi Eliyahu Reingold"
+        },
+        {
+          "ShiurID": "20626",
+          "Title": "Blev Echad Mitzvah Project 8-Ahavas Yisrael",
+          "Name": "Halacha",
+          "sName": "Rabbi Eliyahu Reingold",
+          "Speaker": "Rabbi Eliyahu Reingold"
+        }
+      ],
+      "category": [
+        {
+          "ShiurID": "12223",
+          "Title": "Believing Hashem Is One",
+          "Name": "Halacha",
+          "sName": "Rabbi Yaacov Fried"
+        },
+        {
+          "ShiurID": "12232",
+          "Title": "Halachos Of Hunting",
+          "Name": "Halacha",
+          "sName": "Rabbi Moshe Bergman"
+        },
+        {
+          "ShiurID": "12233",
+          "Title": "Owning A Pet",
+          "Name": "Halacha",
+          "sName": "Rabbi Moshe Bergman"
+        },
+        {
+          "ShiurID": "12240",
+          "Title": "Gambling",
+          "Name": "Halacha",
+          "sName": "Rabbi Moshe Bergman"
+        },
+        {
+          "ShiurID": "12241",
+          "Title": "Yarmulka",
+          "Name": "Halacha",
+          "sName": "Rabbi Moshe Bergman"
+        },
+        {
+          "ShiurID": "12869",
+          "Title": "Contemporary Issues 1-28-99",
+          "Name": "Halacha",
+          "sName": "Rabbi Yitzchak Breitowitz"
+        },
+        {
+          "ShiurID": "12870",
+          "Title": "Contemporary Issues 2-2-99",
+          "Name": "Halacha",
+          "sName": "Rabbi Yitzchak Breitowitz"
+        },
+        {
+          "ShiurID": "13533",
+          "Title": "Going In The Ways Of Hashem & Tefilah",
+          "Name": "Halacha",
+          "sName": "Rabbi Yaacov Fried"
+        },
+        {
+          "ShiurID": "13539",
+          "Title": "Hachnasas Kallah",
+          "Name": "Halacha",
+          "sName": "Rabbi Avraham Brussel"
+        },
+        {
+          "ShiurID": "13542",
+          "Title": "Halachas Of Chodosh",
+          "Name": "Halacha",
+          "sName": "Rabbi Yitzchak Breitowitz"
+        }
+      ]
+    }
   }
 ]

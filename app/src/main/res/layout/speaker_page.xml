@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:textAppearance="?attr/textAppearanceHeadline6"
+        tools:text="Rabbi Gedaliah Anemer"/>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="20dp"
+        android:padding="10dp">
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:maxWidth="10dp"
+            android:maxHeight="10dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ab"
+            tools:maxHeight="2dp"
+            tools:maxWidth="2dp" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:textAppearance="?attr/textAppearanceHeadline6"
+        tools:text="Description" />
+    <View
+        android:id="@+id/view1"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_margin="20dp"
+        android:background="@color/black" />
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textAppearance="?attr/textAppearanceBody1"
+        tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nisi quis eleifend quam adipiscing. Id volutpat lacus laoreet non curabitur gravida arcu. Justo eget magna fermentum iaculis eu non diam. Placerat duis ultricies lacus sed turpis tincidunt id. Amet aliquam id diam maecenas. Augue mauris augue neque gravida in fermentum et sollicitudin. Aliquet enim tortor at auctor urna nunc. Aliquet lectus proin nibh nisl condimentum id venenatis a. Tortor dignissim convallis aenean et. Aliquam sem et tortor consequat id porta nibh venenatis. Lorem mollis aliquam ut porttitor leo.
+
+Turpis egestas integer eget aliquet nibh praesent tristique. Sagittis orci a scelerisque purus semper eget duis. Diam quis enim lobortis scelerisque fermentum. Adipiscing vitae proin sagittis nisl. Mus mauris vitae ultricies leo integer malesuada nunc vel. Tristique sollicitudin nibh sit amet commodo nulla facilisi nullam. Et pharetra pharetra massa massa ultricies mi quis. Massa tempor nec feugiat nisl pretium fusce id velit. Euismod lacinia at quis risus sed vulputate odio. Sit amet consectetur adipiscing elit. Tortor consequat id porta nibh venenatis. Est ultricies integer quis auctor.
+
+Risus nullam eget felis eget nunc lobortis mattis. Nascetur ridiculus mus mauris vitae ultricies leo integer malesuada nunc. Platea dictumst quisque sagittis purus sit amet volutpat consequat mauris. Volutpat commodo sed egestas egestas fringilla phasellus faucibus scelerisque. Mauris ultrices eros in cursus turpis. Et tortor at risus viverra adipiscing at in tellus. Non curabitur gravida arcu ac. Platea dictumst quisque sagittis purus. Ornare lectus sit amet est placerat in egestas erat imperdiet. Id leo in vitae turpis massa sed. Id interdum velit laoreet id donec. Diam donec adipiscing tristique risus."/>
+</LinearLayout>

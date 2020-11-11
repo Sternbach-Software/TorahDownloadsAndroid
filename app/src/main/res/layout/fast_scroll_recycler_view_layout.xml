@@ -10,6 +10,7 @@
         android:id="@+id/fast_scroller"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingEnd="10dp"
         app:bubbleColor="#FF9800"
         app:bubbleTextColor="#ffffff"
         app:handleColor="#999999" />

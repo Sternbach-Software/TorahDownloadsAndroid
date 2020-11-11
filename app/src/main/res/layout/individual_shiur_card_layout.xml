@@ -38,7 +38,7 @@
 
         </ImageView>
          <TextView
-             android:id="@+id/shiur_title"
+             android:id="@+id/category_title"
              android:layout_width="wrap_content"
              android:layout_height="38dp"
              android:paddingStart="10dp"
@@ -58,7 +58,7 @@
              android:textAppearance="?attr/textAppearanceBody2"
              android:textColor="?android:attr/textColorSecondary"
              app:layout_constraintStart_toEndOf="@id/shiur_speaker_image"
-             app:layout_constraintTop_toBottomOf="@+id/shiur_title"
+             app:layout_constraintTop_toBottomOf="@+id/category_title"
              android:text="Rabbi Yisroel Belsky" />
 
         <ImageView

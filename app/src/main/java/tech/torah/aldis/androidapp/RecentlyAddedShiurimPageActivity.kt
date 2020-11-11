@@ -78,9 +78,9 @@ private var drawables = listOf(
     R.drawable.cm,
     R.drawable.cn,
 )
-private const val TAG = "ShiurimPageActivity"
+private const val TAG = "RecentlyAddedShiurimPageActivity"
 
-class ShiurimPageActivity : AppCompatActivity() {
+class RecentlyAddedShiurimPageActivity : AppCompatActivity() {
     private lateinit var shiurAdapter: ShiurAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -14,4 +14,8 @@
     <string name="nav_header_desc">nav header description</string>
     <string name="nav_header_title">nav header title</string>
     <string name="nav_header_subtitle">nav header subtitle</string>
+    <string name="tab_name_all">All</string>
+    <string name="tab_name_category">Category</string>
+    <string name="tab_name_speaker">Speaker</string>
+    <string name="tab_name_series">Series</string>
 </resources>
