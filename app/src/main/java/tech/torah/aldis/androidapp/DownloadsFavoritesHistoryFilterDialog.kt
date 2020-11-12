@@ -1,11 +1,14 @@
 package tech.torah.aldis.androidapp
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.view.size
 import androidx.fragment.app.DialogFragment
+import com.google.android.material.textfield.TextInputLayout
 
 
 /**
@@ -44,7 +47,8 @@ class SortOrFilterFullScreenDialog(private val callbackListener: CallbackListene
 
         setAdapterAndDefault(alphabeticalOrder, view,R.id.alphabetical_order_dropdown)
 
-
+        Log.d("FilterDialog","Category text input height: "+view.findViewById<TextInputLayout>(R.id.category_text_input_layout).height)
+        Log.d("FilterDialog","Category dropdown height: "+view.findViewById<AutoCompleteTextView>(R.id.category_dropdown).height)
         val filterButton = view.findViewById<Button>(R.id.filter_button)
         val cancelButton = view.findViewById<Button>(R.id.cancel_button)
         filterButton.setOnClickListener {
