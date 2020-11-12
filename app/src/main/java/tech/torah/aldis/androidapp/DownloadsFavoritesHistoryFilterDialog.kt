@@ -1,6 +1,5 @@
 package tech.torah.aldis.androidapp
 
-import android.content.res.Resources
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -29,21 +28,23 @@ class SortOrFilterFullScreenDialog(private val callbackListener: CallbackListene
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val alphabeticalOrder = listOf("Descending", "Ascending")
+        val andOrDropdown = listOf("AND","OR")
+        val speakerDropdown = listOf("Rabbi Gedaliah Anemer", "Rabbi Aaron Lopiansky","a")
+        val categoryDropdown = listOf("Kil'ayim", "Mikvaos","a")
+        val seriesOrder = listOf("Daf Yomi", "Amud Yomi","a")
+        val alphabeticalOrder = listOf("Descending", "Ascending","a")
 
-        val adapter =
-            context?.let {
-                ArrayAdapter<String>(
-                    it,
-                    R.layout.sort_or_filter_dropdown_menu_item,
-                    alphabeticalOrder
-                )
-            }
+        setAdapterAndDefault(speakerDropdown, view,R.id.speaker_dropdown)
+        setAdapterAndDefault(categoryDropdown, view,R.id.category_dropdown)
+        setAdapterAndDefault(seriesOrder, view,R.id.series_dropdown)
 
-        val editTextFilledExposedDropdown: AutoCompleteTextView = view.findViewById(R.id.filled_exposed_dropdown)
+        setAdapterAndDefault(andOrDropdown, view,R.id.speaker_and_or_dropdown)
+        setAdapterAndDefault(andOrDropdown, view,R.id.category_and_or_dropdown)
+        setAdapterAndDefault(andOrDropdown, view,R.id.series_and_or_dropdown)
 
-        editTextFilledExposedDropdown.setText(alphabeticalOrder[0],false)
-        editTextFilledExposedDropdown.setAdapter(adapter)
+        setAdapterAndDefault(alphabeticalOrder, view,R.id.alphabetical_order_dropdown)
+
+
         val filterButton = view.findViewById<Button>(R.id.filter_button)
         val cancelButton = view.findViewById<Button>(R.id.cancel_button)
         filterButton.setOnClickListener {
@@ -57,5 +58,25 @@ class SortOrFilterFullScreenDialog(private val callbackListener: CallbackListene
             dismiss()
         }
 
+    }
+
+    private fun setAdapterAndDefault(
+        filterCondition: List<String>,
+        view: View,
+        viewResId:Int
+    ) {
+        val alphabeticalAdapter =
+            context?.let {
+                ArrayAdapter<String>(
+                    it,
+                    R.layout.sort_or_filter_dropdown_menu_item,
+                    filterCondition
+                )
+            }
+
+        val dropDownMenu: AutoCompleteTextView =
+            view.findViewById(viewResId)
+        dropDownMenu.setText(filterCondition[1], false)
+        dropDownMenu.setAdapter(alphabeticalAdapter)
     }
 }
