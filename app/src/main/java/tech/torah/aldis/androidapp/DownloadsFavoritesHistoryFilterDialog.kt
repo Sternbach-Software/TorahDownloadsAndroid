@@ -5,9 +5,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
-import androidx.core.view.size
+import android.view.ViewTreeObserver.OnGlobalLayoutListener
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
+import com.google.android.material.button.MaterialButton
+import android.widget.RadioButton
+import android.widget.RadioGroup
 import androidx.fragment.app.DialogFragment
+import com.google.android.material.checkbox.MaterialCheckBox
 import com.google.android.material.textfield.TextInputLayout
 
 
@@ -31,26 +36,60 @@ class SortOrFilterFullScreenDialog(private val callbackListener: CallbackListene
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val andOrDropdown = listOf("AND","OR")
-        val speakerDropdown = listOf("Rabbi Gedaliah Anemer", "Rabbi Aaron Lopiansky","a")
-        val categoryDropdown = listOf("Kil'ayim", "Mikvaos","a")
-        val seriesOrder = listOf("Daf Yomi", "Amud Yomi","a")
-        val alphabeticalOrder = listOf("Descending", "Ascending","a")
+        val andOrDropdown = listOf("AND", "OR")
+        val speakerDropdown = listOf("Rabbi Gedaliah Anemer", "Rabbi Aaron Lopiansky", "a")
+        val categoryDropdown = listOf("Kil'ayim", "Mikvaos", "a")
+        val seriesOrder = listOf("Daf Yomi", "Amud Yomi", "a")
+        val alphabeticalOrder = listOf("Descending", "Ascending", "a")
 
-        setAdapterAndDefault(speakerDropdown, view,R.id.speaker_dropdown)
-        setAdapterAndDefault(categoryDropdown, view,R.id.category_dropdown)
-        setAdapterAndDefault(seriesOrder, view,R.id.series_dropdown)
+        setAdapterAndDefault(speakerDropdown, view, R.id.speaker_dropdown)
+        setAdapterAndDefault(categoryDropdown, view, R.id.category_dropdown)
+        setAdapterAndDefault(seriesOrder, view, R.id.series_dropdown)
 
-        setAdapterAndDefault(andOrDropdown, view,R.id.speaker_and_or_dropdown)
-        setAdapterAndDefault(andOrDropdown, view,R.id.category_and_or_dropdown)
-        setAdapterAndDefault(andOrDropdown, view,R.id.series_and_or_dropdown)
+        setAdapterAndDefault(andOrDropdown, view, R.id.speaker_and_or_dropdown)
+        setAdapterAndDefault(andOrDropdown, view, R.id.category_and_or_dropdown)
+        setAdapterAndDefault(andOrDropdown, view, R.id.series_and_or_dropdown)
+        setAdapterAndDefault(alphabeticalOrder, view, R.id.alphabetical_order_dropdown)
 
-        setAdapterAndDefault(alphabeticalOrder, view,R.id.alphabetical_order_dropdown)
 
-        Log.d("FilterDialog","Category text input height: "+view.findViewById<TextInputLayout>(R.id.category_text_input_layout).height)
-        Log.d("FilterDialog","Category dropdown height: "+view.findViewById<AutoCompleteTextView>(R.id.category_dropdown).height)
-        val filterButton = view.findViewById<Button>(R.id.filter_button)
-        val cancelButton = view.findViewById<Button>(R.id.cancel_button)
+        val seriesCheckbox = view.findViewById<MaterialCheckBox>(R.id.series_checkbox)
+        val filterButton = view.findViewById<MaterialButton>(R.id.filter_button)
+        val cancelButton = view.findViewById<MaterialButton>(R.id.cancel_button)
+        val filterRadioButton = view.findViewById<RadioButton>(R.id.filter_radio_button)
+        val filterSortRadioGroup = view.findViewById<RadioGroup>(R.id.filter_sort_radio_group)
+        val sortRadioButton = view.findViewById<RadioButton>(R.id.sort_radio_button)
+
+        val viewTreeObserver = view.viewTreeObserver
+        if (viewTreeObserver.isAlive) {
+            viewTreeObserver.addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
+                override fun onGlobalLayout() {
+                    view.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                    Log.d(
+                        "FilterDialog",
+                        "Category text input height: " + view.findViewById<TextInputLayout>(R.id.category_text_input_layout).height
+                    )
+                    Log.d(
+                        "FilterDialog",
+                        "Category dropdown height: " + view.findViewById<AutoCompleteTextView>(R.id.category_dropdown).height
+                    )
+// TODO refactor setting default radio button (is it possible to do in code? no call to check() seems to work, even in tree observer,  and respective click listeners and setText() (for filter/sort button at bottom) to function to modular/make easy to change                   filterSortRadioGroup.check(R.id.sort_radio_button) //Indicate that dialog default setting is filtering, to match with XML title attr (had to set something as default)
+                }
+            })
+        }
+
+        seriesCheckbox.setOnCheckedChangeListener{ compoundButton, boolean ->
+            when (boolean){
+                //TODO put this when inside of the check() call
+                true -> filterSortRadioGroup.check(R.id.sort_radio_button)
+                false ->filterSortRadioGroup.check(R.id.filter_radio_button)
+            }
+        }
+        filterRadioButton.setOnClickListener{
+            filterButton.text = "Filter"
+        }
+        sortRadioButton.setOnClickListener{
+            filterButton.text = "Sort"
+        }
         filterButton.setOnClickListener {
             //send back data to PARENT fragment using callback
 //            callbackListener.onDataReceived(view.findViewById<EditText>(R.id.editText).text.toString())
@@ -67,7 +106,7 @@ class SortOrFilterFullScreenDialog(private val callbackListener: CallbackListene
     private fun setAdapterAndDefault(
         filterCondition: List<String>,
         view: View,
-        viewResId:Int
+        viewResId: Int
     ) {
         val alphabeticalAdapter =
             context?.let {
