@@ -36,7 +36,7 @@ class SortOrFilterFullScreenDialog(private val callbackListener: CallbackListene
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val andOrDropdown = listOf("AND", "OR")
+        val andOrDropdown = listOf("OR","AND")
         val speakerDropdown = listOf("Rabbi Gedaliah Anemer", "Rabbi Aaron Lopiansky", "a")
         val categoryDropdown = listOf("Kil'ayim", "Mikvaos", "a")
         val seriesOrder = listOf("Daf Yomi", "Amud Yomi", "a")

@@ -4,84 +4,89 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.view.inputmethod.EditorInfo
-import android.widget.*
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.l4digital.fastscroll.FastScrollRecyclerView
 import com.l4digital.fastscroll.FastScroller
+import java.io.File
+import java.io.IOException
+import java.io.InputStream
 import java.util.*
+import kotlin.system.measureNanoTime
 
 
-    private var speakerPictureCount = 0
+private var speakerPictureCount = 0
 private var drawables = listOf(
-        R.drawable.a,
-        R.drawable.ab,
-        R.drawable.ac,
-        R.drawable.ad,
-        R.drawable.ae,
-        R.drawable.af,
-        R.drawable.ag,
-        R.drawable.ah,
-        R.drawable.ai,
-        R.drawable.aj,
-        R.drawable.ak,
-        R.drawable.al,
-        R.drawable.am,
-        R.drawable.an,
-        R.drawable.ao,
-        R.drawable.ap,
-        R.drawable.aq,
-        R.drawable.ar,
-        R.drawable.`as`,
-        R.drawable.at,
-        R.drawable.au,
-        R.drawable.av,
-        R.drawable.aw,
-        R.drawable.ax,
-        R.drawable.ay,
-        R.drawable.az,
-        R.drawable.ba,
-        R.drawable.bb,
-        R.drawable.bc,
-        R.drawable.bd,
-        R.drawable.be,
-        R.drawable.bf,
-        R.drawable.bg,
-        R.drawable.bh,
-        R.drawable.bi,
-        R.drawable.bj,
-        R.drawable.bk,
-        R.drawable.bl,
-        R.drawable.bm,
-        R.drawable.bn,
-        R.drawable.bo,
-        R.drawable.bp,
-        R.drawable.bq,
-        R.drawable.br,
-        R.drawable.bs,
-        R.drawable.bt,
-        R.drawable.bu,
-        R.drawable.bv,
-        R.drawable.bw,
-        R.drawable.bx,
-        R.drawable.by,
-        R.drawable.bz,
-        R.drawable.ca,
-        R.drawable.cb,
-        R.drawable.cc,
-        R.drawable.cd,
-        R.drawable.ce,
-        R.drawable.cf,
-        R.drawable.cg,
-        R.drawable.ch,
-        R.drawable.ci,
-        R.drawable.cj,
-        R.drawable.ck,
-        R.drawable.cl,
-        R.drawable.cm,
-        R.drawable.cn,
+    R.drawable.a,
+    R.drawable.ab,
+    R.drawable.ac,
+    R.drawable.ad,
+    R.drawable.ae,
+    R.drawable.af,
+    R.drawable.ag,
+    R.drawable.ah,
+    R.drawable.ai,
+    R.drawable.aj,
+    R.drawable.ak,
+    R.drawable.al,
+    R.drawable.am,
+    R.drawable.an,
+    R.drawable.ao,
+    R.drawable.ap,
+    R.drawable.aq,
+    R.drawable.ar,
+    R.drawable.`as`,
+    R.drawable.at,
+    R.drawable.au,
+    R.drawable.av,
+    R.drawable.aw,
+    R.drawable.ax,
+    R.drawable.ay,
+    R.drawable.az,
+    R.drawable.ba,
+    R.drawable.bb,
+    R.drawable.bc,
+    R.drawable.bd,
+    R.drawable.be,
+    R.drawable.bf,
+    R.drawable.bg,
+    R.drawable.bh,
+    R.drawable.bi,
+    R.drawable.bj,
+    R.drawable.bk,
+    R.drawable.bl,
+    R.drawable.bm,
+    R.drawable.bn,
+    R.drawable.bo,
+    R.drawable.bp,
+    R.drawable.bq,
+    R.drawable.br,
+    R.drawable.bs,
+    R.drawable.bt,
+    R.drawable.bu,
+    R.drawable.bv,
+    R.drawable.bw,
+    R.drawable.bx,
+    R.drawable.by,
+    R.drawable.bz,
+    R.drawable.ca,
+    R.drawable.cb,
+    R.drawable.cc,
+    R.drawable.cd,
+    R.drawable.ce,
+    R.drawable.cf,
+    R.drawable.cg,
+    R.drawable.ch,
+    R.drawable.ci,
+    R.drawable.cj,
+    R.drawable.ck,
+    R.drawable.cl,
+    R.drawable.cm,
+    R.drawable.cn,
 )
 private const val TAG = "SpeakerPageActivity"
 private lateinit var speakerImageView: ImageView
@@ -153,11 +158,28 @@ private lateinit var speakerImageView: ImageView
 
         private fun listOfSpeakersFromJson(n: Int): MutableList<Speaker> {
             val listOfSpeakers = mutableListOf<Speaker>()
-            val listOfSpeakerJson = Constants.speaker.split("},").take(n)
-            listOfSpeakerJson.forEach { listOfSpeakers.add(parseSpeakerFromJSON(it)) }
+            val time = measureNanoTime {
+                val listOfSpeakerJson =
+                    loadData("listOfSpeakersPage.json").split("},").take(n)
+                listOfSpeakerJson.forEach { listOfSpeakers.add(parseSpeakerFromJSON(it)) }
+            }
+            Log.d("SpeakerPage", "time to read and process file: $time")
             return listOfSpeakers
         }
-
+        fun loadData(inFile: String): String {
+            var tContents: String = ""
+            try {
+                val stream: InputStream = assets.open(inFile)
+                val size: Int = stream.available()
+                val buffer = ByteArray(size)
+                stream.read(buffer)
+                stream.close()
+                tContents = String(buffer)
+            } catch (e: IOException) {
+                Log.d("SpeakerPage", "Error reading speaker json file")
+            }
+            return tContents
+        }
         override fun onCreateOptionsMenu(menu: Menu?): Boolean {
             val inflater = menuInflater
             inflater.inflate(R.menu.speaker_page_menu, menu)
@@ -166,12 +188,12 @@ private lateinit var speakerImageView: ImageView
             searchView.imeOptions = EditorInfo.IME_ACTION_DONE
             searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
-                    speakerAdapter.filter(query?:"")
+                    speakerAdapter.filter(query ?: "")
                     return false
                 }
 
                 override fun onQueryTextChange(newText: String?): Boolean {
-                    speakerAdapter.filter(newText?:"")
+                    speakerAdapter.filter(newText ?: "")
                     return false
                 }
             })
@@ -212,7 +234,9 @@ private class SpeakerAdapter(val originalSpeakerList: MutableList<Speaker>) : Re
 
     override fun getSectionText(position: Int): CharSequence = speakerList[position].last_name.first().toString()
 
-    override fun onBindViewHolder(holder: SpeakerViewHolder, position: Int) = holder.bindItems(speakerList[position])
+    override fun onBindViewHolder(holder: SpeakerViewHolder, position: Int) = holder.bindItems(
+        speakerList[position]
+    )
 
     fun filter(constraint: String){
 

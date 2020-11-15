@@ -1,6 +1,6 @@
 package tech.torah.aldis.androidapp.randomTests
 
-import tech.torah.aldis.androidapp.Constants
+//import tech.torah.aldis.androidapp.Constants
 
 /*
 import android.util.Log
@@ -12,7 +12,7 @@ import java.text.DecimalFormat
 
 
 fun main() {
-    val listOfNameLengths = mutableListOf<Int>()
+/*    val listOfNameLengths = mutableListOf<Int>()
     val regex = "(?<=\"name\":\")[\\w\\s]+(?=\")".toRegex()
         regex.findAll(Constants.speaker).myforEach{
         listOfNameLengths.add(it.value.length)
@@ -20,7 +20,7 @@ fun main() {
     regex.findAll(Constants.speaker1).myforEach{
         listOfNameLengths.add(it.value.length)
     }
-    println("Average name length = ${listOfNameLengths.average()}")
+    println("Average name length = ${listOfNameLengths.average()}")*/
 /*
     var linesOfCode = 0
     for (file in File("C:\\Users\\shmue\\AndroidStudioProjects\\vlc-android\\application\\vlc-android\\src").walk().toList().filter{it.extension=="kt"}) {
