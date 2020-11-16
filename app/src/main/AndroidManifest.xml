@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialComponents.DayNight">
         <activity
-            android:name=".ShiurimPageActivity"
+            android:name=".activities.ShiurimPageActivity"
             android:label="@string/shiurim_activity_name">
           <!--  <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,7 +19,7 @@
             </intent-filter>-->
         </activity>
         <activity
-            android:name=".SpeakerPageActivity"
+            android:name=".activities.SpeakerPageActivity"
             android:label="@string/speakers_activity_name">
             <!--<intent-filter>
                <action android:name="android.intent.action.MAIN" />
@@ -27,16 +27,16 @@
                <category android:name="android.intent.category.LAUNCHER" />
            </intent-filter>-->
         </activity>
-        <activity android:name=".HomePageActivity">
+        <activity android:name=".activities.HomePageActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RecentlyAddedShiurimPageActivity"
+        <activity android:name=".activities.RecentlyAddedShiurimPageActivity"
             android:label="Recently Added Shiurim"/>
-        <activity android:name=".TabsActivity"/>
+        <activity android:name=".activities.TabsActivity"/>
     </application>
 
 </manifest>

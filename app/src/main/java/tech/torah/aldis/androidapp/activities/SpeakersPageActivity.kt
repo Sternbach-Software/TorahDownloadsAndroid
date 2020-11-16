@@ -1,4 +1,4 @@
-package tech.torah.aldis.androidapp
+package tech.torah.aldis.androidapp.activities
 
 import android.os.Bundle
 import android.util.Log
@@ -12,7 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.l4digital.fastscroll.FastScrollRecyclerView
 import com.l4digital.fastscroll.FastScroller
-import java.io.File
+import tech.torah.aldis.androidapp.R
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.Speaker
 import java.io.IOException
 import java.io.InputStream
 import java.util.*

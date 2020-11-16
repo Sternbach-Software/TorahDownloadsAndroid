@@ -62,7 +62,7 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <AutoCompleteTextView
-            android:id="@+id/alphabetical_order_dropdown"
+            android:id="@+id/sort_order_dropdown_simple"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="none" />
@@ -75,11 +75,11 @@
     <!--Linear layout of linear layouts-->
 
     <LinearLayout
-        android:id="@+id/linear_layout_of_linear_layouts"
+        android:id="@+id/linear_layout_simple"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/cancel_button"
+        app:layout_constraintBottom_toTopOf="@+id/cancel_button_simple"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/alphabetical_order_dropdown_text_input">
 
@@ -105,7 +105,7 @@
                 android:layout_height="wrap_content">
 
                 <AutoCompleteTextView
-                    android:id="@+id/speaker_and_or_dropdown"
+                    android:id="@+id/filter_criterion_chooser"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="none"
@@ -114,11 +114,12 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/speaker_text_input_layout"
+                android:id="@+id/individual_speaker_category_series_text_input_layout"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_marginStart="10dp"
                 android:hint="Speaker">
 
                 <AutoCompleteTextView
@@ -170,7 +171,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:hint="Category"
-                app:counterMaxLength="3">
+                android:layout_marginStart="10dp">
 
                 <AutoCompleteTextView
                     android:id="@+id/category_dropdown"
@@ -219,6 +220,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:hint="Series"
+                android:layout_marginStart="10dp"
                 android:enabled="false">
 
                 <AutoCompleteTextView
@@ -239,17 +241,17 @@
     <!--Filter/Sort and Cancel button-->
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/cancel_button"
+        android:id="@+id/cancel_button_simple"
         style="?attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cancel"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/filter_button" />
+        app:layout_constraintEnd_toStartOf="@+id/filter_button_simple" />
     <!--//TODO "< (back button)" doesn't work -->
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/filter_button"
+        android:id="@+id/filter_button_simple"
         style="?attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

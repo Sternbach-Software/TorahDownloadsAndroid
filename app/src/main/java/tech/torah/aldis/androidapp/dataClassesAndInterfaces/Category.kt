@@ -1,4 +1,4 @@
-package tech.torah.aldis.androidapp
+package tech.torah.aldis.androidapp.dataClassesAndInterfaces
 
 data class Category(
     val id: Int = 6,

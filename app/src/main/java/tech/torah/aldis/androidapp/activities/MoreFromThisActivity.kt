@@ -1,9 +1,12 @@
-package tech.torah.aldis.androidapp
+package tech.torah.aldis.androidapp.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
+import tech.torah.aldis.androidapp.R
+import tech.torah.aldis.androidapp.SectionsPagerAdapter
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.Shiur
 
 
 class MoreFromThisActivity : AppCompatActivity() {

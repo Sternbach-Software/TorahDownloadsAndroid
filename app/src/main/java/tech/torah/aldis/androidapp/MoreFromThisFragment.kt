@@ -1,12 +1,13 @@
 package tech.torah.aldis.androidapp
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.Shiur
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TabType
 
 class MoreFromThisFragment(/*originalShiur: Shiur*/shiurim: List<Shiur>) : Fragment() {
  private lateinit var pageViewModel: PageViewModel
@@ -14,7 +15,7 @@ class MoreFromThisFragment(/*originalShiur: Shiur*/shiurim: List<Shiur>) : Fragm
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         pageViewModel = ViewModelProvider(this).get(PageViewModel::class.java).apply {
-            val tabType:TabType = when(arguments?.getInt(ARG_SECTION_NUMBER) ?: 0){
+            val tabType: TabType = when(arguments?.getInt(ARG_SECTION_NUMBER) ?: 0){
                 0 -> TabType.CATEGORY
                 1 -> TabType.SPEAKER
                 else -> TabType.SERIES
@@ -80,7 +81,8 @@ class TabFragment : Fragment() {
       */
 /*  tabAdapter = TabAdapter(this)
         viewPager = view.findViewById(R.id.view_pager)
-        viewPager.adapter = tabAdapter*//*
+        viewPager.adapter = tabAdapter*/
+/*
 
     }
 }

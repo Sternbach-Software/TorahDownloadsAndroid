@@ -1,15 +1,16 @@
-package tech.torah.aldis.androidapp
+package tech.torah.aldis.androidapp.activities
 
 import android.os.Bundle
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.tabs.TabLayout
+import tech.torah.aldis.androidapp.R
+import tech.torah.aldis.androidapp.SortOrFilterFullScreenDialog
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.CallbackListener
 
 
-class TabsActivity : AppCompatActivity(),CallbackListener {
+class TabsActivity : AppCompatActivity(), CallbackListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

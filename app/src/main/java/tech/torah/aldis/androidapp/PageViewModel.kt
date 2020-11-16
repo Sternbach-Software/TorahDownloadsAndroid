@@ -1,9 +1,9 @@
 package tech.torah.aldis.androidapp
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.Shiur
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TabType
 
 class PageViewModel : ViewModel() {
 

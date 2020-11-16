@@ -1,11 +1,13 @@
 package tech.torah.aldis.androidapp.randomTests
 
+import java.io.File
+
 //import tech.torah.aldis.androidapp.Constants
 
 /*
 import android.util.Log
 import tech.torah.aldis.androidapp.Constants
-import tech.torah.aldis.androidapp.Speaker
+import tech.torah.aldis.androidapp.dataClasses.Speaker
 import java.io.File
 import java.text.DecimalFormat
 */
@@ -21,13 +23,20 @@ fun main() {
         listOfNameLengths.add(it.value.length)
     }
     println("Average name length = ${listOfNameLengths.average()}")*/
-/*
     var linesOfCode = 0
-    for (file in File("C:\\Users\\shmue\\AndroidStudioProjects\\vlc-android\\application\\vlc-android\\src").walk().toList().filter{it.extension=="kt"}) {
+    val list1 =
+        File("C:\\Users\\shmue\\AndroidStudioProjects\\uamp\\common").walk()
+            .toList().filter { it.extension == "kt" }
+    val list2 =
+        File("C:\\Users\\shmue\\AndroidStudioProjects\\uamp\\app").walk()
+            .toList().filter { it.extension == "kt" }
+    for (file in list1) {
+        linesOfCode+=file.readLines().size
+    }
+    for (file in list2) {
         linesOfCode+=file.readLines().size
     }
     println(linesOfCode)
-*/
 }
 public inline fun <T> Sequence<T>.myforEach(action: (T) -> Unit): Sequence<T> {
     for (element in this) action(element)

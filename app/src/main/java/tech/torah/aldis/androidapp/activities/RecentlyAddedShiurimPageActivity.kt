@@ -1,4 +1,4 @@
-package tech.torah.aldis.androidapp
+package tech.torah.aldis.androidapp.activities
 
 import android.os.Bundle
 import android.view.*
@@ -7,6 +7,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.l4digital.fastscroll.FastScroller
+import tech.torah.aldis.androidapp.R
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.Shiur
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.ShiurOptionsBottomSheetDialogFragment
 
 
 private var shiurPictureCount = 0

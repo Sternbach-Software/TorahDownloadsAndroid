@@ -1,6 +1,5 @@
-package tech.torah.aldis.androidapp
+package tech.torah.aldis.androidapp.dataClassesAndInterfaces
 
-import android.os.Parcelable
 import java.io.Serializable
 
 data class Shiur(

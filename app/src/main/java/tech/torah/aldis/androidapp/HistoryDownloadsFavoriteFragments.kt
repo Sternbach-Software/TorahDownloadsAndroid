@@ -1,12 +1,13 @@
 package tech.torah.aldis.androidapp
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.Shiur
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TabType
 
 class PlaceholderFragment(shiurim: List<Shiur>, moreFromThis: Boolean) : Fragment() {
  private lateinit var pageViewModel: PageViewModel
@@ -14,7 +15,7 @@ class PlaceholderFragment(shiurim: List<Shiur>, moreFromThis: Boolean) : Fragmen
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         pageViewModel = ViewModelProvider(this).get(PageViewModel::class.java).apply {
-            val tabType:TabType = when(arguments?.getInt(ARG_SECTION_NUMBER) ?: 0){
+            val tabType: TabType = when(arguments?.getInt(ARG_SECTION_NUMBER) ?: 0){
                 0 -> TabType.ALL
                 1 -> TabType.CATEGORY
                 2 -> TabType.SPEAKER
@@ -81,7 +82,8 @@ class TabFragment : Fragment() {
       */
 /*  tabAdapter = TabAdapter(this)
         viewPager = view.findViewById(R.id.view_pager)
-        viewPager.adapter = tabAdapter*//*
+        viewPager.adapter = tabAdapter*/
+/*
 
     }
 }
