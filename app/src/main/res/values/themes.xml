@@ -12,12 +12,25 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+
         <item name="android:windowActionBarOverlay">true</item>
     </style>
+
     <style name="DialogTheme" parent="Theme.TorahDownloadsAndroid">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowFullscreen">false</item>
         <item name="android:windowIsFloating">true</item>
-
+        <item name="android:windowBackground">@drawable/dialog_rounded_edges</item>
+    </style>
+<!-- TODO: may want to make a theme for the first filter dialog which does not have rounded edges, and one for the chooser dialog which does. In truth, please reconsider the rounded edges entirely, given that I thought of the idea of rounded edges before I added the buttons, and it may look strange now that it has the buttons. As well, having one dialog with sharp edges and one with rounded edges may look inconsistent and may give of the impression that they have two different purposes. -->
+    <style name="DialogThemeWithWindowTitle" parent="Theme.TorahDownloadsAndroid">
+        <item name="android:windowNoTitle">false</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowActionBar">true</item>
+        <item name="android:windowActionBarOverlay">true</item>
+    </style>
+    <style name="MyOutlinedBox" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <item name="endIconMode">none</item>
     </style>
 </resources>

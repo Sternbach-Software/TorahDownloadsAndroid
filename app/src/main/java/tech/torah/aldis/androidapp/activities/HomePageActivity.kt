@@ -8,6 +8,7 @@ import android.view.View
 import tech.torah.aldis.androidapp.R
 
 
+@Suppress("UNUSED_PARAMETER")
 class HomePageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

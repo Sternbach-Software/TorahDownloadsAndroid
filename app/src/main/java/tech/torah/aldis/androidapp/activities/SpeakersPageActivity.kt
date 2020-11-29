@@ -164,7 +164,6 @@ private lateinit var speakerImageView: ImageView
                     loadData("listOfSpeakersPage.json").split("},").take(n)
                 listOfSpeakerJson.forEach { listOfSpeakers.add(parseSpeakerFromJSON(it)) }
             }
-            Log.d("SpeakerPage", "time to read and process file: $time")
             return listOfSpeakers
         }
         fun loadData(inFile: String): String {
@@ -205,9 +204,6 @@ private lateinit var speakerImageView: ImageView
 private fun parseSpeakerFromJSON(json: String): Speaker {
     val id = "(?<=\"id\": \")\\d+(?=\")".toRegex().find(json)?.value?.toInt() ?: 64
 
-    Log.d(TAG, "json===$json")
-    Log.d(TAG, "id===$id")
-
     val name =
         "(?<=\"name\":\")[\\w\\s]+(?=\")".toRegex().find(json)?.value ?: "Rabbi Yisroel Belsky"
     val last_name = "(?<=\"last_name\":\")\\w+(?=\")".toRegex().find(json)?.value ?: "Belsky"
@@ -217,7 +213,6 @@ private fun parseSpeakerFromJSON(json: String): Speaker {
         ?: "s-64-rabbi-yisroel-belsky.html"
     val shiur_count = "(?<=\"link\":\")\\d+".toRegex().find(json)?.value?.toInt() ?: 31
     val speaker = Speaker(id, name, last_name, image_path, link, shiur_count)
-    Log.d(TAG, "speaker===$speaker")
     return speaker
 }
 
@@ -233,7 +228,7 @@ private class SpeakerAdapter(val originalSpeakerList: MutableList<Speaker>) : Re
 
     override fun getItemCount(): Int = speakerList.size
 
-    override fun getSectionText(position: Int): CharSequence = speakerList[position].last_name.first().toString()
+    override fun getSectionText(position: Int): CharSequence = speakerList[position].last_name.first().toUpperCase().toString()
 
     override fun onBindViewHolder(holder: SpeakerViewHolder, position: Int) = holder.bindItems(
         speakerList[position]
@@ -289,14 +284,13 @@ private class SpeakerAdapter(val originalSpeakerList: MutableList<Speaker>) : Re
             val speakerDescription = itemView.findViewById(R.id.speaker_description) as TextView?
             if (speakerName != null) {
                 speakerName.text = speaker.name
-                Log.d(TAG, "Run")
             }
             if (speakerDescription != null) {
                 speakerDescription.text = speaker.description
             }
             speakerImageView = itemView.findViewById(R.id.speaker_image)
             speakerImageView.setImageResource(drawables[speakerPictureCount])
-            if(speakerPictureCount<65)speakerPictureCount++ else speakerPictureCount=0
+            speakerPictureCount = (speakerPictureCount+1) % drawables.size
         }
     }
 }

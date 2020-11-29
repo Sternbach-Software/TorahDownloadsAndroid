@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    &lt;!&ndash;I know that this constraint layout may be pointless because I have nested views anyway,
+     but I would rather not change it until I have everything worked out.&ndash;&gt;
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:layout_scrollFlags="scroll|enterAlways"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:layout_constraintTop_toTopOf="@id/app_bar_layout"
+        app:layout_constraintStart_toStartOf="@id/app_bar_layout"/>
+    </com.google.android.material.appbar.AppBarLayout>
+    &lt;!&ndash;Linear layout of linear layouts&ndash;&gt;
+
+    <com.l4digital.fastscroll.FastScrollRecyclerView
+        android:id="@+id/fast_scroller"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/simple_grey_text_view"
+        tools:itemCount="5"
+        android:paddingEnd="10dp"
+        app:bubbleColor="@color/design_default_color_primary"
+        app:bubbleTextColor="@color/design_default_color_background"
+        app:handleColor="#999999"
+        app:layout_constraintTop_toBottomOf=""/>
+
+
+
+
+    &lt;!&ndash;Filter/Sort, Cancel, and Reset buttons&ndash;&gt;
+
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/filter_button_simple"
+        style="?attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Filter"
+        app:layout_constraintBottom_toBottomOf="@id/fast_scroller"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/custom_dialog_layout_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:title="Selector"/>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <com.l4digital.fastscroll.FastScrollView
+            android:id="@+id/fast_scroller"
+            android:layout_width="250dp"
+            android:layout_height="300dp"
+            app:bubbleColor="?attr/colorPrimary"
+            app:bubbleTextColor="@color/design_default_color_background"
+            app:handleColor="#999999"
+            tools:itemCount="5"
+            tools:listitem="@layout/simple_grey_text_view" />
+    </FrameLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/reset_button_simple"
+            style="?attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancel"
+            android:layout_gravity="start"/>
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/cancel_button_simple"
+            style="?attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Clear"
+            android:layout_gravity="end"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/filter_button_simple"
+            style="?attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select"
+            android:layout_gravity="end"/>
+    </LinearLayout>
+</LinearLayout>

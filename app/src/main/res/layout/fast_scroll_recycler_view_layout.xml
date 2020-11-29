@@ -10,8 +10,9 @@
         android:id="@+id/fast_scroller"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:scrollbarSize="100dp"
         android:paddingEnd="10dp"
-        app:bubbleColor="#FF9800"
-        app:bubbleTextColor="#ffffff"
+        app:bubbleColor="@color/design_default_color_primary"
+        app:bubbleTextColor="@color/design_default_color_background"
         app:handleColor="#999999" />
 </FrameLayout>

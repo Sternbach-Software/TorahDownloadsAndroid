@@ -1,13 +1,14 @@
 package tech.torah.aldis.androidapp.activities
 
 import android.os.Bundle
-import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import tech.torah.aldis.androidapp.R
 import tech.torah.aldis.androidapp.SortOrFilterFullScreenDialog
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.CallbackListener
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.Speaker
 
 
 class TabsActivity : AppCompatActivity(), CallbackListener {
@@ -24,8 +25,7 @@ class TabsActivity : AppCompatActivity(), CallbackListener {
             override fun onDataReceived(data: String) {
                 findViewById<TextView>(R.id.textView).text = data
             }
-
-        }
+}
 
 
 /*
