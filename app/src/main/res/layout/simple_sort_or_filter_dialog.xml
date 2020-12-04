@@ -74,12 +74,30 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/radio_group_and_sort_layout_simple">
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Filter within previous results"/>
+            <ImageButton
+                android:id="@+id/progressive_filter_explanation_image_button"
+                android:layout_marginStart="5dp"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/empty"
+                android:src="@drawable/ic_help_outline"/>
+        </LinearLayout>
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:id="@+id/filter_criterion_dropdown"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp">
 
                 <AutoCompleteTextView
                     android:id="@+id/filter_criterion_chooser"
@@ -91,18 +109,19 @@
             </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/individual_speaker_category_series_chooser_text_input_layout"
-                style="@style/MyOutlinedBox"
+                style="@style/DropdownMenuWithNoEndIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-            tools:text="iuebiugebiugein">
+            android:layout_marginStart="5dp"
+            android:minWidth="240dp"
+            android:clickable="true">
 
                 <AutoCompleteTextView
                     android:id="@+id/individual_speaker_category_series_chooser_auto_complete_text_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="none"
-                    android:maxLines="1"
-                    tools:text="Rabbi Aharon Lopiansky nnnnnnn nnnn"/>
+                    android:clickable="true"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -134,14 +153,6 @@
 
     <!--Filter/Sort, Cancel, and Reset buttons-->
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/reset_button_simple"
-        style="?attr/borderlessButtonStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Reset"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/cancel_button_simple" />
 
 
     <com.google.android.material.button.MaterialButton
@@ -152,6 +163,15 @@
         android:text="Cancel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/filter_button_simple" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/reset_button_simple"
+        style="?attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reset"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/cancel_button_simple" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/filter_button_simple"

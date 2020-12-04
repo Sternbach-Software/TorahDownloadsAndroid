@@ -1,4 +1,4 @@
-package tech.torah.aldis.androidapp.dataClassesAndInterfaces
+package tech.torah.aldis.androidapp.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater

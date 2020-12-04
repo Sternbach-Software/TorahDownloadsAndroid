@@ -71,14 +71,33 @@
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         app:title="Selector"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+android:layout_gravity="center"
+        android:padding="5dp">
 
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/selected_list_item"
+            tools:text="iubiebiubeueniuneiniengiegiuenibiu"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textAppearance="?attr/textAppearanceHeadline5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
         <com.l4digital.fastscroll.FastScrollView
             android:id="@+id/fast_scroller"
-            android:layout_width="250dp"
+            android:layout_width="280dp"
             android:layout_height="300dp"
             app:bubbleColor="?attr/colorPrimary"
             app:bubbleTextColor="@color/design_default_color_background"
@@ -90,7 +109,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/reset_button_simple"
+            android:id="@+id/fast_scroller_cancel_button"
             style="?attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -99,18 +118,20 @@
 
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/cancel_button_simple"
+            android:id="@+id/fast_scroller_deselect_button"
             style="?attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Clear"
-            android:layout_gravity="end"/>
+            android:text="Deselect"
+            android:layout_gravity="end"
+            android:enabled="false"/>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/filter_button_simple"
+            android:id="@+id/fast_scroller_select_button"
             style="?attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:enabled="false"
             android:text="Select"
             android:layout_gravity="end"/>
     </LinearLayout>

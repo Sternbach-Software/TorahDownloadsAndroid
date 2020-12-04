@@ -14,8 +14,10 @@ import com.l4digital.fastscroll.FastScrollRecyclerView
 import com.l4digital.fastscroll.FastScroller
 import tech.torah.aldis.androidapp.R
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.Speaker
+import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStream
+import java.io.InputStreamReader
 import java.util.*
 import kotlin.system.measureNanoTime
 
@@ -158,27 +160,34 @@ private lateinit var speakerImageView: ImageView
     }
 
         private fun listOfSpeakersFromJson(n: Int): MutableList<Speaker> {
+            Log.d(TAG, "listOfSpeakersFromJson called.")
             val listOfSpeakers = mutableListOf<Speaker>()
             val time = measureNanoTime {
+
                 val listOfSpeakerJson =
-                    loadData("listOfSpeakersPage.json").split("},").take(n)
+                    loadData(R.raw.list_of_speakers_page).split("},").take(n)
                 listOfSpeakerJson.forEach { listOfSpeakers.add(parseSpeakerFromJSON(it)) }
             }
             return listOfSpeakers
         }
-        fun loadData(inFile: String): String {
-            var tContents: String = ""
-            try {
-                val stream: InputStream = assets.open(inFile)
-                val size: Int = stream.available()
-                val buffer = ByteArray(size)
-                stream.read(buffer)
-                stream.close()
-                tContents = String(buffer)
-            } catch (e: IOException) {
-                Log.d("SpeakerPage", "Error reading speaker json file")
+        fun loadData(inFile: Int): String {
+            listOf("").elementAtOrNull(4)
+            var tContents:String? = ""
+
+            val stringBuilder = StringBuilder();
+            val isa:InputStream = this.resources .openRawResource(inFile)
+            val reader = BufferedReader(InputStreamReader(isa))
+            while (true) {
+                try {
+                    tContents = reader.readLine()
+                    if (tContents == null) break
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
+                stringBuilder.append(tContents).append("\n")
             }
-            return tContents
+            Log.d(TAG,"Speaker File Contents: $tContents")
+            return tContents!!
         }
         override fun onCreateOptionsMenu(menu: Menu?): Boolean {
             val inflater = menuInflater

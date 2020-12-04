@@ -1,16 +1,15 @@
 package tech.torah.aldis.androidapp.activities
 
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import tech.torah.aldis.androidapp.R
-import tech.torah.aldis.androidapp.SortOrFilterFullScreenDialog
+import tech.torah.aldis.androidapp.fragments.SortOrFilterFullScreenDialog
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.CallbackListener
-import tech.torah.aldis.androidapp.dataClassesAndInterfaces.Speaker
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TabType
 
-
+private const val TAG = "TabsActivity"
 class TabsActivity : AppCompatActivity(), CallbackListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,11 +19,12 @@ class TabsActivity : AppCompatActivity(), CallbackListener {
             }
             private fun showDialog() {
                 val dialogFragment = SortOrFilterFullScreenDialog(this)
-                dialogFragment.show(supportFragmentManager, "TorahDownloadsAndroid")
+                dialogFragment.show(supportFragmentManager, TAG)
             }
-            override fun onDataReceived(data: String) {
+            override fun onDataReceived(tabType: TabType, data: String) {
                 findViewById<TextView>(R.id.textView).text = data
             }
+
 }
 
 

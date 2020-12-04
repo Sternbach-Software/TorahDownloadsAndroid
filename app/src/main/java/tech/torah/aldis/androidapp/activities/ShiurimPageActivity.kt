@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.l4digital.fastscroll.FastScroller
 import tech.torah.aldis.androidapp.R
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.Shiur
-import tech.torah.aldis.androidapp.dataClassesAndInterfaces.ShiurOptionsBottomSheetDialogFragment
+import tech.torah.aldis.androidapp.fragments.ShiurOptionsBottomSheetDialogFragment
 
 
 private var shiurPictureCount = 0

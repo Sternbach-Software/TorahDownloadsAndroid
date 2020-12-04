@@ -8,8 +8,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.l4digital.fastscroll.FastScroller
 import tech.torah.aldis.androidapp.R
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.CallbackListener
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.Shiur
-import tech.torah.aldis.androidapp.dataClassesAndInterfaces.ShiurOptionsBottomSheetDialogFragment
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TabType
+import tech.torah.aldis.androidapp.fragments.ShiurOptionsBottomSheetDialogFragment
+import tech.torah.aldis.androidapp.fragments.SortOrFilterFullScreenDialog
+import java.util.*
 
 
 private var shiurPictureCount = 0
@@ -83,7 +87,7 @@ private var drawables = listOf(
 )
 private const val TAG = "RecentlyAddedShiurimPageActivity"
 
-class RecentlyAddedShiurimPageActivity : AppCompatActivity() {
+class RecentlyAddedShiurimPageActivity : AppCompatActivity(), CallbackListener {
     private lateinit var shiurAdapter: ShiurAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -92,63 +96,94 @@ class RecentlyAddedShiurimPageActivity : AppCompatActivity() {
         val recyclerView: RecyclerView? = findViewById(R.id.recycler_view)
         recyclerView?.layoutManager = LinearLayoutManager(this)
         val listOfShiurim = mutableListOf(
-            Shiur(),
-            Shiur(),
-            Shiur(),
-            Shiur(),
-            Shiur(),
-            Shiur(),
-            Shiur(),
-            Shiur(),
-            Shiur(),
-            Shiur(),
-            Shiur(),
-            Shiur(),
-            Shiur(),
-            Shiur(),
-            Shiur(),
-            Shiur(),
-            Shiur(),
-            Shiur(),
-            Shiur(),
-            Shiur(),
-            Shiur(),
-            Shiur(),
-            Shiur(),
-            Shiur(),
+            Shiur(speaker = "Rabbi Yehuda Ades"),
+            Shiur(speaker = "Rabbi Gedaliah Anemer"),
+            Shiur(speaker = "Rabbi David Ashear"),
+            Shiur(speaker = "Rabbi Baruch Shalom HaLevi Ashlag"),
+            Shiur(speaker = "Rabbi Shmuel Auerbach"),
+            Shiur(speaker = "Rabbi Elkanah Austern"),
+            Shiur(speaker = "Rabbi Stephen Baars"),
+            Shiur(speaker = "Rabbi Shmuel Eliezer Baddiel"),
+            Shiur(speaker = "Rabbi Yudi Bakst"),
+            Shiur(speaker = "Rabbi Chaim Balter"),
+            Shiur(speaker = "Rabbi Yitzchok Basser"),
+            Shiur(speaker = "Rabbi David Ashear"),
+            Shiur(speaker = "Rabbi Baruch Shalom HaLevi Ashlag"),
+            Shiur(speaker = "Rabbi Shmuel Auerbach"),
+            Shiur(speaker = "Rabbi Elkanah Austern"),
+            Shiur(speaker = "Rabbi Stephen Baars"),
+            Shiur(speaker = "Rabbi Shmuel Eliezer Baddiel"),
+            Shiur(speaker = "Rabbi Yudi Bakst"),
+            Shiur(speaker = "Rabbi Chaim Balter"),
+            Shiur(speaker = "Rabbi Yitzchok Basser"),
+            Shiur(speaker = "Rabbi David Ashear"),
+            Shiur(speaker = "Rabbi Baruch Shalom HaLevi Ashlag"),
+            Shiur(speaker = "Rabbi Shmuel Auerbach"),
+            Shiur(speaker = "Rabbi Elkanah Austern"),
+            Shiur(speaker = "Rabbi Stephen Baars"),
+            Shiur(speaker = "Rabbi Shmuel Eliezer Baddiel"),
+            Shiur(speaker = "Rabbi Yudi Bakst"),
+            Shiur(speaker = "Rabbi Chaim Balter"),
+            Shiur(speaker = "Rabbi Yitzchok Basser"),
+            Shiur(speaker = "Rabbi David Ashear"),
+            Shiur(speaker = "Rabbi Baruch Shalom HaLevi Ashlag"),
+            Shiur(speaker = "Rabbi Shmuel Auerbach"),
+            Shiur(speaker = "Rabbi Elkanah Austern"),
+            Shiur(speaker = "Rabbi Stephen Baars"),
+            Shiur(speaker = "Rabbi Shmuel Eliezer Baddiel"),
+            Shiur(speaker = "Rabbi Yudi Bakst"),
+            Shiur(speaker = "Rabbi Chaim Balter"),
+            Shiur(speaker = "Rabbi Yitzchok Basser"),
+            Shiur(speaker = "Rabbi David Ashear"),
+            Shiur(speaker = "Rabbi Baruch Shalom HaLevi Ashlag"),
+            Shiur(speaker = "Rabbi Shmuel Auerbach"),
+            Shiur(speaker = "Rabbi Elkanah Austern"),
+            Shiur(speaker = "Rabbi Stephen Baars"),
+            Shiur(speaker = "Rabbi Shmuel Eliezer Baddiel"),
+            Shiur(speaker = "Rabbi Yudi Bakst"),
+            Shiur(speaker = "Rabbi Chaim Balter"),
+            Shiur(speaker = "Rabbi Yitzchok Basser"),
+            Shiur(speaker = "Rabbi Mordechai Becher"),
+            Shiur(speaker = "Rabbi Yosef Bechhofer"),
+            Shiur(speaker = "Rabbi Ian Beider"),
+            Shiur(speaker = "Rabbi Berel Bell"),
+            Shiur(speaker = "Rabbi Yisroel Belsky"),
+            Shiur(speaker = "Rabbi Yaakov Bender"),
+            Shiur(speaker = "Rabbi Yosef Berger"),
+            Shiur(speaker = "Rabbi Motty Berger"),
+            Shiur(speaker = "Rabbi Michael Berger"),
+            Shiur(speaker = "Rabbi Moshe Bergman"),
+            Shiur(speaker = "Rabbi Yitzchak Berkovits"),
+            Shiur(speaker = "Rabbi Tzvi Berkowitz"),
+            Shiur(speaker = "Rabbi Yitzchak Berkowitz"),
         )
 
         shiurAdapter = ShiurAdapter(listOfShiurim)
         recyclerView?.adapter = shiurAdapter
     }
 
-    /*   override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+       override fun onCreateOptionsMenu(menu: Menu?): Boolean {
            val inflater = menuInflater
-           inflater.inflate(R.menu.shiur_page_menu, menu)
-           val searchItem: MenuItem = menu!!.findItem(R.id.actionSearch)
-           val searchView: SearchView = searchItem.actionView as SearchView
-           searchView.imeOptions = EditorInfo.IME_ACTION_DONE
-           searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-               override fun onQueryTextSubmit(query: String?): Boolean {
-                   shiurAdapter.filter(query?:"")
-                   return false
-               }
-
-               override fun onQueryTextChange(newText: String?): Boolean {
-                   shiurAdapter.filter(newText?:"")
-                   return false
-               }
-           })
+           inflater.inflate(R.menu.downloads_favorites_history_pages_menu, menu)
+           val filterItem: MenuItem = menu!!.findItem(R.id.filter_button)
+           filterItem.setOnMenuItemClickListener {
+               SortOrFilterFullScreenDialog(this).show(supportFragmentManager, TAG)
+               true
+           }
            return true
        }
-}
-*/
+
+    override fun onDataReceived(tabType: TabType, data: String) {
+      shiurAdapter.filter(tabType, data)
+    }
     fun openOptionsMenu(v: View): Unit {
         ShiurOptionsBottomSheetDialogFragment().apply {
             show(supportFragmentManager, tag)
         }
     }
-    private class ShiurAdapter(originalShiurList: MutableList<Shiur>) :
+}
+
+    private class ShiurAdapter(val originalShiurList: MutableList<Shiur>) :
         RecyclerView.Adapter<ShiurAdapter.ShiurViewHolder>(), FastScroller.SectionIndexer {
 
         val shiurList: MutableList<Shiur> = originalShiurList.toMutableList()
@@ -166,10 +201,8 @@ class RecentlyAddedShiurimPageActivity : AppCompatActivity() {
 
         override fun getSectionText(position: Int): CharSequence =
             shiurList[position].title.first().toString()
-/*
-    fun filter(constraint: String){
+    fun filter(tabType: TabType, constraint: String){
 
-*/
 /*
         var completeListIndex = 0
         var filteredListIndex = 0
@@ -197,22 +230,26 @@ class RecentlyAddedShiurimPageActivity : AppCompatActivity() {
             completeListIndex++
         }
 */
-/*
 
         shiurList.clear()
         if (constraint.isEmpty()) {
-            shiurList.addAll(originalshiurList)
+            shiurList.addAll(originalShiurList)
         } else {
             val filterPattern = constraint.toLowerCase(Locale.ROOT).trim()
-            for (shiur in originalshiurList) {
-                if (shiur.name.toLowerCase(Locale.ROOT).contains(filterPattern)) {
+            for (shiur in originalShiurList) {
+                val filterReciever = when(tabType) {
+                TabType.CATEGORY -> shiur.category
+                TabType.SERIES -> shiur.series
+                TabType.SPEAKER -> shiur.speaker
+                    else->""
+                }
+                if (filterReciever.toLowerCase(Locale.ROOT).contains(filterPattern)) {
                     shiurList.add(shiur)
                 }
             }
         }
         notifyDataSetChanged()
     }
-*/
 
         class ShiurViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -228,4 +265,3 @@ class RecentlyAddedShiurimPageActivity : AppCompatActivity() {
             }
         }
     }
-}
