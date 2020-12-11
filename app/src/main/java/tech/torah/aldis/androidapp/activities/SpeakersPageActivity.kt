@@ -174,7 +174,7 @@ private lateinit var speakerImageView: ImageView
             listOf("").elementAtOrNull(4)
             var tContents:String? = ""
 
-            val stringBuilder = StringBuilder();
+            val stringBuilder = StringBuilder()
             val isa:InputStream = this.resources .openRawResource(inFile)
             val reader = BufferedReader(InputStreamReader(isa))
             while (true) {
@@ -187,7 +187,7 @@ private lateinit var speakerImageView: ImageView
                 stringBuilder.append(tContents).append("\n")
             }
             Log.d(TAG,"Speaker File Contents: $tContents")
-            return tContents!!
+            return stringBuilder.toString()
         }
         override fun onCreateOptionsMenu(menu: Menu?): Boolean {
             val inflater = menuInflater

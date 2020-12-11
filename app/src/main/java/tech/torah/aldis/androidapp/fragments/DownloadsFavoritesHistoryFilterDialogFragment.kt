@@ -1,4 +1,4 @@
- package tech.torah.aldis.androidapp.fragments
+package tech.torah.aldis.androidapp.fragments
 
 import android.os.Bundle
 import android.util.Log
@@ -20,47 +20,50 @@ import com.google.android.material.textview.MaterialTextView
 import com.l4digital.fastscroll.FastScrollView
 import com.l4digital.fastscroll.FastScroller
 import tech.torah.aldis.androidapp.R
-import tech.torah.aldis.androidapp.dataClassesAndInterfaces.CallbackListener
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TorahFilterable
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TabType
-import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TorahFilter
 import java.util.*
-import kotlin.system.measureNanoTime
 
 
 /**
  * This is the dialog that will be used for filtering the Downloads, Favorites, and History pages
  * */
 private const val TAG = "DownloadsFavoritesHistoryFilterDialogFragment"
-var selectedListItem = ""
-lateinit var selectedListItemTextView: MaterialTextView
-lateinit var progressiveFilterExplanationImageButton: ImageButton
-lateinit var filterButton: MaterialButton
-lateinit var cancelButton: MaterialButton
-lateinit var filterRadioButton: RadioButton
-lateinit var fastScrollerSelectButton: MaterialButton
-lateinit var fastScrollerCancelButton: MaterialButton
-lateinit var fastScrollerDeselectButton: MaterialButton
-lateinit var sortRadioButton: RadioButton
-lateinit var sortOrderTextInputLayout: TextInputLayout
-lateinit var sortOrderDropdown: AutoCompleteTextView
-lateinit var filterCriterionChooser: AutoCompleteTextView
-lateinit var individualSpeakerCategorySeriesChooser: TextInputLayout
-lateinit var individualSpeakerCategorySeriesChooserAutoCompleteTextView: AutoCompleteTextView
-lateinit var tabTypeBeingDisplayed: TabType
-lateinit var fastScrollerDialogListItems: List<String>
-lateinit var listOfAvailableSpeakers: List<String>
-lateinit var listOfAvailableCategories: List<String>
-lateinit var listOfAvailableSeries: List<String>
+private lateinit var selectedListItemTextView: MaterialTextView
+private lateinit var progressiveFilterExplanationImageButton: ImageButton
+private lateinit var filterButton: MaterialButton
+private lateinit var cancelButton: MaterialButton
+private lateinit var resetButton: MaterialButton
+private lateinit var filterRadioButton: RadioButton
+private lateinit var fastScrollerSelectButton: MaterialButton
+private lateinit var fastScrollerCancelButton: MaterialButton
+private lateinit var fastScrollerDeselectButton: MaterialButton
+private lateinit var sortRadioButton: RadioButton
+private lateinit var sortOrderTextInputLayout: TextInputLayout
+private lateinit var sortOrderDropdown: AutoCompleteTextView
+private lateinit var filterCriterionChooser: AutoCompleteTextView
+private lateinit var individualSpeakerCategorySeriesChooser: TextInputLayout
+private lateinit var individualSpeakerCategorySeriesChooserAutoCompleteTextView: AutoCompleteTextView
+private lateinit var tabTypeBeingDisplayed: TabType
+private lateinit var fastScrollerDialogListItems: List<String>
+private var selectedListItem = ""
+
 
 val listOfFilterCriterion: List<String> = listOf("Speaker", "Category", "Series")
-val listOfPossibleListItems: List<List<String>> by lazy {listOf(
-    listOfAvailableSpeakers,
-    listOfAvailableCategories,
-    listOfAvailableSeries
-)}
 
-class SortOrFilterFullScreenDialog(private val callbackListener: CallbackListener) :
+
+class SortOrFilterDialog(
+    private val torahFilterableCallback: TorahFilterable,
+    private val listOfSpeakerNames: List<String>,
+    private val listOfCategoryNames: List<String>,
+    private val listOfSeriesNames: List<String>
+) :
     DialogFragment() {
+    private val listOfPossibleListItems = listOf(
+        listOfSpeakerNames,
+        listOfCategoryNames,
+        listOfSeriesNames
+    )
 //TODO add parameter in primary constructor for list of possible speakers, categories, and series.
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -79,11 +82,12 @@ class SortOrFilterFullScreenDialog(private val callbackListener: CallbackListene
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //<editor-fold variable initializations>
+        //<editor-fold desc="variable initializations">
         progressiveFilterExplanationImageButton =
             view.findViewById(R.id.progressive_filter_explanation_image_button)
         filterButton = view.findViewById(R.id.filter_button_simple)
         cancelButton = view.findViewById(R.id.cancel_button_simple)
+        resetButton = view.findViewById(R.id.reset_button_simple)
         filterRadioButton = view.findViewById(R.id.filter_radio_button_simple)
         sortRadioButton = view.findViewById(R.id.sort_radio_button_simple)
         sortOrderTextInputLayout = view.findViewById(R.id.sort_order_text_input_layout_simple)
@@ -94,516 +98,15 @@ class SortOrFilterFullScreenDialog(private val callbackListener: CallbackListene
         individualSpeakerCategorySeriesChooserAutoCompleteTextView =
             view.findViewById(R.id.individual_speaker_category_series_chooser_auto_complete_text_view)
 
-        listOfAvailableSpeakers = listOf(
-            "Rabbi Yehuda Ades",
-            "Rabbi Gedaliah Anemer",
-            "Rabbi David Ashear",
-            "Rabbi Baruch Shalom HaLevi Ashlag",
-            "Rabbi Shmuel Auerbach",
-            "Rabbi Elkanah Austern",
-            "Rabbi Stephen Baars",
-            "Rabbi Shmuel Eliezer Baddiel",
-            "Rabbi Yudi Bakst",
-            "Rabbi Chaim Balter",
-            "Rabbi Yitzchok Basser",
-            "Rabbi Mordechai Becher",
-            "Rabbi Yosef Bechhofer",
-            "Rabbi Ian Beider",
-            "Rabbi Berel Bell",
-            "Rabbi Yisroel Belsky",
-            "Rabbi Yaakov Bender",
-            "Rabbi Yosef Berger",
-            "Rabbi Motty Berger",
-            "Rabbi Michael Berger",
-            "Rabbi Moshe Bergman",
-            "Rabbi Yitzchak Berkovits",
-            "Rabbi Tzvi Berkowitz",
-            "Rabbi Yitzchak Berkowitz",
-            "Rabbi Yehoshua Berman",
-            "Rabbi Shmuel Yaakov Bernstein",
-            "Rabbi Gershon Bertman",
-            "Rabbi Chaim Biberfeld",
-            "Rabbi Jeffrey Bienenfeld",
-            "Rabbi Moshe Chaim Biron",
-            "Rabbi Moshe Chaim Blate",
-            "Rabbi Aharon Yosef Bloch",
-            "Rabbi Tzvi Block",
-            "Rabbi Yoram Bogacz",
-            "Rabbi David Botton",
-            "Rabbi Nachum Braverman",
-            "Rabbi Yitzchak Breitowitz",
-            "Rabbi Shlomo Brevda",
-            "Rabbi Dovid Brodsky",
-            "Rabbi Chaim Mendel Brodsky",
-            "Rabbi Feivel Brody",
-            "Rabbi Yisroel Brog",
-            "Rabbi Elya Brudny",
-            "Rabbi Avraham Brussel",
-            "Rabbi Reuven Buckler",
-            "Rabbi Amos Bunim",
-            "Rabbi Ozzie Burnham",
-            "Rabbi Chaim Burston",
-            "Rabbi Yehoshua Chaitovsky",
-            "Rabbi Yitzchak Charner",
-            "Rabbi Aryeh Citron",
-            "Rabbi Yitzchak Cohen",
-            "Rabbi Simcha Cohen",
-            "Rabbi Zev Cohen",
-            "Rabbi Dovid Cohen",
-            "Rabbi Daniel Coren",
-            "Rabbi Zalman Corlin",
-            "Rabbi Avishai David",
-            "Rabbi Moshe Drew",
-            "Rabbi Nissan Dovid Dubov",
-            "Rabbi Eliezer Eichorn",
-            "Rabbi Tzvi Einsteder",
-            "Rabbi Yosef Elefant",
-            "Rabbi Gedalia Elfeinbein",
-            "Rabbi Yechezkel Elias",
-            "Rabbi Yosef Shalom Elyashiv",
-            "Rabbi Menachem Engel",
-            "Rabbi Yitzy Erps",
-            "Rabbi Yisroel Fabian",
-            "Rabbi Eytan Feiner",
-            "Rabbi Reuven Feinstein",
-            "Rabbi Moshe Feinstein",
-            "Rabbi Dovid Feinstein",
-            "Rabbi Reuvain Feinstien",
-            "Rabbi Aaron Feldman",
-            "Rabbi Emanuel Feldman",
-            "Rabbi Ilan Feldman",
-            "Rabbi Chaim Fessel",
-            "Rabbi Avraham Chaim Feuer",
-            "Rabbi Nosson Tzvi Finkel",
-            "Rabbi Chaim Flom",
-            "Rabbi Yissocher Frand",
-            "Rabbi Michoel Frank",
-            "Rabbi Tzvi Frank",
-            "Rabbi Mordechai Frankel",
-            "Rabbi Daniel Freitag",
-            "Rabbi Yechezkel Freundlich",
-            "Rabbi Yaacov Fried",
-            "Rabbi Moshe Friedman",
-            "Rabbi Michoel Friedman",
-            "Rabbi Netanel Friedman",
-            "Rabbi Binyomin Friedman",
-            "Rabbi Naftali Ganzweig",
-            "Rabbi Aaron Garfinkel",
-            "Rabbi Levi Gelbfish",
-            "Rabbi Mordechai Gifter",
-            "Rabbi Beinish Ginsburg",
-            "Rabbi Yisroel Glassberg",
-            "Rabbi Daniel Glatstein",
-            "Rabbi Gedalya Glatt",
-            "Rabbi Zvi Goldberg",
-            "Rabbi Moshe Goldberger",
-            "Rabbi Menashe Goldberger",
-            "Rabbi Chaim Goldberger",
-            "Rabbi Azriel Chaim Goldfein",
-            "Rabbi Tzvi Goode",
-            "Rabbi Dovid Gottlieb",
-            "Rabbi Levi Graiser",
-            "Rabbi Avraham Greenbaum",
-            "Rabbi Naftali Greenberg",
-            "Rabbi Dovid Grossman",
-            "Rabbi Yitzhak Grossman",
-            "Rabbi Akiva Grunblatt",
-            "Rabbi Lazer Gurkow",
-            "Rabbi Yaacov Haber",
-            "Rabbi Avi Haber",
-            "Rabbi Yekusiel Yehudah Halberstam",
-            "Rabbi Dov Halperin",
-            "Rabbi Chaim Halpern",
-            "Rabbi Moshe Harizy",
-            "Rabbi Moshe Hauer",
-            "Rabbi Dovid Heber",
-            "Rabbi Yosi Heber",
-            "Rabbi Moshe Heinemann",
-            "Rabbi Aaron Hersh",
-            "Rabbi Moshe Herzog",
-            "Rabbi Amram Hess",
-            "Rabbi Chaim Hilewitz",
-            "Reb Dovid Hill",
-            "Rabbi Yaakov Hillel",
-            "Rabbi Yisroel Mayer Hoberman",
-            "Rabbi Yaakov Homnick",
-            "Rabbi Yaakov Hopfer",
-            "Rabbi Yakov Horowitz",
-            "Rabbi Yitzchak Hutner",
-            "Rabbi David Hyatt",
-            "Rabbi Shmuel Irons",
-            "Rabbi Shimon Isaacson",
-            "Rabbi Yitzchok Isbee",
-            "Rabbi Yehoshua Juravel",
-            "Rabbi Dov Kahan",
-            "Rabbi Ari Kahn",
-            "Rabbi Yudah Kahn",
-            "Rabbi Aharon Kahn",
-            "Rabbi Yosef Kalatsky",
-            "Rabbi Shmuel Kamenetsky",
-            "Rabbi Yaakov Kamenetzky",
-            "Rabbi Avrohom Kanarek",
-            "Rabbi Dovid Kaplan",
-            "Rabbi Aryeh Kaplan",
-            "Rabbi Nissan Kaplan",
-            "Rabbi Yaakov Karmel",
-            "Rabbi Reuven Kasierer",
-            "Rabbi Zev Katz",
-            "Reb Eitan Katz",
-            "Rabbi Yaakov Moshe Katz",
-            "Rabbi Yosef Katz",
-            "Rabbi Dovid Katzenstein",
-            "Rabbi Aharon Kaufman",
-            "Rabbi Lawrence Kelemen",
-            "Rabbi Leib Kelemen",
-            "Rabbi Eli Kerzner",
-            "Rabbi Mendel Kessin",
-            "Rabbi Moshe Don Kestenbaum",
-            "Rabbi Shmuel Khoshkerman",
-            "Rabbi Avraham Kilstein",
-            "Rabbi Mordechai Kirshenbaum",
-            "Rabbi Reuven Chaim Klein",
-            "Rabbi Avrohom Kosman",
-            "Rabbi Aharon Kotler",
-            "Rabbi Yitzy Kowalsky",
-            "Rabbi Dan Krancer",
-            "Rabbi Eliezer Kreiser",
-            "Rabbi Eliezer Krohn",
-            "Rabbi Paysach Krohn",
-            "Rabbi Avrohom Krohn",
-            "Rabbi Usher Laifer",
-            "Rabbi Nechemia Langer",
-            "Rabbi Levi Langer",
-            "Rabbi Aron Chaim Lapidoth",
-            "Rabbi Moishe Dovid Lebovits",
-            "Rabbi Aryeh Lebowitz",
-            "Rabbi Zev Leff",
-            "Rabbi Michel Yehuda Lefkowitz",
-            "Rabbi Henoch Leibowitz",
-            "Rabbi Akiva Leiman",
-            "Rabbi Shnayer Leiman",
-            "Rabbi Yaakov Leonard",
-            "Rabbi Reuven Leuchter",
-            "Rabbi Menachem Levine",
-            "Rabbi Binyamin Levine",
-            "Rabbi Reuven Levitt",
-            "Rabbi Daniel Levy",
-            "Rabbi Yankel Lieberman",
-            "Rabbi Moshe Tuvia Lieff",
-            "Rabbi Mordechai Linzer",
-            "Rabbi Haskel Lookstein",
-            "Rabbi Ahron Lopiansky",
-            "Rabbi Chaim Malinowitz",
-            "Rabbi Zalman Manela",
-            "Rabbi Eli Mansour",
-            "Rabbi Hadar Margolin",
-            "Rabbi Daniel Mechanic",
-            "Rabbi Moshe Meiselman",
-            "Rabbi Yaakov Mendelson",
-            "Rabbi Chaim Mendelson",
-            "Rabbi Raphael Mendlowitz",
-            "Rabbi Moe Mernick",
-            "Rabbi Yacov Metz",
-            "Rabbi Tzvi Miller",
-            "Rabbi Avigdor Miller",
-            "Rabbi Shlomo Miller",
-            "Reb Yehoshua Mond",
-            "Rabbi Avrohom Morgenstern",
-            "Rabbi Abba Zvi Naiman",
-            "Rabbi Sheftel Neuberger",
-            "Rabbi Shraga Neuberger",
-            "Rabbi Mayer Neuberger",
-            "Rabbi Doniel Neustadt",
-            "Rabbi Avigdor Neventzal",
-            "Rabbi Moshe New",
-            "Rabbi Menachem Nissel",
-            "Rabbi Noach Oelbaum",
-            "Rabbi Dovid Ordman",
-            "Rabbi Dovid Orlofsky",
-            "Rabbi Noach Orlowek",
-            "Rabbi Avraham Pam",
-            "Rabbi Shlomo Perlstein",
-            "Rabbi Hillel Yosef Pfeiffer",
-            "Rabbi Eli Pielet",
-            "Rabbi Shimshon Dovid Pincus",
-            "Rabbi Zelig Pliskin",
-            "Rabbi Shloime Pollak",
-            "Rabbi Mordechai Pollock",
-            "Rabbi Baruch Ber Povarsky",
-            "Rabbi Doniel Pransky",
-            "Rabbi Gamliel Rabinowitz",
-            "Rabbi Moshe Radner",
-            "Rabbi Yishai Rasowsky",
-            "Rabbi Dovid Regensberg",
-            "Rabbi Naftali Reich",
-            "Rabbi Eli Reich",
-            "Rabbi Hershel Reichman",
-            "Rabbi Shmuel Reichman",
-            "Rabbi Eliyahu Reingold",
-            "Rabbi Baruch Reis",
-            "Rabbi Yisroel Reisman",
-            "Rabbi Yona Reiss",
-            "Rabbi Mordechai Rhine",
-            "Rabbi Gershon Ribner",
-            "Rabbi Jonathan Rietti",
-            "Rabbi Dovid Rosenbaum",
-            "Rabbi Yonoson Rosenblum",
-            "Rabbi Yosef Rosenholtz",
-            "Rabbi Philip Rosenthal",
-            "Rabbi Aryeh Rottman",
-            "Rabbi Yochanan Rudensky",
-            "Rabbi Yaakov Yitzchok Ruderman",
-            "Rabbi Zave Rudman",
-            "Rabbi Mattisyahu Salomon",
-            "Rabbi Yosef Saltzman",
-            "Rabbi Yosef Samberg",
-            "Rabbi Nachum Sauer",
-            "Rabbi Fischel Schachter",
-            "Rabbi Hershel Schachter",
-            "Rabbi Aharon Schechter",
-            "Rabbi Yitzchok Schechter",
-            "Rabbi Yitzchak Scher",
-            "Rabbi Menachem Mendel Schneerson",
-            "Rabbi Dovid Schoonmaker",
-            "Rabbi Gedalya Schorr",
-            "Rabbi Avroham Schorr",
-            "Rabbi Nachman Schorr",
-            "Rabbi Avraham Schorr",
-            "Rabbi Avroham Schorr",
-            "Rabbi Shimon Schwab",
-            "Rabbi Yosef Chaim Schwab",
-            "Rabbi Shalom Schwadron",
-            "Rabbi Yitzchak Schwartz",
-            "Rabbi Zecharia Schwartz",
-            "Rabbi Zevulun Schwartzman",
-            "Rabbi Peretz Segal",
-            "Rabbi Don Segal",
-            "Rabbi Yehuda Zev Segal",
-            "Rabbi Shraga Senft",
-            "Rabbi Elazar Menachem Shach",
-            "Rabbi Bentzion Shafier",
-            "Rabbi Shmuel Shapira",
-            "Rabbi Moshe Shapira",
-            "Rabbi Yaakov Shapiro",
-            "Rabbi Yehuda Leib Shapiro",
-            "Rabbi Ephraim Eliyahu Shapiro",
-            "Rabbi Hillel Shaps",
-            "Rabbi Moshe Sherrow",
-            "Rabbi Eliezer Sherwinter",
-            "Rabbi Chaim Shmuelevitz",
-            "Rabbi Benayahu Shmueli",
-            "Rabbi Ariel Shoshan",
-            "Rabbi Ahron Leib Shteinman",
-            "Rabbi Moshe Aharon Shuchatowitz",
-            "Rabbi Mordechai Shuchatowitz",
-            "Rabbi Eliezer Shulman",
-            "Rabbi Shmaryahu Shulman",
-            "Rabbi Yaakov Moishe Shurkin",
-            "Rabbi Fyvel Shuster",
-            "Rabbi Pesach Siegel",
-            "Rabbi Shmuel Silber",
-            "Rabbi Elimelech Silberberg",
-            "Rabbi Shmuel Silinsky",
-            "Rabbi Dave Silverman",
-            "Rabbi Tovia Singer",
-            "Rabbi Yosef Singer",
-            "Rabbi Mordechai Sitorsky",
-            "Rabbi Shmuel Skaist",
-            "Rabbi Michael Skobac",
-            "Rabbi Michoel Slavin",
-            "Rabbi Binyomin Sloviter",
-            "Rabbi Yackov Zev Smith",
-            "Rabbi Aryeh Sokoloff",
-            "Rabbi Yosef Dov Soloveitchik",
-            "Rabbi Yosef Sonnenschein",
-            "Rabbi Yitzchok Sorotzkin",
-            "Rabbi Aharon Sorscher",
-            "Rabbi Aharon Sorscher",
-            "Rabbi Yechiel Spira",
-            "Rabbi Ken Spiro",
-            "Rabbi Chaim Dov Stark",
-            "Rabbi Chaim Stein",
-            "Rabbi Reuven Stein",
-            "Rabbi Moshe Steinberg",
-            "Rabbi Avraham Steinberg",
-            "Rabbi Adin Steinsaltz",
-            "Rabbi Reuven Stepsky",
-            "Rabbi Simcha Stern",
-            "Rabbi Ari Storch",
-            "Rabbi Hillel Strauss",
-            "Rabbi Elya Svei",
-            "Rabbi Mordechai Swimmer",
-            "Rabbi Ephraim Tanenbaum",
-            "Rabbi Akiva Tatz",
-            "Rabbi Ezriel Tauber",
-            "Rabbi Michael Taubes",
-            "Rabbi Zvi Teitelbaum",
-            "Rabbi Hanoch Teller",
-            "Rabbi Yosef Tendler",
-            "Rabbi Yitzchok Tendler",
-            "Rabbi Tzvi Thaler",
-            "Rabbi Meir Triebitz",
-            "Rabbi Mayer Turin",
-            "Rabbi Meir Baruch Turin",
-            "Rabbi Efraim Twerski",
-            "Rabbi Yosef Viener",
-            "Rabbi Yehuda Vosner",
-            "Rabbi Ephraim Wachsman",
-            "Rabbi Ari Walden",
-            "Rabbi Zecharia Wallerstein",
-            "Rabbi Moshe Walter",
-            "Rabbi Berel Wein",
-            "Rabbi Mendel Weinbach",
-            "Rabbi Noah Weinberg",
-            "Rabbi Yaakov Weinberg",
-            "Rabbi Brahm Weinberg",
-            "Rabbi Dovid Weinberg",
-            "Rabbi Moshe Weinberger",
-            "Rabbi Yitzi Weiner",
-            "Rabbi Tzvi Hersh Weinreb",
-            "Rabbi Eliyahu Weintraub",
-            "Rabbi Dov Ber Weisman",
-            "Rabbi Asher Weiss",
-            "Rabbi Yosef Wikler",
-            "Reb Dr Meir Wikler",
-            "Rabbi Mordechai Willig",
-            "Rabbi Menachem Winter",
-            "Rabbi Kalman Winter",
-            "Rabbi Shlomo Wolbe",
-            "Rabbi Moshe Wolfson",
-            "Rabbi Berel Wolvovsky",
-            "Rabbi Shmuel Wosner",
-            "Rabbi Asher Yablok",
-            "Rabbi Avrohom Yachnes",
-            "Rabbi Menacheim Yakbzon",
-            "Rabbi Shmuel Yeshaya Yoffe",
-            "Rabbi Ovadia Yosef",
-            "Rabbi Benjamin Yudin",
-            "Rabbi Menashe Zadka",
-            "Rabbi Yonatan Zakem",
-            "Rabbi Avi Zakutinsky",
-            "Rabbi Michel Zilber",
-            "Rabbi Tzvi Meir Zilberberg",
-            "Rabbi Yitzchok Zilberstein",
-            "Rabbi Zvi Zimmerman",
-            "Rabbi Elchonon Zohn",
-            "Rabbi Tal Moshe Zwecker",
-            "Rabbi Yochanan Zweig",
-        )
-            .sortedBy {
-                it.substring(it.indexOf(" ") + 1).first()
-                    .toUpperCase()
-                    .toString() //it is sorted this way for the entries like "Reb Dovid Hillel", etc. which end up at the end because "Reb" is later than "Rab"
-            }
-        listOfAvailableCategories = listOf(
-            "Sifrei Kodesh",
-            "Chazal",
-            "Pirkei Avos",
-            "Pirkei Drabbi Eliezer",
-            "Rishonim",
-            "Chovos Halvovos",
-            "Igeres HaRamban",
-            "Kuzari",
-            "Sefer HaChinuch",
-            "Shaarei Kedushah",
-            "Shaarei Teshuvah",
-            "Rambam",
-            "Sefer Nezikin",
-            "Geneiva",
-            "Nizkei Momoin",
-            "Moreh Nevuchim",
-            "Sefer Madah",
-            "Hilchos Avodas Kochavim",
-            "Hilchos Yesodei Hatorah",
-            "Hilchos Deyos",
-            "Hilchos Talmid Torah",
-            "Hilchos Teshuvah",
-            "Sefer Ahavah",
-            "Hilchos Seder Tefillah",
-            "Hilchos Krias Shema",
-            "Hilchos Tzitzis",
-            "Hilchos Milah",
-            "Sefer Zmanim",
-            "Hilchos Kiddush HaChodesh",
-            "Hilchos Megillah Chanukah",
-            "Hilchos Chomeitz uMatzah",
-            "Hilchos Shkalim",
-            "Hilchos Shevisas Asor",
-            "Hilchos Shevisas Yom Tov",
-            "Hilchos Eruvin",
-            "Sefer Nashim",
-            "Hilchos Ishus",
-            "Hilchos Get",
-            "Hilchos Yibum and Chalitzah",
-            "Hilchos Naaroh Besulah",
-            "Hilchos Sotah",
-            "Sefer Kedusha",
-            "Hilchos Issurei Biah",
-            "Hilchos Shechitah",
-            "Sefer Haflaah",
-            "Hilchos Shevuos",
-            "Hilchos Nedorim",
-            "Hilchos Neziros",
-            "Yud Gimmel Ikarim",
-            "Perek Chelek",
-            "Shmona Prakim",
-            "Igros HaRambam",
-            "Igeres Hateshuva",
-            "Sefer HaIkkarim",
-            "Archos Tzaddikim",
-            "Shaarei HaAvodah",
-            "Acharonim",
-            "Nefesh Hachayim",
-            "Igeres HaMussar",
-            "Ruach Chaim",
-            "Reb Tzadok Hakohen",
-            "Tomer Devorah",
-            "Maharal",
-            "Tiferes Yisroel",
-            "Maharal Hagadah",
-            "Gevuros Hashem",
-            "Derech Chaim",
-            "Nesiv Koach HaYetzer",
-            "Nesiv Ahavas Reya",
-            "Nesiv HaTorah",
-            "Nesiv HaZrizus",
-            "Nesiv HaTznius",
-            "Nesiv HaPrishus",
-            "Nesiv HaOsher",
-            "Nesiv HaKaas",
-            "Nesiv HaEmuna",
-            "Nesiv HaBitachon",
-            "Nesiv HaAvodah",
-            "Nesiv HaShtika",
-            "Nesiv HaYissurin",
-            "Nesiv HaTeshuva",
-            "Ohr Chadash",
-            "Ramchal",
-            "Daas Tevunos ",
-            "Derech Hashem",
-            "Mesilas Yesharim",
-            "Yesod VeShoresh HaAvoda",
-            "Teshuvos Rebbe Akiva Eiger",
-            "Nesivos Shalom",
-            "Ben Ish Chai",
-            "Tanya",
-            "Contemporary",
-            "Alei Shur",
-            "Mishnah Berurah",
-            "Yesodei HaTorah",
-            "Igros Chazon Ish",
-            "Chaye Adam",
-            "Chochmas Adam",
-        ).sorted()
-        listOfAvailableSeries = listOf("Amud Yomi", "Daf Yomi", "a")
+
         //</editor-fold>
 
         setAdapterAndSetHints(
             filterCriterionChooser,
             listOfFilterCriterion
-        ) //TODO somehow also change the hint for individualSpeakerCategorySeriesTextInputLayout (hence "...Hint*s*(...)". Possibly create a Map<speakerCategorySeries :String, listOfAvailable... :List<String>>
+        )
 
-//<editor-fold listeners>
+        //<editor-fold desc="listeners">
         progressiveFilterExplanationImageButton.setOnClickListener {
             val alertDialog: AlertDialog? =
                 context?.let { it1 -> AlertDialog.Builder(it1).create() }
@@ -636,11 +139,11 @@ class SortOrFilterFullScreenDialog(private val callbackListener: CallbackListene
             val seriesString = resources.getString(TabType.SERIES.nameId)*/
             val (appropriateList, tabType) = when (position) {
                 0 -> listOf(
-                    listOfAvailableSpeakers,
+                    listOfSpeakerNames,
                     resources.getString(TabType.SPEAKER.nameId)
                 ) //calls to getString() are good for DRY and localization
-                1 -> listOf(listOfAvailableCategories, resources.getString(TabType.CATEGORY.nameId))
-                2 -> listOf(listOfAvailableSeries, resources.getString(TabType.SERIES.nameId))
+                1 -> listOf(listOfCategoryNames, resources.getString(TabType.CATEGORY.nameId))
+                2 -> listOf(listOfSeriesNames, resources.getString(TabType.SERIES.nameId))
                 else -> listOf(listOf<String>(), "")
             }
             tabTypeBeingDisplayed = TabType.valueOf((tabType as String).toUpperCase(Locale.ROOT))
@@ -665,14 +168,12 @@ class SortOrFilterFullScreenDialog(private val callbackListener: CallbackListene
 
              fastScrollerDialogListItems = randomListOfWords.sorted()*/
             if (::tabTypeBeingDisplayed.isInitialized || ::fastScrollerDialogListItems.isInitialized) ChooserFastScrollerDialog( // would use &&, but if one is true, both are true, and && will always check both, but || will only check the second if the first is false, and I think that if the first is false, the second must also be false, but I am not 100% sure.
-                tabTypeBeingDisplayed,
                 fastScrollerDialogListItems
             ).show(
                 childFragmentManager,
                 TAG
             )
         }
-//        individualSpeakerCategorySeriesChooser.setOnClickListener()
         individualSpeakerCategorySeriesChooserAutoCompleteTextView.setOnClickListener(
             populateAndDisplayFastScrollerDialogLambda
         )
@@ -681,7 +182,7 @@ class SortOrFilterFullScreenDialog(private val callbackListener: CallbackListene
         )  // so that the user is not confused when clicking the end icon doesn't display the dialog, but the main body of the OutlinedBox does display it.
         filterButton.setOnClickListener {
             //send back data to PARENT fragment using callback
-            callbackListener.onDataReceived(tabTypeBeingDisplayed, selectedListItem)
+            torahFilterableCallback.callbackFilter(tabTypeBeingDisplayed, selectedListItem)
             // Now dismiss the fragment
             dismiss()
         }
@@ -689,12 +190,17 @@ class SortOrFilterFullScreenDialog(private val callbackListener: CallbackListene
             // Dismiss the fragment
             dismiss()
         }
-
+        resetButton.setOnClickListener {
+            //send back data to PARENT fragment using callback
+            torahFilterableCallback.callbackFilter(TabType.ALL, "")
+            // Now dismiss the fragment
+            dismiss()
+        }
         filterRadioButton.performClick() //Indicate that dialog default is filtering
         //</editor-fold>
     }
 
-    //<editor-fold set hint and adapter functions>
+    //<editor-fold desc="set hint and adapter functions">
     private fun setAdapterAndSetHints(
         viewResId: Int,
         filterCondition: List<String>,
@@ -783,7 +289,7 @@ class SortOrFilterFullScreenDialog(private val callbackListener: CallbackListene
        }
 */
 
-class ChooserFastScrollerDialog(val mode: TabType, private val listItems: List<String>) :
+class ChooserFastScrollerDialog(private val listItems: List<String>) :
     DialogFragment() {
     private lateinit var itemAdapter: ItemAdapter
     private lateinit var toolbar: Toolbar
@@ -880,9 +386,9 @@ class ChooserFastScrollerDialog(val mode: TabType, private val listItems: List<S
 
         override fun getSectionText(position: Int): CharSequence  {
             val s = tempListItems[position]
-            return if (s.contains("Rabbi"))
+            return s[s.lastIndexOf(' ')+1].toString()/*if (s.contains("Rabbi"))
                 s.substring(s.indexOf(" ") + 1).first().toUpperCase().toString()
-            else s.first().toUpperCase().toString()
+            else s.first().toUpperCase().toString()*/
         }
 
 

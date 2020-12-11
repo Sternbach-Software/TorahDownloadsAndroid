@@ -8,11 +8,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.l4digital.fastscroll.FastScroller
 import tech.torah.aldis.androidapp.R
-import tech.torah.aldis.androidapp.dataClassesAndInterfaces.CallbackListener
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TorahFilterable
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.Shiur
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TabType
 import tech.torah.aldis.androidapp.fragments.ShiurOptionsBottomSheetDialogFragment
-import tech.torah.aldis.androidapp.fragments.SortOrFilterFullScreenDialog
+import tech.torah.aldis.androidapp.fragments.SortOrFilterDialog
 import java.util.*
 
 
@@ -85,9 +85,12 @@ private var drawables = listOf(
     R.drawable.cm,
     R.drawable.cn,
 )
+private lateinit var listOfSpeakerNames: MutableList<String>
+private lateinit var listOfCategoryNames: MutableList<String>
+private lateinit var listOfSeriesNames: MutableList<String>
 private const val TAG = "RecentlyAddedShiurimPageActivity"
 
-class RecentlyAddedShiurimPageActivity : AppCompatActivity(), CallbackListener {
+class RecentlyAddedShiurimPageActivity : AppCompatActivity(), TorahFilterable {
     private lateinit var shiurAdapter: ShiurAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -157,25 +160,43 @@ class RecentlyAddedShiurimPageActivity : AppCompatActivity(), CallbackListener {
             Shiur(speaker = "Rabbi Tzvi Berkowitz"),
             Shiur(speaker = "Rabbi Yitzchak Berkowitz"),
         )
+        listOfSpeakerNames = mutableListOf()
+        listOfSeriesNames = mutableListOf()
+        listOfCategoryNames = mutableListOf()
 
+        for (shiur in listOfShiurim) {
+            listOfSpeakerNames.add(shiur.speaker)
+            listOfSeriesNames.add(shiur.series)
+            listOfCategoryNames.add(shiur.category)
+        }
         shiurAdapter = ShiurAdapter(listOfShiurim)
         recyclerView?.adapter = shiurAdapter
     }
 
-       override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-           val inflater = menuInflater
-           inflater.inflate(R.menu.downloads_favorites_history_pages_menu, menu)
-           val filterItem: MenuItem = menu!!.findItem(R.id.filter_button)
-           filterItem.setOnMenuItemClickListener {
-               SortOrFilterFullScreenDialog(this).show(supportFragmentManager, TAG)
-               true
-           }
-           return true
-       }
-
-    override fun onDataReceived(tabType: TabType, data: String) {
-      shiurAdapter.filter(tabType, data)
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.downloads_favorites_history_pages_menu, menu)
+        val filterItem: MenuItem = menu!!.findItem(R.id.filter_button)
+        filterItem.setOnMenuItemClickListener {
+            SortOrFilterDialog(
+                this,
+                listOfSpeakerNames.toList(),
+                listOfCategoryNames.toList(),
+                listOfSeriesNames.toList()
+            )
+                // I figure that it is worth the cost of passing new objects to the sort dialog to avoid the cost of
+                // eventual bugs due to passing in a reference to a mutable list
+                .show(supportFragmentManager, TAG)
+            true
+        }
+        return true
     }
+
+    override fun callbackFilter(tabType: TabType, data: String) {
+        if (tabType == TabType.ALL) shiurAdapter.reset()
+        else shiurAdapter.filter(tabType, data)
+    }
+
     fun openOptionsMenu(v: View): Unit {
         ShiurOptionsBottomSheetDialogFragment().apply {
             show(supportFragmentManager, tag)
@@ -183,26 +204,27 @@ class RecentlyAddedShiurimPageActivity : AppCompatActivity(), CallbackListener {
     }
 }
 
-    private class ShiurAdapter(val originalShiurList: MutableList<Shiur>) :
-        RecyclerView.Adapter<ShiurAdapter.ShiurViewHolder>(), FastScroller.SectionIndexer {
+private class ShiurAdapter(val originalShiurList: MutableList<Shiur>) :
+    RecyclerView.Adapter<ShiurAdapter.ShiurViewHolder>(), FastScroller.SectionIndexer {
+    //TODO consider making originalShiurList an immutable set (it never changes and it doesn't need doubles
+    val shiurList: MutableList<Shiur> = originalShiurList.toMutableList()
 
-        val shiurList: MutableList<Shiur> = originalShiurList.toMutableList()
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShiurViewHolder {
+        val v = LayoutInflater.from(parent.context)
+            .inflate(R.layout.individual_shiur_card_layout, parent, false)
+        return ShiurViewHolder(v)
+    }
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShiurViewHolder {
-            val v = LayoutInflater.from(parent.context)
-                .inflate(R.layout.individual_shiur_card_layout, parent, false)
-            return ShiurViewHolder(v)
-        }
+    override fun getItemCount(): Int = shiurList.size
 
-        override fun getItemCount(): Int = shiurList.size
+    override fun onBindViewHolder(holder: ShiurViewHolder, position: Int) =
+        holder.bindItems(shiurList[position])
 
-        override fun onBindViewHolder(holder: ShiurViewHolder, position: Int) =
-            holder.bindItems(shiurList[position])
+    override fun getSectionText(position: Int): CharSequence =
+        shiurList[position].title.first().toString()
 
-        override fun getSectionText(position: Int): CharSequence =
-            shiurList[position].title.first().toString()
-    fun filter(tabType: TabType, constraint: String){
-
+    fun filter(tabType: TabType, constraint: String) {
+//TODO make filtering more efficient by using indices.
 /*
         var completeListIndex = 0
         var filteredListIndex = 0
@@ -237,11 +259,11 @@ class RecentlyAddedShiurimPageActivity : AppCompatActivity(), CallbackListener {
         } else {
             val filterPattern = constraint.toLowerCase(Locale.ROOT).trim()
             for (shiur in originalShiurList) {
-                val filterReciever = when(tabType) {
-                TabType.CATEGORY -> shiur.category
-                TabType.SERIES -> shiur.series
-                TabType.SPEAKER -> shiur.speaker
-                    else->""
+                val filterReciever = when (tabType) {
+                    TabType.CATEGORY -> shiur.category
+                    TabType.SERIES -> shiur.series
+                    TabType.SPEAKER -> shiur.speaker
+                    else -> ""
                 }
                 if (filterReciever.toLowerCase(Locale.ROOT).contains(filterPattern)) {
                     shiurList.add(shiur)
@@ -251,17 +273,24 @@ class RecentlyAddedShiurimPageActivity : AppCompatActivity(), CallbackListener {
         notifyDataSetChanged()
     }
 
-        class ShiurViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    fun reset() {
+        //TODO make reset more efficient by using indices.
+        shiurList.clear()
+        shiurList.addAll(originalShiurList)
+        notifyDataSetChanged()
+    }
 
-            fun bindItems(shiur: Shiur) {
-                val shiurTitle = itemView.findViewById(R.id.category_title) as TextView?
-                val shiurSpeaker = itemView.findViewById(R.id.shiur_speaker) as TextView?
-                if (shiurTitle != null) {
-                    shiurTitle.text = shiur.title
-                }
-                if (shiurSpeaker != null) {
-                    shiurSpeaker.text = shiur.speaker
-                }
+    class ShiurViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+        fun bindItems(shiur: Shiur) {
+            val shiurTitle = itemView.findViewById(R.id.category_title) as TextView?
+            val shiurSpeaker = itemView.findViewById(R.id.shiur_speaker) as TextView?
+            if (shiurTitle != null) {
+                shiurTitle.text = shiur.title
+            }
+            if (shiurSpeaker != null) {
+                shiurSpeaker.text = shiur.speaker
             }
         }
     }
+}

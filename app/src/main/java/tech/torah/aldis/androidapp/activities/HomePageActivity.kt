@@ -12,7 +12,7 @@ import tech.torah.aldis.androidapp.R
 class HomePageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.scroll_view_home_page)
+        setContentView(R.layout.home_page_scroll_view)
     }
     fun openSpeakerPage(v: View) {
         val intent = Intent(this@HomePageActivity, SpeakerPageActivity::class.java)
