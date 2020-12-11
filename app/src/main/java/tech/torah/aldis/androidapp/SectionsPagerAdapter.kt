@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import tech.torah.aldis.androidapp.dataClassesAndInterfaces.Shiur
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.ShiurFullPage
 import tech.torah.aldis.androidapp.fragments.MoreFromThisFragment
 
 /**
@@ -14,7 +14,7 @@ import tech.torah.aldis.androidapp.fragments.MoreFromThisFragment
 class SectionsPagerAdapter(
     private val context: Context,
     fm: FragmentManager,
-    private val shiurim: ArrayList<Shiur>,
+    private val shiurim: ArrayList<ShiurFullPage>,
     private val moreFromThis: Boolean
 ) : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 

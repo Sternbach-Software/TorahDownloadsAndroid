@@ -6,20 +6,20 @@ import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import tech.torah.aldis.androidapp.R
 import tech.torah.aldis.androidapp.SectionsPagerAdapter
-import tech.torah.aldis.androidapp.dataClassesAndInterfaces.Shiur
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.ShiurFullPage
 
 
 class MoreFromThisActivity : AppCompatActivity() {
     private lateinit var tabLayout: TabLayout
 
-    private lateinit var shiurim: ArrayList<Shiur>
+    private lateinit var shiurim: ArrayList<ShiurFullPage>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.tabs_layout)
 
 
-        val a: Array<Shiur> = intent.getSerializableExtra("SHIURIM") as Array<Shiur>
+        val a: Array<ShiurFullPage> = intent.getSerializableExtra("SHIURIM") as Array<ShiurFullPage>
         shiurim = a.toCollection(ArrayList())
 
 

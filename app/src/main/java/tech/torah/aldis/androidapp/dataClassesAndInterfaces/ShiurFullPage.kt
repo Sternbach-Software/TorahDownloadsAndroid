@@ -2,10 +2,10 @@ package tech.torah.aldis.androidapp.dataClassesAndInterfaces
 
 import java.io.Serializable
 
-data class Shiur(
+data class ShiurFullPage(
     val id: String = "1008064",
-    val page_title: String = "Chinuch - Shiur 1 - Rabbi Yisroel Belsky - TD1008064",
-    val title: String = "Chinuch - Shiur 1",
+    val page_title: String = "Chinuch - ShiurFullPage 1 - Rabbi Yisroel Belsky - TD1008064",
+    val title: String = "Chinuch - ShiurFullPage 1",
     val speaker/*Rabbi Yisroel Belsky*/: String = "Rabbi Yisroel Belsky",
     val speaker_image: String = "assets\\/speakers\\/64.jpg",
     val length: String = "83",
@@ -13,10 +13,14 @@ data class Shiur(
         "shiur-1008064-download.mp3",
         "\\/c-223-chinuch-parenting.html",
         "\\/s-64-rabbi-yisroel-belsky.html"
-    ),
-    val download: String = "shiur-1008064-download.mp3",
-    val category: String = "\\/c-223-chinuch-parenting.html",
-    val speakerHtml/*\/s-64-rabbi-yisroel-belsky.html" - just represented as "speaker" in actual JSON*/: String = "\\/s-64-rabbi-yisroel-belsky.html",
+/*
+        val download: String = "shiur-1008064-download.mp3",
+        val category: String = "\\/c-223-chinuch-parenting.html",
+        val speaker*//*\/s-64-rabbi-yisroel-belsky.html" - just represented as "speaker" in actual JSON*//*
+: String = "\\/s-64-rabbi-yisroel-belsky.html",
+*/
+),
+    val category: String = "\\/c-223-chinuch-parenting.html",//is redundant with the links list, but being kept here until better solution
     val attachment: String = "",
     val description: String = "",
     val source: String = "",

@@ -75,7 +75,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>
     <!--
-    Version 1: 4 buttons on shiur card
+    Version 1: 4 buttons on shiurFullPage card
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -113,7 +113,7 @@
             android:textAppearance="?attr/textAppearanceHeadline6"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Chinuch - Shiur 1 Chinuch - Shiur 1 Chi... nuch - Shiur 1 Chinuch - Shiur 1 " />
+            tools:text="Chinuch - ShiurFullPage 1 Chinuch - ShiurFullPage 1 Chi... nuch - ShiurFullPage 1 Chinuch - ShiurFullPage 1 " />
 
         <TextView
             android:id="@+id/shiur_speaker"

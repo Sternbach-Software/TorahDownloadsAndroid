@@ -1,6 +1,6 @@
 package tech.torah.aldis.androidapp.randomTests
 
-import tech.torah.aldis.androidapp.dataClassesAndInterfaces.Shiur
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.ShiurFullPage
 import java.io.File
 
 //import tech.torah.aldis.androidapp.Constants
@@ -45,8 +45,8 @@ fun main() {
         }.myforEach {
 
         }.println()
-    val x = mutableListOf<Shiur>()
-    listOf(Shiur(), Shiur()).filter { it.description.first() == 't' }.myforEach {
+    val x = mutableListOf<ShiurFullPage>()
+    listOf(ShiurFullPage(), ShiurFullPage()).filter { it.description.first() == 't' }.myforEach {
         if (it.id.toInt() > 500) {x.add(it)}
     }.println()*/
 }
@@ -58,7 +58,7 @@ public inline fun <T> List<T>.myforEach(action: (T) -> Unit): List<T> {
     for (element in this) action(element)
     return this
 }
-fun addToXIfIDisGreaterThanFIveHundred(it: Shiur, x: MutableList<Shiur>) {
+fun addToXIfIDisGreaterThanFIveHundred(it: ShiurFullPage, xes: MutableList<ShiurFullPage>) {
 
 }
 

@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.l4digital.fastscroll.FastScroller
 import tech.torah.aldis.androidapp.R
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TorahFilterable
-import tech.torah.aldis.androidapp.dataClassesAndInterfaces.Shiur
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.ShiurFullPage
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TabType
 import tech.torah.aldis.androidapp.fragments.ShiurOptionsBottomSheetDialogFragment
 import tech.torah.aldis.androidapp.fragments.SortOrFilterDialog
@@ -99,66 +99,66 @@ class RecentlyAddedShiurimPageActivity : AppCompatActivity(), TorahFilterable {
         val recyclerView: RecyclerView? = findViewById(R.id.recycler_view)
         recyclerView?.layoutManager = LinearLayoutManager(this)
         val listOfShiurim = mutableListOf(
-            Shiur(speaker = "Rabbi Yehuda Ades"),
-            Shiur(speaker = "Rabbi Gedaliah Anemer"),
-            Shiur(speaker = "Rabbi David Ashear"),
-            Shiur(speaker = "Rabbi Baruch Shalom HaLevi Ashlag"),
-            Shiur(speaker = "Rabbi Shmuel Auerbach"),
-            Shiur(speaker = "Rabbi Elkanah Austern"),
-            Shiur(speaker = "Rabbi Stephen Baars"),
-            Shiur(speaker = "Rabbi Shmuel Eliezer Baddiel"),
-            Shiur(speaker = "Rabbi Yudi Bakst"),
-            Shiur(speaker = "Rabbi Chaim Balter"),
-            Shiur(speaker = "Rabbi Yitzchok Basser"),
-            Shiur(speaker = "Rabbi David Ashear"),
-            Shiur(speaker = "Rabbi Baruch Shalom HaLevi Ashlag"),
-            Shiur(speaker = "Rabbi Shmuel Auerbach"),
-            Shiur(speaker = "Rabbi Elkanah Austern"),
-            Shiur(speaker = "Rabbi Stephen Baars"),
-            Shiur(speaker = "Rabbi Shmuel Eliezer Baddiel"),
-            Shiur(speaker = "Rabbi Yudi Bakst"),
-            Shiur(speaker = "Rabbi Chaim Balter"),
-            Shiur(speaker = "Rabbi Yitzchok Basser"),
-            Shiur(speaker = "Rabbi David Ashear"),
-            Shiur(speaker = "Rabbi Baruch Shalom HaLevi Ashlag"),
-            Shiur(speaker = "Rabbi Shmuel Auerbach"),
-            Shiur(speaker = "Rabbi Elkanah Austern"),
-            Shiur(speaker = "Rabbi Stephen Baars"),
-            Shiur(speaker = "Rabbi Shmuel Eliezer Baddiel"),
-            Shiur(speaker = "Rabbi Yudi Bakst"),
-            Shiur(speaker = "Rabbi Chaim Balter"),
-            Shiur(speaker = "Rabbi Yitzchok Basser"),
-            Shiur(speaker = "Rabbi David Ashear"),
-            Shiur(speaker = "Rabbi Baruch Shalom HaLevi Ashlag"),
-            Shiur(speaker = "Rabbi Shmuel Auerbach"),
-            Shiur(speaker = "Rabbi Elkanah Austern"),
-            Shiur(speaker = "Rabbi Stephen Baars"),
-            Shiur(speaker = "Rabbi Shmuel Eliezer Baddiel"),
-            Shiur(speaker = "Rabbi Yudi Bakst"),
-            Shiur(speaker = "Rabbi Chaim Balter"),
-            Shiur(speaker = "Rabbi Yitzchok Basser"),
-            Shiur(speaker = "Rabbi David Ashear"),
-            Shiur(speaker = "Rabbi Baruch Shalom HaLevi Ashlag"),
-            Shiur(speaker = "Rabbi Shmuel Auerbach"),
-            Shiur(speaker = "Rabbi Elkanah Austern"),
-            Shiur(speaker = "Rabbi Stephen Baars"),
-            Shiur(speaker = "Rabbi Shmuel Eliezer Baddiel"),
-            Shiur(speaker = "Rabbi Yudi Bakst"),
-            Shiur(speaker = "Rabbi Chaim Balter"),
-            Shiur(speaker = "Rabbi Yitzchok Basser"),
-            Shiur(speaker = "Rabbi Mordechai Becher"),
-            Shiur(speaker = "Rabbi Yosef Bechhofer"),
-            Shiur(speaker = "Rabbi Ian Beider"),
-            Shiur(speaker = "Rabbi Berel Bell"),
-            Shiur(speaker = "Rabbi Yisroel Belsky"),
-            Shiur(speaker = "Rabbi Yaakov Bender"),
-            Shiur(speaker = "Rabbi Yosef Berger"),
-            Shiur(speaker = "Rabbi Motty Berger"),
-            Shiur(speaker = "Rabbi Michael Berger"),
-            Shiur(speaker = "Rabbi Moshe Bergman"),
-            Shiur(speaker = "Rabbi Yitzchak Berkovits"),
-            Shiur(speaker = "Rabbi Tzvi Berkowitz"),
-            Shiur(speaker = "Rabbi Yitzchak Berkowitz"),
+            ShiurFullPage(speaker = "Rabbi Yehuda Ades"),
+            ShiurFullPage(speaker = "Rabbi Gedaliah Anemer"),
+            ShiurFullPage(speaker = "Rabbi David Ashear"),
+            ShiurFullPage(speaker = "Rabbi Baruch Shalom HaLevi Ashlag"),
+            ShiurFullPage(speaker = "Rabbi Shmuel Auerbach"),
+            ShiurFullPage(speaker = "Rabbi Elkanah Austern"),
+            ShiurFullPage(speaker = "Rabbi Stephen Baars"),
+            ShiurFullPage(speaker = "Rabbi Shmuel Eliezer Baddiel"),
+            ShiurFullPage(speaker = "Rabbi Yudi Bakst"),
+            ShiurFullPage(speaker = "Rabbi Chaim Balter"),
+            ShiurFullPage(speaker = "Rabbi Yitzchok Basser"),
+            ShiurFullPage(speaker = "Rabbi David Ashear"),
+            ShiurFullPage(speaker = "Rabbi Baruch Shalom HaLevi Ashlag"),
+            ShiurFullPage(speaker = "Rabbi Shmuel Auerbach"),
+            ShiurFullPage(speaker = "Rabbi Elkanah Austern"),
+            ShiurFullPage(speaker = "Rabbi Stephen Baars"),
+            ShiurFullPage(speaker = "Rabbi Shmuel Eliezer Baddiel"),
+            ShiurFullPage(speaker = "Rabbi Yudi Bakst"),
+            ShiurFullPage(speaker = "Rabbi Chaim Balter"),
+            ShiurFullPage(speaker = "Rabbi Yitzchok Basser"),
+            ShiurFullPage(speaker = "Rabbi David Ashear"),
+            ShiurFullPage(speaker = "Rabbi Baruch Shalom HaLevi Ashlag"),
+            ShiurFullPage(speaker = "Rabbi Shmuel Auerbach"),
+            ShiurFullPage(speaker = "Rabbi Elkanah Austern"),
+            ShiurFullPage(speaker = "Rabbi Stephen Baars"),
+            ShiurFullPage(speaker = "Rabbi Shmuel Eliezer Baddiel"),
+            ShiurFullPage(speaker = "Rabbi Yudi Bakst"),
+            ShiurFullPage(speaker = "Rabbi Chaim Balter"),
+            ShiurFullPage(speaker = "Rabbi Yitzchok Basser"),
+            ShiurFullPage(speaker = "Rabbi David Ashear"),
+            ShiurFullPage(speaker = "Rabbi Baruch Shalom HaLevi Ashlag"),
+            ShiurFullPage(speaker = "Rabbi Shmuel Auerbach"),
+            ShiurFullPage(speaker = "Rabbi Elkanah Austern"),
+            ShiurFullPage(speaker = "Rabbi Stephen Baars"),
+            ShiurFullPage(speaker = "Rabbi Shmuel Eliezer Baddiel"),
+            ShiurFullPage(speaker = "Rabbi Yudi Bakst"),
+            ShiurFullPage(speaker = "Rabbi Chaim Balter"),
+            ShiurFullPage(speaker = "Rabbi Yitzchok Basser"),
+            ShiurFullPage(speaker = "Rabbi David Ashear"),
+            ShiurFullPage(speaker = "Rabbi Baruch Shalom HaLevi Ashlag"),
+            ShiurFullPage(speaker = "Rabbi Shmuel Auerbach"),
+            ShiurFullPage(speaker = "Rabbi Elkanah Austern"),
+            ShiurFullPage(speaker = "Rabbi Stephen Baars"),
+            ShiurFullPage(speaker = "Rabbi Shmuel Eliezer Baddiel"),
+            ShiurFullPage(speaker = "Rabbi Yudi Bakst"),
+            ShiurFullPage(speaker = "Rabbi Chaim Balter"),
+            ShiurFullPage(speaker = "Rabbi Yitzchok Basser"),
+            ShiurFullPage(speaker = "Rabbi Mordechai Becher"),
+            ShiurFullPage(speaker = "Rabbi Yosef Bechhofer"),
+            ShiurFullPage(speaker = "Rabbi Ian Beider"),
+            ShiurFullPage(speaker = "Rabbi Berel Bell"),
+            ShiurFullPage(speaker = "Rabbi Yisroel Belsky"),
+            ShiurFullPage(speaker = "Rabbi Yaakov Bender"),
+            ShiurFullPage(speaker = "Rabbi Yosef Berger"),
+            ShiurFullPage(speaker = "Rabbi Motty Berger"),
+            ShiurFullPage(speaker = "Rabbi Michael Berger"),
+            ShiurFullPage(speaker = "Rabbi Moshe Bergman"),
+            ShiurFullPage(speaker = "Rabbi Yitzchak Berkovits"),
+            ShiurFullPage(speaker = "Rabbi Tzvi Berkowitz"),
+            ShiurFullPage(speaker = "Rabbi Yitzchak Berkowitz"),
         )
         listOfSpeakerNames = mutableListOf()
         listOfSeriesNames = mutableListOf()
@@ -204,10 +204,10 @@ class RecentlyAddedShiurimPageActivity : AppCompatActivity(), TorahFilterable {
     }
 }
 
-private class ShiurAdapter(val originalShiurList: MutableList<Shiur>) :
+private class ShiurAdapter(val originalShiurFullPageList: MutableList<ShiurFullPage>) :
     RecyclerView.Adapter<ShiurAdapter.ShiurViewHolder>(), FastScroller.SectionIndexer {
-    //TODO consider making originalShiurList an immutable set (it never changes and it doesn't need doubles
-    val shiurList: MutableList<Shiur> = originalShiurList.toMutableList()
+    //TODO consider making originalShiurFullPageList an immutable set (it never changes and it doesn't need doubles
+    val shiurFullPageList: MutableList<ShiurFullPage> = originalShiurFullPageList.toMutableList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShiurViewHolder {
         val v = LayoutInflater.from(parent.context)
@@ -215,13 +215,13 @@ private class ShiurAdapter(val originalShiurList: MutableList<Shiur>) :
         return ShiurViewHolder(v)
     }
 
-    override fun getItemCount(): Int = shiurList.size
+    override fun getItemCount(): Int = shiurFullPageList.size
 
     override fun onBindViewHolder(holder: ShiurViewHolder, position: Int) =
-        holder.bindItems(shiurList[position])
+        holder.bindItems(shiurFullPageList[position])
 
     override fun getSectionText(position: Int): CharSequence =
-        shiurList[position].title.first().toString()
+        shiurFullPageList[position].title.first().toString()
 
     fun filter(tabType: TabType, constraint: String) {
 //TODO make filtering more efficient by using indices.
@@ -231,21 +231,21 @@ private class ShiurAdapter(val originalShiurList: MutableList<Shiur>) :
         while (completeListIndex < originalshiurList.size) {
             val shiur: shiur = originalshiurList[completeListIndex]
             if (shiur.name.toLowerCase(Locale.ROOT).trim().contains(constraint)) {
-                if (filteredListIndex < shiurList.size) {
-                    val filter: shiur = shiurList[filteredListIndex]
+                if (filteredListIndex < shiurFullPageList.size) {
+                    val filter: shiur = shiurFullPageList[filteredListIndex]
                     if (shiur.name != filter.name) {
-                        shiurList.add(filteredListIndex, shiur)
+                        shiurFullPageList.add(filteredListIndex, shiur)
                         notifyItemInserted(filteredListIndex)
                     }
                 } else {
-                    shiurList.add(filteredListIndex, shiur)
+                    shiurFullPageList.add(filteredListIndex, shiur)
                     notifyItemInserted(filteredListIndex)
                 }
                 filteredListIndex++
-            } else if (filteredListIndex < shiurList.size) {
-                val filter: shiur = shiurList[filteredListIndex]
+            } else if (filteredListIndex < shiurFullPageList.size) {
+                val filter: shiur = shiurFullPageList[filteredListIndex]
                 if (shiur.name==filter.name) {
-                    shiurList.removeAt(filteredListIndex)
+                    shiurFullPageList.removeAt(filteredListIndex)
                     notifyItemRemoved(filteredListIndex)
                 }
             }
@@ -253,12 +253,12 @@ private class ShiurAdapter(val originalShiurList: MutableList<Shiur>) :
         }
 */
 
-        shiurList.clear()
+        shiurFullPageList.clear()
         if (constraint.isEmpty()) {
-            shiurList.addAll(originalShiurList)
+            shiurFullPageList.addAll(originalShiurFullPageList)
         } else {
             val filterPattern = constraint.toLowerCase(Locale.ROOT).trim()
-            for (shiur in originalShiurList) {
+            for (shiur in originalShiurFullPageList) {
                 val filterReciever = when (tabType) {
                     TabType.CATEGORY -> shiur.category
                     TabType.SERIES -> shiur.series
@@ -266,7 +266,7 @@ private class ShiurAdapter(val originalShiurList: MutableList<Shiur>) :
                     else -> ""
                 }
                 if (filterReciever.toLowerCase(Locale.ROOT).contains(filterPattern)) {
-                    shiurList.add(shiur)
+                    shiurFullPageList.add(shiur)
                 }
             }
         }
@@ -275,21 +275,21 @@ private class ShiurAdapter(val originalShiurList: MutableList<Shiur>) :
 
     fun reset() {
         //TODO make reset more efficient by using indices.
-        shiurList.clear()
-        shiurList.addAll(originalShiurList)
+        shiurFullPageList.clear()
+        shiurFullPageList.addAll(originalShiurFullPageList)
         notifyDataSetChanged()
     }
 
     class ShiurViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bindItems(shiur: Shiur) {
+        fun bindItems(shiurFullPage: ShiurFullPage) {
             val shiurTitle = itemView.findViewById(R.id.category_title) as TextView?
             val shiurSpeaker = itemView.findViewById(R.id.shiur_speaker) as TextView?
             if (shiurTitle != null) {
-                shiurTitle.text = shiur.title
+                shiurTitle.text = shiurFullPage.title
             }
             if (shiurSpeaker != null) {
-                shiurSpeaker.text = shiur.speaker
+                shiurSpeaker.text = shiurFullPage.speaker
             }
         }
     }

@@ -8,10 +8,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import tech.torah.aldis.androidapp.PageViewModel
 import tech.torah.aldis.androidapp.R
-import tech.torah.aldis.androidapp.dataClassesAndInterfaces.Shiur
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.ShiurFullPage
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TabType
 
-class MoreFromThisFragment(/*originalShiur: Shiur*/shiurim: List<Shiur>) : Fragment() {
+class MoreFromThisFragment(/*originalShiur: ShiurFullPage*/shiurim: List<ShiurFullPage>) : Fragment() {
  private lateinit var pageViewModel: PageViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,7 +51,7 @@ class MoreFromThisFragment(/*originalShiur: Shiur*/shiurim: List<Shiur>) : Fragm
          * number.
          */
         @JvmStatic
-        fun newInstance(sectionNumber: Int, shiurim: List<Shiur>): MoreFromThisFragment {
+        fun newInstance(sectionNumber: Int, shiurim: List<ShiurFullPage>): MoreFromThisFragment {
             return MoreFromThisFragment(shiurim).apply {
                 arguments = Bundle().apply {
                     putInt(ARG_SECTION_NUMBER, sectionNumber)

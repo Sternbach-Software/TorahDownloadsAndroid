@@ -1,0 +1,285 @@
+{
+  "results": {
+    "speakers": [
+      {
+        "Name": "Rabbi Pesach Siegel",
+        "SpeakerID": "13",
+        "SEName": "rabbi-pesach-siegel",
+        "url": "\/s-13-rabbi-pesach-siegel.html"
+      }
+    ],
+    "categories": [
+      {
+        "Name": "Hilchos Pesach",
+        "CategoryID": "464",
+        "SEName": "hilchos-pesach",
+        "url": "\/c-464-hilchos-pesach.html"
+      },
+      {
+        "Name": "Leining for Pesach",
+        "CategoryID": "344",
+        "SEName": "leining-for-pesach",
+        "url": "\/c-344-leining-for-pesach.html"
+      },
+      {
+        "Name": "Pesach",
+        "CategoryID": "94",
+        "SEName": "pesach",
+        "url": "\/c-94-pesach.html"
+      }
+    ],
+    "shiurim_page": [
+      {
+        "ShiurID": "20373",
+        "Title": "#06 B'Sugya D'Ner Chanukah Al Kol Pesach Vepesach",
+        "Length": "1732",
+        "FormattedLength": "00:28:52",
+        "SpeakerID": "140",
+        "Speaker": "Rabbi Yaakov Moishe Shurkin",
+        "SpeakerSE": "rabbi- yaakov-moishe-shurkin",
+        "url": "\/shiur-20373.html"
+      },
+      {
+        "ShiurID": "1011473",
+        "Title": "#112 B'inyan Lavin D'lo Sosiru Memenu B'Korban Pesach V'Shaar Korbonos",
+        "Length": "2451",
+        "FormattedLength": "00:40:51",
+        "SpeakerID": "140",
+        "Speaker": "Rabbi Yaakov Moishe Shurkin",
+        "SpeakerSE": "rabbi- yaakov-moishe-shurkin",
+        "url": "\/shiur-1011473.html"
+      },
+      {
+        "ShiurID": "23655",
+        "Title": "#14 Bedin Stimas Hashinayim (Fillin''Gs Belaa''Z) Shebolu Chometz, Ubeoid Inyonei Pesach Veseder Leil Pesach",
+        "Length": "2598",
+        "FormattedLength": "00:43:18",
+        "SpeakerID": "140",
+        "Speaker": "Rabbi Yaakov Moishe Shurkin",
+        "SpeakerSE": "rabbi- yaakov-moishe-shurkin",
+        "url": "\/shiur-23655.html"
+      },
+      {
+        "ShiurID": "23656",
+        "Title": "#15 Beinyan Chatzi Shiur B'Mitzvos, Ubeinyan Bircas Shecheyonu Beseder Leil Pesach",
+        "Length": "2156",
+        "FormattedLength": "00:35:56",
+        "SpeakerID": "140",
+        "Speaker": "Rabbi Yaakov Moishe Shurkin",
+        "SpeakerSE": "rabbi- yaakov-moishe-shurkin",
+        "url": "\/shiur-23656.html"
+      },
+      {
+        "ShiurID": "1000435",
+        "Title": "#42 Beinyan Issurei Na uMevushal Bekorban Pesach",
+        "Length": "2415",
+        "FormattedLength": "00:40:15",
+        "SpeakerID": "140",
+        "Speaker": "Rabbi Yaakov Moishe Shurkin",
+        "SpeakerSE": "rabbi- yaakov-moishe-shurkin",
+        "url": "\/shiur-1000435.html"
+      },
+      {
+        "ShiurID": "1003745",
+        "Title": "#53 B'Inyonei Pesach",
+        "Length": "1842",
+        "FormattedLength": "00:30:42",
+        "SpeakerID": "140",
+        "Speaker": "Rabbi Yaakov Moishe Shurkin",
+        "SpeakerSE": "rabbi- yaakov-moishe-shurkin",
+        "url": "\/shiur-1003745.html"
+      },
+      {
+        "ShiurID": "1004452",
+        "Title": "#59 B'inyan Nashim Sheshochu Ya'aleh V'yovoi B'birkas Hamozon B'yom tov U'beseder Leil Pesach U'beshvuos Shehakol Modim B'atzeres D'bo'inan Nami Lochem",
+        "Length": "2679",
+        "FormattedLength": "00:44:39",
+        "SpeakerID": "140",
+        "Speaker": "Rabbi Yaakov Moishe Shurkin",
+        "SpeakerSE": "rabbi- yaakov-moishe-shurkin",
+        "url": "\/shiur-1004452.html"
+      },
+      {
+        "ShiurID": "1004504",
+        "Title": "#60 B'inyonei Pesach Sheini, U'beinyan Shmoi Shel Yehoshua Bin Nun",
+        "Length": "1556",
+        "FormattedLength": "00:25:56",
+        "SpeakerID": "140",
+        "Speaker": "Rabbi Yaakov Moishe Shurkin",
+        "SpeakerSE": "rabbi- yaakov-moishe-shurkin",
+        "url": "\/shiur-1004504.html"
+      },
+      {
+        "ShiurID": "1015184",
+        "Title": "(20) Pesach",
+        "Length": "3559",
+        "FormattedLength": "00:59:19",
+        "SpeakerID": "381",
+        "Speaker": "Rabbi Yechezkel Freundlich",
+        "SpeakerSE": "rabbi-yechezkel-freundlich",
+        "url": "\/shiur-1015184.html"
+      },
+      {
+        "ShiurID": "1012030",
+        "Title": "01 - Chametz on Pesach - Torah Obligation",
+        "Length": "274",
+        "FormattedLength": "00:04:34",
+        "SpeakerID": "67",
+        "Speaker": "Rabbi Dovid Rosenbaum",
+        "SpeakerSE": "rabbi-dovid-rosenbaum",
+        "url": "\/shiur-1012030.html"
+      },
+      {
+        "ShiurID": "1012031",
+        "Title": "02 - Chametz on Pesach - Bedikas Chametz 1",
+        "Length": "328",
+        "FormattedLength": "00:05:28",
+        "SpeakerID": "67",
+        "Speaker": "Rabbi Dovid Rosenbaum",
+        "SpeakerSE": "rabbi-dovid-rosenbaum",
+        "url": "\/shiur-1012031.html"
+      },
+      {
+        "ShiurID": "1012032",
+        "Title": "03 - Chametz on Pesach - Bedikas Chametz 2",
+        "Length": "357",
+        "FormattedLength": "00:05:57",
+        "SpeakerID": "67",
+        "Speaker": "Rabbi Dovid Rosenbaum",
+        "SpeakerSE": "rabbi-dovid-rosenbaum",
+        "url": "\/shiur-1012032.html"
+      },
+      {
+        "ShiurID": "1000818",
+        "Title": "0327- Pesachim 4- The Chometz of your Pesach apartment",
+        "Length": "678",
+        "FormattedLength": "00:11:18",
+        "SpeakerID": "202",
+        "Speaker": "Rabbi Mordechai Rhine",
+        "SpeakerSE": "rabbi-mordechai-rhine",
+        "url": "\/shiur-1000818.html"
+      },
+      {
+        "ShiurID": "1000819",
+        "Title": "0328- Pesachim 5- Erev Pesach Times",
+        "Length": "802",
+        "FormattedLength": "00:13:22",
+        "SpeakerID": "202",
+        "Speaker": "Rabbi Mordechai Rhine",
+        "SpeakerSE": "rabbi-mordechai-rhine",
+        "url": "\/shiur-1000819.html"
+      },
+      {
+        "ShiurID": "1000820",
+        "Title": "0329- Pesachim 6- If you find Chometz in your house on Pesach...",
+        "Length": "711",
+        "FormattedLength": "00:11:51",
+        "SpeakerID": "202",
+        "Speaker": "Rabbi Mordechai Rhine",
+        "SpeakerSE": "rabbi-mordechai-rhine",
+        "url": "\/shiur-1000820.html"
+      },
+      {
+        "ShiurID": "1000825",
+        "Title": "0334- Pesachim 11- Checking for Chometz on Pesach- Your Hotel Room",
+        "Length": "740",
+        "FormattedLength": "00:12:20",
+        "SpeakerID": "202",
+        "Speaker": "Rabbi Mordechai Rhine",
+        "SpeakerSE": "rabbi-mordechai-rhine",
+        "url": "\/shiur-1000825.html"
+      },
+      {
+        "ShiurID": "1000835",
+        "Title": "0344- Pesachim 21- Dual Time- What are the Kohanim doing on Erev Pesach",
+        "Length": "735",
+        "FormattedLength": "00:12:15",
+        "SpeakerID": "202",
+        "Speaker": "Rabbi Mordechai Rhine",
+        "SpeakerSE": "rabbi-mordechai-rhine",
+        "url": "\/shiur-1000835.html"
+      },
+      {
+        "ShiurID": "1000836",
+        "Title": "0345- Pesachim 22- Chometz on Pesach is prohibited in benefit",
+        "Length": "702",
+        "FormattedLength": "00:11:42",
+        "SpeakerID": "202",
+        "Speaker": "Rabbi Mordechai Rhine",
+        "SpeakerSE": "rabbi-mordechai-rhine",
+        "url": "\/shiur-1000836.html"
+      },
+      {
+        "ShiurID": "1000843",
+        "Title": "0352- Pesachim 29- Does Chometz on Pesach have value",
+        "Length": "727",
+        "FormattedLength": "00:12:07",
+        "SpeakerID": "202",
+        "Speaker": "Rabbi Mordechai Rhine",
+        "SpeakerSE": "rabbi-mordechai-rhine",
+        "url": "\/shiur-1000843.html"
+      },
+      {
+        "ShiurID": "1000869",
+        "Title": "0378- Pesachim 55- Relocating object to a secure location- erev pesach, chol hamoeid, and yom tov",
+        "Length": "734",
+        "FormattedLength": "00:12:14",
+        "SpeakerID": "202",
+        "Speaker": "Rabbi Mordechai Rhine",
+        "SpeakerSE": "rabbi-mordechai-rhine",
+        "url": "\/shiur-1000869.html"
+      },
+      {
+        "ShiurID": "1000874",
+        "Title": "0383- Pesachim 60- Korban Pesach during the year- Can inproper intent make it good",
+        "Length": "695",
+        "FormattedLength": "00:11:35",
+        "SpeakerID": "202",
+        "Speaker": "Rabbi Mordechai Rhine",
+        "SpeakerSE": "rabbi-mordechai-rhine",
+        "url": "\/shiur-1000874.html"
+      },
+      {
+        "ShiurID": "1000875",
+        "Title": "0384- Pesachim 61- Reservations for the Korban Pesach",
+        "Length": "516",
+        "FormattedLength": "00:08:36",
+        "SpeakerID": "202",
+        "Speaker": "Rabbi Mordechai Rhine",
+        "SpeakerSE": "rabbi-mordechai-rhine",
+        "url": "\/shiur-1000875.html"
+      },
+      {
+        "ShiurID": "1000878",
+        "Title": "0387- Pesachim 64- To Bring the Korban Pesach",
+        "Length": "556",
+        "FormattedLength": "00:09:16",
+        "SpeakerID": "202",
+        "Speaker": "Rabbi Mordechai Rhine",
+        "SpeakerSE": "rabbi-mordechai-rhine",
+        "url": "\/shiur-1000878.html"
+      },
+      {
+        "ShiurID": "1000880",
+        "Title": "0389- Pesachim 66- Korban Pesach on Shabbos- the pitfalls of getting angry",
+        "Length": "671",
+        "FormattedLength": "00:11:11",
+        "SpeakerID": "202",
+        "Speaker": "Rabbi Mordechai Rhine",
+        "SpeakerSE": "rabbi-mordechai-rhine",
+        "url": "\/shiur-1000880.html"
+      },
+      {
+        "ShiurID": "1000881",
+        "Title": "0390- Pesachim 67- When does Pesach Sheini apply",
+        "Length": "695",
+        "FormattedLength": "00:11:35",
+        "SpeakerID": "202",
+        "Speaker": "Rabbi Mordechai Rhine",
+        "SpeakerSE": "rabbi-mordechai-rhine",
+        "url": "\/shiur-1000881.html"
+      }
+    ],
+    "shiurim_total_count": "550"
+  }
+}

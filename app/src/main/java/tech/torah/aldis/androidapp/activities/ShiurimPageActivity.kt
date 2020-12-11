@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.l4digital.fastscroll.FastScroller
 import tech.torah.aldis.androidapp.R
-import tech.torah.aldis.androidapp.dataClassesAndInterfaces.Shiur
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.ShiurFullPage
 import tech.torah.aldis.androidapp.fragments.ShiurOptionsBottomSheetDialogFragment
 
 
@@ -92,30 +92,30 @@ class ShiurimPageActivity : AppCompatActivity() {
         val recyclerView: RecyclerView? = findViewById(R.id.recycler_view)
         recyclerView?.layoutManager = LinearLayoutManager(this)
         val listOfShiurim = mutableListOf(
-            Shiur(),
-            Shiur(),
-            Shiur(),
-            Shiur(),
-            Shiur(),
-            Shiur(),
-            Shiur(),
-            Shiur(),
-            Shiur(),
-            Shiur(),
-            Shiur(),
-            Shiur(),
-            Shiur(),
-            Shiur(),
-            Shiur(),
-            Shiur(),
-            Shiur(),
-            Shiur(),
-            Shiur(),
-            Shiur(),
-            Shiur(),
-            Shiur(),
-            Shiur(),
-            Shiur(),
+            ShiurFullPage(),
+            ShiurFullPage(),
+            ShiurFullPage(),
+            ShiurFullPage(),
+            ShiurFullPage(),
+            ShiurFullPage(),
+            ShiurFullPage(),
+            ShiurFullPage(),
+            ShiurFullPage(),
+            ShiurFullPage(),
+            ShiurFullPage(),
+            ShiurFullPage(),
+            ShiurFullPage(),
+            ShiurFullPage(),
+            ShiurFullPage(),
+            ShiurFullPage(),
+            ShiurFullPage(),
+            ShiurFullPage(),
+            ShiurFullPage(),
+            ShiurFullPage(),
+            ShiurFullPage(),
+            ShiurFullPage(),
+            ShiurFullPage(),
+            ShiurFullPage(),
         )
 
         shiurAdapter = ShiurAdapter(listOfShiurim)
@@ -148,10 +148,10 @@ class ShiurimPageActivity : AppCompatActivity() {
             show(supportFragmentManager, tag)
         }
     }
-    private class ShiurAdapter(originalShiurList: MutableList<Shiur>) :
+    private class ShiurAdapter(originalShiurFullPageList: MutableList<ShiurFullPage>) :
         RecyclerView.Adapter<ShiurAdapter.ShiurViewHolder>(), FastScroller.SectionIndexer {
 
-        val shiurList: MutableList<Shiur> = originalShiurList.toMutableList()
+        val shiurFullPageList: MutableList<ShiurFullPage> = originalShiurFullPageList.toMutableList()
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShiurViewHolder {
             val v = LayoutInflater.from(parent.context)
@@ -159,13 +159,13 @@ class ShiurimPageActivity : AppCompatActivity() {
             return ShiurViewHolder(v)
         }
 
-        override fun getItemCount(): Int = shiurList.size
+        override fun getItemCount(): Int = shiurFullPageList.size
 
         override fun onBindViewHolder(holder: ShiurViewHolder, position: Int) =
-            holder.bindItems(shiurList[position])
+            holder.bindItems(shiurFullPageList[position])
 
         override fun getSectionText(position: Int): CharSequence =
-            shiurList[position].title.first().toString()
+            shiurFullPageList[position].title.first().toString()
 /*
     fun filter(constraint: String){
 
@@ -176,21 +176,21 @@ class ShiurimPageActivity : AppCompatActivity() {
         while (completeListIndex < originalshiurList.size) {
             val shiur: shiur = originalshiurList[completeListIndex]
             if (shiur.name.toLowerCase(Locale.ROOT).trim().contains(constraint)) {
-                if (filteredListIndex < shiurList.size) {
-                    val filter: shiur = shiurList[filteredListIndex]
+                if (filteredListIndex < shiurFullPageList.size) {
+                    val filter: shiur = shiurFullPageList[filteredListIndex]
                     if (shiur.name != filter.name) {
-                        shiurList.add(filteredListIndex, shiur)
+                        shiurFullPageList.add(filteredListIndex, shiur)
                         notifyItemInserted(filteredListIndex)
                     }
                 } else {
-                    shiurList.add(filteredListIndex, shiur)
+                    shiurFullPageList.add(filteredListIndex, shiur)
                     notifyItemInserted(filteredListIndex)
                 }
                 filteredListIndex++
-            } else if (filteredListIndex < shiurList.size) {
-                val filter: shiur = shiurList[filteredListIndex]
+            } else if (filteredListIndex < shiurFullPageList.size) {
+                val filter: shiur = shiurFullPageList[filteredListIndex]
                 if (shiur.name==filter.name) {
-                    shiurList.removeAt(filteredListIndex)
+                    shiurFullPageList.removeAt(filteredListIndex)
                     notifyItemRemoved(filteredListIndex)
                 }
             }
@@ -199,14 +199,14 @@ class ShiurimPageActivity : AppCompatActivity() {
 */
 /*
 
-        shiurList.clear()
+        shiurFullPageList.clear()
         if (constraint.isEmpty()) {
-            shiurList.addAll(originalshiurList)
+            shiurFullPageList.addAll(originalshiurList)
         } else {
             val filterPattern = constraint.toLowerCase(Locale.ROOT).trim()
             for (shiur in originalshiurList) {
                 if (shiur.name.toLowerCase(Locale.ROOT).contains(filterPattern)) {
-                    shiurList.add(shiur)
+                    shiurFullPageList.add(shiur)
                 }
             }
         }
@@ -216,14 +216,14 @@ class ShiurimPageActivity : AppCompatActivity() {
 
         class ShiurViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-            fun bindItems(shiur: Shiur) {
+            fun bindItems(shiurFullPage: ShiurFullPage) {
                 val shiurTitle = itemView.findViewById(R.id.category_title) as TextView?
                 val shiurSpeaker = itemView.findViewById(R.id.shiur_speaker) as TextView?
                 if (shiurTitle != null) {
-                    shiurTitle.text = shiur.title
+                    shiurTitle.text = shiurFullPage.title
                 }
                 if (shiurSpeaker != null) {
-                    shiurSpeaker.text = shiur.speaker
+                    shiurSpeaker.text = shiurFullPage.speaker
                 }
             }
         }
