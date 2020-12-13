@@ -36,7 +36,13 @@
         </activity>
     <activity android:name=".activities.RecentlyAddedShiurimPageActivity"
         android:label="Recently Added Shiurim"/>
-    <activity android:name=".activities.TabsActivity">
+        <activity android:name=".activities.PlaylistsPageActivity"
+        android:label="Playlists"/>
+        <activity android:name=".activities.FavoritesPageActivity"
+        android:label="Favorites"/>
+        <activity android:name=".activities.DownloadsPageActivity"
+        android:label="Downloads"/>
+    <activity android:name=".activities.CategoriesPageActivity">
 <!--            <intent-filter>
             <action android:name="android.intent.action.MAIN" />
 

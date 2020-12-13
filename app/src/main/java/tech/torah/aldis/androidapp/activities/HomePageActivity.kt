@@ -7,7 +7,7 @@ import com.google.android.material.snackbar.Snackbar
 import android.view.View
 import tech.torah.aldis.androidapp.R
 
-
+private const val TAG = "HomePageActivity"
 @Suppress("UNUSED_PARAMETER")
 class HomePageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,26 +25,26 @@ class HomePageActivity : AppCompatActivity() {
         snackBar.show()*/
     }
     fun openPlaylistsPage(v: View) {
-        /*val intent = Intent(this@HomePageActivity, PlaylistsActivity::class.java)
-        this@HomePageActivity.startActivity(intent)*/
-        val snackBar = Snackbar.make(v, "TO BE IMPLEMENTED", Snackbar.LENGTH_SHORT).setAction(
+        val intent = Intent(this@HomePageActivity, PlaylistsPageActivity::class.java)
+        this@HomePageActivity.startActivity(intent)
+/*        val snackBar = Snackbar.make(v, "TO BE IMPLEMENTED", Snackbar.LENGTH_SHORT).setAction(
             "Action",
             null
         )
-        snackBar.show()
+        snackBar.show()*/
     }
     fun openFavoritesPage(v: View) {
-        /*val intent = Intent(this@HomePageActivity, PlaylistsActivity::class.java)
-        this@HomePageActivity.startActivity(intent)*/
-        val snackBar = Snackbar.make(v, "TO BE IMPLEMENTED", Snackbar.LENGTH_SHORT).setAction(
+        val intent = Intent(this@HomePageActivity, FavoritesPageActivity::class.java)
+        this@HomePageActivity.startActivity(intent)
+/*        val snackBar = Snackbar.make(v, "TO BE IMPLEMENTED", Snackbar.LENGTH_SHORT).setAction(
             "Action",
             null
         )
-        snackBar.show()
+        snackBar.show()*/
     }
     fun openDownloadsPage(v: View) {
-        /*val intent = Intent(this@HomePageActivity, PlaylistsActivity::class.java)
-        this@HomePageActivity.startActivity(intent)*/
+        val intent = Intent(this@HomePageActivity, DownloadsPageActivity::class.java)
+        this@HomePageActivity.startActivity(intent)
         val snackBar = Snackbar.make(v, "TO BE IMPLEMENTED", Snackbar.LENGTH_SHORT).setAction(
             "Action",
             null
@@ -61,7 +61,7 @@ class HomePageActivity : AppCompatActivity() {
         snackBar.show()
     }
     fun openCategoriesPage(v: View) {
-        val intent = Intent(this@HomePageActivity, TabsActivity::class.java)
+        val intent = Intent(this@HomePageActivity, CategoriesPageActivity::class.java)
         this@HomePageActivity.startActivity(intent)
         /* val snackBar = Snackbar.make(it,"TO BE IMPLEMENTED",Snackbar.LENGTH_SHORT).setAction("Action",null)
          snackBar.show()*/

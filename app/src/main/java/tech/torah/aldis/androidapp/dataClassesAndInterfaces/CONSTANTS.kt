@@ -503,4 +503,5 @@ object CONSTANTS {
         "Chochmas Adam",
     ).sorted()
     val genericListOfAvailableSeries = listOf("Amud Yomi", "Daf Yomi", "a")
+    val serverUrl = "https://www.torahdownloads.org"
 }

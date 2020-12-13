@@ -1,32 +1,34 @@
 package tech.torah.aldis.androidapp.activities
 
 import android.os.Bundle
-import android.view.*
-import android.widget.*
+import android.os.PersistableBundle
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.l4digital.fastscroll.FastScroller
 import tech.torah.aldis.androidapp.R
 import tech.torah.aldis.androidapp.ShiurAdapter
-import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TorahFilterable
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.ShiurFullPage
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TabType
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TorahFilterable
 import tech.torah.aldis.androidapp.fragments.ShiurOptionsBottomSheetDialogFragment
 import tech.torah.aldis.androidapp.fragments.SortOrFilterDialog
-import java.util.*
 
 private lateinit var listOfSpeakerNames: MutableList<String>
 private lateinit var listOfCategoryNames: MutableList<String>
 private lateinit var listOfSeriesNames: MutableList<String>
-private const val TAG = "RecentlyAddedShiurimPageActivity"
+private const val TAG = "FavoritesPageActivity"
 
-class RecentlyAddedShiurimPageActivity : AppCompatActivity(), TorahFilterable {
+class FavoritesPageActivity: AppCompatActivity(), TorahFilterable {
     private lateinit var shiurAdapter: ShiurAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.plain_recycler_view_layout)
 
+        //Populating the recycler view and page
         val recyclerView: RecyclerView? = findViewById(R.id.recycler_view)
         recyclerView?.layoutManager = LinearLayoutManager(this)
         val listOfShiurim = mutableListOf(
@@ -100,10 +102,9 @@ class RecentlyAddedShiurimPageActivity : AppCompatActivity(), TorahFilterable {
             listOfSeriesNames.add(shiur.series)
             listOfCategoryNames.add(shiur.category)
         }
-        shiurAdapter = ShiurAdapter(listOfShiurim)
+        val shiurAdapter = ShiurAdapter(listOfShiurim)
         recyclerView?.adapter = shiurAdapter
     }
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater = menuInflater
         inflater.inflate(R.menu.downloads_favorites_history_pages_menu, menu)
@@ -134,4 +135,3 @@ class RecentlyAddedShiurimPageActivity : AppCompatActivity(), TorahFilterable {
         }
     }
 }
-

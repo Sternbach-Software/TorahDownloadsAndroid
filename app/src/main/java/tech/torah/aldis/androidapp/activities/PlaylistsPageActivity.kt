@@ -1,35 +1,26 @@
 package tech.torah.aldis.androidapp.activities
 
 import android.os.Bundle
-import android.view.*
-import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.l4digital.fastscroll.FastScroller
+import tech.torah.aldis.androidapp.PlaylistAdapter
 import tech.torah.aldis.androidapp.R
 import tech.torah.aldis.androidapp.ShiurAdapter
-import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TorahFilterable
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.ShiurFullPage
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TabType
-import tech.torah.aldis.androidapp.fragments.ShiurOptionsBottomSheetDialogFragment
-import tech.torah.aldis.androidapp.fragments.SortOrFilterDialog
-import java.util.*
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TorahFilterable
 
-private lateinit var listOfSpeakerNames: MutableList<String>
-private lateinit var listOfCategoryNames: MutableList<String>
-private lateinit var listOfSeriesNames: MutableList<String>
-private const val TAG = "RecentlyAddedShiurimPageActivity"
-
-class RecentlyAddedShiurimPageActivity : AppCompatActivity(), TorahFilterable {
+class PlaylistsPageActivity: AppCompatActivity(), TorahFilterable {
     private lateinit var shiurAdapter: ShiurAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.plain_recycler_view_layout)
-
-        val recyclerView: RecyclerView? = findViewById(R.id.recycler_view)
+        setContentView(R.layout.individual_playlist_page_layout)
+        //Populating the recycler view and page
+        val recyclerView: RecyclerView? = findViewById(R.id.playlist_items_recycler_view)
         recyclerView?.layoutManager = LinearLayoutManager(this)
-        val listOfShiurim = mutableListOf(
+        val listOfPlaylists = mutableListOf(
             ShiurFullPage(speaker = "Rabbi Yehuda Ades"),
             ShiurFullPage(speaker = "Rabbi Gedaliah Anemer"),
             ShiurFullPage(speaker = "Rabbi David Ashear"),
@@ -91,47 +82,50 @@ class RecentlyAddedShiurimPageActivity : AppCompatActivity(), TorahFilterable {
             ShiurFullPage(speaker = "Rabbi Tzvi Berkowitz"),
             ShiurFullPage(speaker = "Rabbi Yitzchak Berkowitz"),
         )
-        listOfSpeakerNames = mutableListOf()
-        listOfSeriesNames = mutableListOf()
-        listOfCategoryNames = mutableListOf()
 
-        for (shiur in listOfShiurim) {
-            listOfSpeakerNames.add(shiur.speaker)
-            listOfSeriesNames.add(shiur.series)
-            listOfCategoryNames.add(shiur.category)
-        }
-        shiurAdapter = ShiurAdapter(listOfShiurim)
+        /*  val listOfPlaylists = mutableListOf(
+            "Playlist 1",
+            "Playlist 2",
+            "Playlist 3",
+            "Playlist 4",
+            "Playlist 5",
+            "Playlist 6",
+            "Playlist 7",
+            "Playlist 8",
+            "Playlist 9",
+            "Playlist 10",
+            "Playlist 11",
+            "Playlist 12",
+            "Playlist 13",
+            "Playlist 14",
+            "Playlist 15",
+            "Playlist 16",
+            "Playlist 17",
+            "Playlist 18",
+            "Playlist 1",
+            "Playlist 2",
+            "Playlist 3",
+            "Playlist 4",
+            "Playlist 5",
+            "Playlist 6",
+            "Playlist 7",
+            "Playlist 8",
+            "Playlist 9",
+            "Playlist 10",
+            "Playlist 11",
+            "Playlist 12",
+            "Playlist 13",
+            "Playlist 14",
+            "Playlist 15",
+            "Playlist 16",
+            "Playlist 17",
+            "Playlist 18",)*/
+
+        val shiurAdapter = ShiurAdapter(listOfPlaylists)
         recyclerView?.adapter = shiurAdapter
     }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val inflater = menuInflater
-        inflater.inflate(R.menu.downloads_favorites_history_pages_menu, menu)
-        val filterItem: MenuItem = menu!!.findItem(R.id.filter_button)
-        filterItem.setOnMenuItemClickListener {
-            SortOrFilterDialog(
-                this,
-                listOfSpeakerNames.toList(),
-                listOfCategoryNames.toList(),
-                listOfSeriesNames.toList()
-            )
-                // I figure that it is worth the cost of passing new objects to the sort dialog to avoid the cost of
-                // eventual bugs due to passing in a reference to a mutable list
-                .show(supportFragmentManager, TAG)
-            true
-        }
-        return true
-    }
-
     override fun callbackFilter(tabType: TabType, data: String) {
         if (tabType == TabType.ALL) shiurAdapter.reset()
         else shiurAdapter.filter(tabType, data)
     }
-
-    fun openOptionsMenu(v: View): Unit {
-        ShiurOptionsBottomSheetDialogFragment().apply {
-            show(supportFragmentManager, tag)
-        }
-    }
 }
-
