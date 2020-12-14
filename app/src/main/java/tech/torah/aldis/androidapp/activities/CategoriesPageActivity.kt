@@ -1,6 +1,7 @@
 package tech.torah.aldis.androidapp.activities
 
 import android.os.Bundle
+import android.util.Log
 import android.util.TypedValue
 import android.view.Gravity
 import android.widget.LinearLayout

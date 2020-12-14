@@ -2,19 +2,16 @@ package tech.torah.aldis.androidapp.activities
 
 import android.os.Bundle
 import android.view.*
-import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.l4digital.fastscroll.FastScroller
 import tech.torah.aldis.androidapp.R
-import tech.torah.aldis.androidapp.ShiurAdapter
+import tech.torah.aldis.androidapp.adapters.shiurAdapter.ShiurAdapter
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TorahFilterable
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.ShiurFullPage
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TabType
-import tech.torah.aldis.androidapp.fragments.ShiurOptionsBottomSheetDialogFragment
-import tech.torah.aldis.androidapp.fragments.SortOrFilterDialog
-import java.util.*
+import tech.torah.aldis.androidapp.dialogs.ShiurOptionsBottomSheetDialog
+import tech.torah.aldis.androidapp.dialogs.ShiurimSortOrFilterDialog
 
 private lateinit var listOfSpeakerNames: MutableList<String>
 private lateinit var listOfCategoryNames: MutableList<String>
@@ -30,66 +27,17 @@ class RecentlyAddedShiurimPageActivity : AppCompatActivity(), TorahFilterable {
         val recyclerView: RecyclerView? = findViewById(R.id.recycler_view)
         recyclerView?.layoutManager = LinearLayoutManager(this)
         val listOfShiurim = mutableListOf(
+            ShiurFullPage(),
+            ShiurFullPage(),
+            ShiurFullPage(),
+            ShiurFullPage(speaker = "Rabbi Yehuda Adesoiuggggggggduyhuhiubuybuhwuiadhiawhd",title = "Rabbi Yehuda Adesgggggggoiudhwuiadhytgytgyiawhdeifhiuhefiefhiueifeihiefheiufhuihfeihfeihiehuifhuiehuiefhiufuiehiufhiuefeiuifeiuefin"),
             ShiurFullPage(speaker = "Rabbi Yehuda Ades"),
-            ShiurFullPage(speaker = "Rabbi Gedaliah Anemer"),
-            ShiurFullPage(speaker = "Rabbi David Ashear"),
-            ShiurFullPage(speaker = "Rabbi Baruch Shalom HaLevi Ashlag"),
-            ShiurFullPage(speaker = "Rabbi Shmuel Auerbach"),
-            ShiurFullPage(speaker = "Rabbi Elkanah Austern"),
-            ShiurFullPage(speaker = "Rabbi Stephen Baars"),
-            ShiurFullPage(speaker = "Rabbi Shmuel Eliezer Baddiel"),
-            ShiurFullPage(speaker = "Rabbi Yudi Bakst"),
-            ShiurFullPage(speaker = "Rabbi Chaim Balter"),
-            ShiurFullPage(speaker = "Rabbi Yitzchok Basser"),
-            ShiurFullPage(speaker = "Rabbi David Ashear"),
-            ShiurFullPage(speaker = "Rabbi Baruch Shalom HaLevi Ashlag"),
-            ShiurFullPage(speaker = "Rabbi Shmuel Auerbach"),
-            ShiurFullPage(speaker = "Rabbi Elkanah Austern"),
-            ShiurFullPage(speaker = "Rabbi Stephen Baars"),
-            ShiurFullPage(speaker = "Rabbi Shmuel Eliezer Baddiel"),
-            ShiurFullPage(speaker = "Rabbi Yudi Bakst"),
-            ShiurFullPage(speaker = "Rabbi Chaim Balter"),
-            ShiurFullPage(speaker = "Rabbi Yitzchok Basser"),
-            ShiurFullPage(speaker = "Rabbi David Ashear"),
-            ShiurFullPage(speaker = "Rabbi Baruch Shalom HaLevi Ashlag"),
-            ShiurFullPage(speaker = "Rabbi Shmuel Auerbach"),
-            ShiurFullPage(speaker = "Rabbi Elkanah Austern"),
-            ShiurFullPage(speaker = "Rabbi Stephen Baars"),
-            ShiurFullPage(speaker = "Rabbi Shmuel Eliezer Baddiel"),
-            ShiurFullPage(speaker = "Rabbi Yudi Bakst"),
-            ShiurFullPage(speaker = "Rabbi Chaim Balter"),
-            ShiurFullPage(speaker = "Rabbi Yitzchok Basser"),
-            ShiurFullPage(speaker = "Rabbi David Ashear"),
-            ShiurFullPage(speaker = "Rabbi Baruch Shalom HaLevi Ashlag"),
-            ShiurFullPage(speaker = "Rabbi Shmuel Auerbach"),
-            ShiurFullPage(speaker = "Rabbi Elkanah Austern"),
-            ShiurFullPage(speaker = "Rabbi Stephen Baars"),
-            ShiurFullPage(speaker = "Rabbi Shmuel Eliezer Baddiel"),
-            ShiurFullPage(speaker = "Rabbi Yudi Bakst"),
-            ShiurFullPage(speaker = "Rabbi Chaim Balter"),
-            ShiurFullPage(speaker = "Rabbi Yitzchok Basser"),
-            ShiurFullPage(speaker = "Rabbi David Ashear"),
-            ShiurFullPage(speaker = "Rabbi Baruch Shalom HaLevi Ashlag"),
-            ShiurFullPage(speaker = "Rabbi Shmuel Auerbach"),
-            ShiurFullPage(speaker = "Rabbi Elkanah Austern"),
-            ShiurFullPage(speaker = "Rabbi Stephen Baars"),
-            ShiurFullPage(speaker = "Rabbi Shmuel Eliezer Baddiel"),
-            ShiurFullPage(speaker = "Rabbi Yudi Bakst"),
-            ShiurFullPage(speaker = "Rabbi Chaim Balter"),
-            ShiurFullPage(speaker = "Rabbi Yitzchok Basser"),
-            ShiurFullPage(speaker = "Rabbi Mordechai Becher"),
-            ShiurFullPage(speaker = "Rabbi Yosef Bechhofer"),
-            ShiurFullPage(speaker = "Rabbi Ian Beider"),
-            ShiurFullPage(speaker = "Rabbi Berel Bell"),
-            ShiurFullPage(speaker = "Rabbi Yisroel Belsky"),
-            ShiurFullPage(speaker = "Rabbi Yaakov Bender"),
-            ShiurFullPage(speaker = "Rabbi Yosef Berger"),
-            ShiurFullPage(speaker = "Rabbi Motty Berger"),
-            ShiurFullPage(speaker = "Rabbi Michael Berger"),
-            ShiurFullPage(speaker = "Rabbi Moshe Bergman"),
-            ShiurFullPage(speaker = "Rabbi Yitzchak Berkovits"),
-            ShiurFullPage(speaker = "Rabbi Tzvi Berkowitz"),
-            ShiurFullPage(speaker = "Rabbi Yitzchak Berkowitz"),
+            ShiurFullPage(speaker = "Rabbi Yehuda Ades",category = "A"),
+            ShiurFullPage(speaker = "Rabbi Yehuda Ades", category = "A"),
+            ShiurFullPage(speaker = "Rabbi Yehuda Ades",category = "A",series = "B"),
+            ShiurFullPage(speaker = "Rabbi Yehuda Ades",category = "A",series = "B"),
+            ShiurFullPage(speaker = "Rabbi 1Yehuda Ades",category = "A",series = "B"),
+            ShiurFullPage(speaker = "Rabbi 2Yehuda Ades",category = "A",series = "B"),
         )
         listOfSpeakerNames = mutableListOf()
         listOfSeriesNames = mutableListOf()
@@ -100,6 +48,12 @@ class RecentlyAddedShiurimPageActivity : AppCompatActivity(), TorahFilterable {
             listOfSeriesNames.add(shiur.series)
             listOfCategoryNames.add(shiur.category)
         }
+        listOfSpeakerNames = listOfSpeakerNames.toSet().toMutableList()
+        listOfSeriesNames = listOfSeriesNames.toSet().toMutableList()
+        listOfCategoryNames = listOfCategoryNames.toSet().toMutableList()
+        //TODO I have a feeling that all of this new object creating is using a lot of RAM.
+        // I do a significant amount of this also in ShiurAdapter, and anywhere which interfaces
+        // with ShiurimSortOrFilterDialog.
         shiurAdapter = ShiurAdapter(listOfShiurim)
         recyclerView?.adapter = shiurAdapter
     }
@@ -109,7 +63,7 @@ class RecentlyAddedShiurimPageActivity : AppCompatActivity(), TorahFilterable {
         inflater.inflate(R.menu.downloads_favorites_history_pages_menu, menu)
         val filterItem: MenuItem = menu!!.findItem(R.id.filter_button)
         filterItem.setOnMenuItemClickListener {
-            SortOrFilterDialog(
+            ShiurimSortOrFilterDialog(
                 this,
                 listOfSpeakerNames.toList(),
                 listOfCategoryNames.toList(),
@@ -123,15 +77,18 @@ class RecentlyAddedShiurimPageActivity : AppCompatActivity(), TorahFilterable {
         return true
     }
 
-    override fun callbackFilter(tabType: TabType, data: String) {
+    override fun callbackFilter(
+        tabType: TabType,
+        data: String,
+        filterWithinPreviousResults: Boolean
+    ) {
         if (tabType == TabType.ALL) shiurAdapter.reset()
-        else shiurAdapter.filter(tabType, data)
+        else shiurAdapter.filter(tabType, data/*,filterWithinPreviousResults*/)
     }
 
-    fun openOptionsMenu(v: View): Unit {
-        ShiurOptionsBottomSheetDialogFragment().apply {
+    fun openOptionsMenu(@Suppress("UNUSED_PARAMETER")v: View): Unit {
+        ShiurOptionsBottomSheetDialog().apply {
             show(supportFragmentManager, tag)
         }
     }
 }
-

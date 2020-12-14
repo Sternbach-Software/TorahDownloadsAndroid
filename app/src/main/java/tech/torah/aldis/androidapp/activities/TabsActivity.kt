@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import tech.torah.aldis.androidapp.R
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TabType
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TorahFilterable
-import tech.torah.aldis.androidapp.fragments.SortOrFilterDialog
+import tech.torah.aldis.androidapp.dialogs.ShiurimSortOrFilterDialog
 
 private const val TAG = "TabsActivity"
 
@@ -19,11 +19,15 @@ class TabsActivity : AppCompatActivity(), TorahFilterable {
         findViewById<Button>(R.id.buttonShowDialog).setOnClickListener { showDialog() }
     }
         private fun showDialog() {
-            val dialogFragment = SortOrFilterDialog(this,listOf("a","b"),listOf("c","d"),listOf("e","f"))
+            val dialogFragment = ShiurimSortOrFilterDialog(this,listOf("a","b"),listOf("c","d"),listOf("e","f"))
             dialogFragment.show(supportFragmentManager, TAG)
         }
 
-    override fun callbackFilter(tabType: TabType, data: String) {
+    override fun callbackFilter(
+        tabType: TabType,
+        data: String,
+        filterWithinPreviousResults: Boolean
+    ) {
         findViewById<TextView>(R.id.textView).text = data
     }
 

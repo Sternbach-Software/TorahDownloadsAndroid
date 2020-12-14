@@ -1,4 +1,4 @@
-package tech.torah.aldis.androidapp.fragments
+package tech.torah.aldis.androidapp.dialogs
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import tech.torah.aldis.androidapp.R
 
-class ShiurOptionsBottomSheetDialogFragment : BottomSheetDialogFragment() {
+class ShiurOptionsBottomSheetDialog : BottomSheetDialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

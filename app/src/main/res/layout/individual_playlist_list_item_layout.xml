@@ -1,18 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-<Button
-    android:layout_width="match_parent"
-    android:layout_height="100dp">
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/playlist_name_text_view"
-    android:layout_margin="10dp"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:text="Playlist name"
-    android:text="Playlist name"
-        android:clickable="true"/>
-</Button>
-</com.google.android.material.card.MaterialCardView>
+    android:layout_width="match_parent"
+    android:layout_height="45dp"
+    android:layout_marginStart="10dp">
+    <ImageView
+        android:id="@+id/drag_handle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:paddingEnd="10dp"
+        android:src="@drawable/ic_drag_handle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="visible"/>
+<ImageView
+        android:id="@+id/playlist_speaker_thumbnail"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:scaleType="centerCrop"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/al"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/drag_handle"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:orientation="vertical"
+        android:paddingTop="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/playlist_speaker_thumbnail"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/playlist_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="start|center"
+            android:textAppearance="?attr/textAppearanceListItem"
+            tools:text="Playlist name" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/playlist_number_of_shiurim"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="start|center"
+            tools:text="23 shiurim • 4 completed" />
+    </LinearLayout>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/total_time_of_playlist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        app:layout_constraintEnd_toStartOf="@id/more_options_button"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="1:05:20" />
+
+    <ImageView
+        android:id="@+id/more_options_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:onClick="openOptionsMenu"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:src="@drawable/ic_more_vert"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

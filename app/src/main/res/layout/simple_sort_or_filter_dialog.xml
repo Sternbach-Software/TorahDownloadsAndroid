@@ -73,13 +73,14 @@
         app:layout_constraintBottom_toTopOf="@+id/cancel_button_simple"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/radio_group_and_sort_layout_simple">
-
+<!--
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/filter_within_previous_results_checkbox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Filter within previous results"/>
@@ -91,7 +92,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/empty"
                 android:src="@drawable/ic_help_outline"/>
-        </LinearLayout>
+        </LinearLayout>-->
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:id="@+id/filter_criterion_dropdown"

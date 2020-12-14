@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.ShiurFullPage
 import tech.torah.aldis.androidapp.fragments.MoreFromThisFragment
+import tech.torah.aldis.androidapp.fragments.PlaceholderFragment
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to

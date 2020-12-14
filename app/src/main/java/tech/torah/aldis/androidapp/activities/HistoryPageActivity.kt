@@ -1,20 +1,32 @@
 package tech.torah.aldis.androidapp.activities
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import tech.torah.aldis.androidapp.R
-import tech.torah.aldis.androidapp.adapters.shiurAdapter.ShiurAdapter
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.ShiurFullPage
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TabType
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TorahFilterable
+import tech.torah.aldis.androidapp.dialogs.ShiurOptionsBottomSheetDialog
+import tech.torah.aldis.androidapp.adapters.shiurAdapter.ShiurAdapter
+import tech.torah.aldis.androidapp.dialogs.ShiurimSortOrFilterDialog
 
-class DownloadsPageActivity: AppCompatActivity(), TorahFilterable {
+private lateinit var listOfSpeakerNames: MutableList<String>
+private lateinit var listOfCategoryNames: MutableList<String>
+private lateinit var listOfSeriesNames: MutableList<String>
+private const val TAG = "HistoryPageActivity"
+
+class HistoryPageActivity: AppCompatActivity(), TorahFilterable {
     private lateinit var shiurAdapter: ShiurAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.plain_recycler_view_layout)
+
         //Populating the recycler view and page
         val recyclerView: RecyclerView? = findViewById(R.id.recycler_view)
         recyclerView?.layoutManager = LinearLayoutManager(this)
@@ -80,9 +92,9 @@ class DownloadsPageActivity: AppCompatActivity(), TorahFilterable {
             ShiurFullPage(speaker = "Rabbi Tzvi Berkowitz"),
             ShiurFullPage(speaker = "Rabbi Yitzchak Berkowitz"),
         )
-        val listOfSpeakerNames = mutableListOf<String>()
-        val listOfSeriesNames = mutableListOf<String>()
-        val listOfCategoryNames = mutableListOf<String>()
+        listOfSpeakerNames = mutableListOf()
+        listOfSeriesNames = mutableListOf()
+        listOfCategoryNames = mutableListOf()
 
         for (shiur in listOfShiurim) {
             listOfSpeakerNames.add(shiur.speaker)
@@ -92,6 +104,25 @@ class DownloadsPageActivity: AppCompatActivity(), TorahFilterable {
         val shiurAdapter = ShiurAdapter(listOfShiurim)
         recyclerView?.adapter = shiurAdapter
     }
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.downloads_favorites_history_pages_menu, menu)
+        val filterItem: MenuItem = menu!!.findItem(R.id.filter_button)
+        filterItem.setOnMenuItemClickListener {
+            ShiurimSortOrFilterDialog(
+                this,
+                listOfSpeakerNames.toList(),
+                listOfCategoryNames.toList(),
+                listOfSeriesNames.toList()
+            )
+                // I figure that it is worth the cost of passing new objects to the sort dialog to avoid the cost of
+                // eventual bugs due to passing in a reference to a mutable list
+                .show(supportFragmentManager, TAG)
+            true
+        }
+        return true
+    }
+
     override fun callbackFilter(
         tabType: TabType,
         data: String,
@@ -99,5 +130,11 @@ class DownloadsPageActivity: AppCompatActivity(), TorahFilterable {
     ) {
         if (tabType == TabType.ALL) shiurAdapter.reset()
         else shiurAdapter.filter(tabType, data/*,filterWithinPreviousResults*/)
+    }
+
+    fun openOptionsMenu(@Suppress("UNUSED_PARAMETER")v: View): Unit {
+        ShiurOptionsBottomSheetDialog().apply {
+            show(supportFragmentManager, tag)
+        }
     }
 }

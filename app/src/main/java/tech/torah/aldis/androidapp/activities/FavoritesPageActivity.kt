@@ -1,7 +1,6 @@
 package tech.torah.aldis.androidapp.activities
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -9,12 +8,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import tech.torah.aldis.androidapp.R
-import tech.torah.aldis.androidapp.ShiurAdapter
+import tech.torah.aldis.androidapp.adapters.shiurAdapter.ShiurAdapter
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.ShiurFullPage
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TabType
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TorahFilterable
-import tech.torah.aldis.androidapp.fragments.ShiurOptionsBottomSheetDialogFragment
-import tech.torah.aldis.androidapp.fragments.SortOrFilterDialog
+import tech.torah.aldis.androidapp.dialogs.ShiurOptionsBottomSheetDialog
+import tech.torah.aldis.androidapp.dialogs.ShiurimSortOrFilterDialog
 
 private lateinit var listOfSpeakerNames: MutableList<String>
 private lateinit var listOfCategoryNames: MutableList<String>
@@ -110,7 +109,7 @@ class FavoritesPageActivity: AppCompatActivity(), TorahFilterable {
         inflater.inflate(R.menu.downloads_favorites_history_pages_menu, menu)
         val filterItem: MenuItem = menu!!.findItem(R.id.filter_button)
         filterItem.setOnMenuItemClickListener {
-            SortOrFilterDialog(
+            ShiurimSortOrFilterDialog(
                 this,
                 listOfSpeakerNames.toList(),
                 listOfCategoryNames.toList(),
@@ -124,13 +123,17 @@ class FavoritesPageActivity: AppCompatActivity(), TorahFilterable {
         return true
     }
 
-    override fun callbackFilter(tabType: TabType, data: String) {
+    override fun callbackFilter(
+        tabType: TabType,
+        data: String,
+        filterWithinPreviousResults: Boolean
+    ) {
         if (tabType == TabType.ALL) shiurAdapter.reset()
-        else shiurAdapter.filter(tabType, data)
+        else shiurAdapter.filter(tabType, data/*,filterWithinPreviousResults*/)
     }
 
-    fun openOptionsMenu(v: View): Unit {
-        ShiurOptionsBottomSheetDialogFragment().apply {
+    fun openOptionsMenu(@Suppress("UNUSED_PARAMETER") v: View): Unit {
+        ShiurOptionsBottomSheetDialog().apply {
             show(supportFragmentManager, tag)
         }
     }

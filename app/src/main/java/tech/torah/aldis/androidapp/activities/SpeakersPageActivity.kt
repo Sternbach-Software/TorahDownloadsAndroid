@@ -297,7 +297,8 @@ private class SpeakerAdapter(val originalSpeakerList: MutableList<Speaker>) : Re
             if (speakerDescription != null) {
                 speakerDescription.text = speaker.description
             }
-            speakerImageView = itemView.findViewById(R.id.speaker_image)
+            speakerImageView = itemView.findViewById(R.id.playlist_speaker_thumbnail)
+            //TODO Refactor mistake: R.id.playlist_speaker_thumbnail should be changed to R.id.speaker_image
             speakerImageView.setImageResource(drawables[speakerPictureCount])
             speakerPictureCount = (speakerPictureCount+1) % drawables.size
         }

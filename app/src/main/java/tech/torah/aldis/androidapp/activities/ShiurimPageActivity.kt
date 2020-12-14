@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.l4digital.fastscroll.FastScroller
 import tech.torah.aldis.androidapp.R
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.ShiurFullPage
-import tech.torah.aldis.androidapp.fragments.ShiurOptionsBottomSheetDialogFragment
+import tech.torah.aldis.androidapp.dialogs.ShiurOptionsBottomSheetDialog
 
 
 private var shiurPictureCount = 0
@@ -143,8 +143,8 @@ class ShiurimPageActivity : AppCompatActivity() {
        }
 }
 */
-    fun openOptionsMenu(v: View): Unit {
-        ShiurOptionsBottomSheetDialogFragment().apply {
+    fun openOptionsMenu(@Suppress("UNUSED_PARAMETER")v: View): Unit {
+        ShiurOptionsBottomSheetDialog().apply {
             show(supportFragmentManager, tag)
         }
     }
@@ -217,7 +217,7 @@ class ShiurimPageActivity : AppCompatActivity() {
         class ShiurViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
             fun bindItems(shiurFullPage: ShiurFullPage) {
-                val shiurTitle = itemView.findViewById(R.id.category_title) as TextView?
+                val shiurTitle = itemView.findViewById(R.id.shiur_title) as TextView?
                 val shiurSpeaker = itemView.findViewById(R.id.shiur_speaker) as TextView?
                 if (shiurTitle != null) {
                     shiurTitle.text = shiurFullPage.title

@@ -28,7 +28,7 @@
 
             <!-- Media -->
             <ImageView
-                android:id="@+id/speaker_image"
+                android:id="@+id/playlist_speaker_thumbnail"
                 android:layout_width="match_parent"
                 android:layout_height="270dp"
                 tools:src="@drawable/e"

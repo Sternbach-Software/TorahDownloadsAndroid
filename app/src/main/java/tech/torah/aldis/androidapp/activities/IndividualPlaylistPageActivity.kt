@@ -4,14 +4,13 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import tech.torah.aldis.androidapp.PlaylistAdapter
 import tech.torah.aldis.androidapp.R
-import tech.torah.aldis.androidapp.ShiurAdapter
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.ShiurFullPage
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TabType
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TorahFilterable
+import tech.torah.aldis.androidapp.adapters.shiurAdapter.ShiurAdapter
 
-class PlaylistsPageActivity: AppCompatActivity(), TorahFilterable {
+class IndividualPlaylistPageActivity: AppCompatActivity(), TorahFilterable {
     private lateinit var shiurAdapter: ShiurAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -124,8 +123,12 @@ class PlaylistsPageActivity: AppCompatActivity(), TorahFilterable {
         val shiurAdapter = ShiurAdapter(listOfPlaylists)
         recyclerView?.adapter = shiurAdapter
     }
-    override fun callbackFilter(tabType: TabType, data: String) {
+    override fun callbackFilter(
+        tabType: TabType,
+        data: String,
+        filterWithinPreviousResults: Boolean
+    ) {
         if (tabType == TabType.ALL) shiurAdapter.reset()
-        else shiurAdapter.filter(tabType, data)
+        else shiurAdapter.filter(tabType, data/*,filterWithinPreviousResults*/)
     }
 }

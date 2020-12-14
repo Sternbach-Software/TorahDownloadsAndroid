@@ -9,46 +9,37 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialComponents.DayNight">
-        <activity
-            android:name=".activities.ShiurimPageActivity"
-            android:label="@string/shiurim_activity_name">
-          <!--  <intent-filter>
+        <activity android:name=".activities.HomePageActivity">
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
         </activity>
         <activity
+            android:name=".activities.ShiurimPageActivity"
+            android:label="@string/shiurim_activity_name"/>
+        <activity
             android:name=".activities.SpeakerPageActivity"
-            android:label="@string/speakers_activity_name">
-            <!--<intent-filter>
-               <action android:name="android.intent.action.MAIN" />
-
-               <category android:name="android.intent.category.LAUNCHER" />
-           </intent-filter>-->
-        </activity>
-        <activity android:name=".activities.HomePageActivity">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-        </activity>
-    <activity android:name=".activities.RecentlyAddedShiurimPageActivity"
-        android:label="Recently Added Shiurim"/>
-        <activity android:name=".activities.PlaylistsPageActivity"
-        android:label="Playlists"/>
-        <activity android:name=".activities.FavoritesPageActivity"
-        android:label="Favorites"/>
-        <activity android:name=".activities.DownloadsPageActivity"
-        android:label="Downloads"/>
-    <activity android:name=".activities.CategoriesPageActivity">
-<!--            <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>-->
-        </activity>
+            android:label="@string/speakers_activity_name"/>
+        <activity
+            android:name=".activities.RecentlyAddedShiurimPageActivity"
+            android:label="Recently Added Shiurim" />
+        <activity
+            android:name=".activities.ListOfPlaylistsPageActivity"
+            android:label="Playlists" />
+        <activity
+            android:name=".activities.FavoritesPageActivity"
+            android:label="Favorites" />
+        <activity
+            android:name=".activities.DownloadsPageActivity"
+            android:label="Downloads" />
+        <activity
+            android:name=".activities.CategoriesPageActivity"
+            android:label="Categories" />
+        <activity
+            android:name=".activities.HistoryPageActivity"
+            android:label="History" />
     </application>
 
 </manifest>

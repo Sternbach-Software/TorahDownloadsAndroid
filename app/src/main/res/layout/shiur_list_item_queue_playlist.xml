@@ -7,7 +7,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <ImageView
-        android:id="@+id/drag_handle"
+        android:id="@+id/playlist_speaker_thumbnail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
@@ -23,23 +23,23 @@
         android:orientation="vertical"
         android:paddingTop="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/drag_handle"
+        app:layout_constraintStart_toEndOf="@id/playlist_speaker_thumbnail"
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/playlist_title"
+            android:id="@+id/shiur_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="start|center"
             android:textAppearance="?attr/textAppearanceListItem"
-            tools:text="Playlist name" />
+            android:text="Chinuch - Shiur 1" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/playlist_number_of_shiurim"
+            android:id="@+id/speaker_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="start|center"
-            tools:text="23 shiurim • 4 completed" />
+            android:text="Rabbi Yisroel Belsky" />
     </LinearLayout>
 
     <com.google.android.material.textview.MaterialTextView
@@ -50,7 +50,7 @@
 
         app:layout_constraintEnd_toStartOf="@id/more_options_button"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="1:05:20" />
+        android:text="1:05:20" />
 
     <ImageView
         android:id="@+id/more_options_button"

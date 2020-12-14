@@ -25,7 +25,7 @@ class HomePageActivity : AppCompatActivity() {
         snackBar.show()*/
     }
     fun openPlaylistsPage(v: View) {
-        val intent = Intent(this@HomePageActivity, PlaylistsPageActivity::class.java)
+        val intent = Intent(this@HomePageActivity, ListOfPlaylistsPageActivity::class.java)
         this@HomePageActivity.startActivity(intent)
 /*        val snackBar = Snackbar.make(v, "TO BE IMPLEMENTED", Snackbar.LENGTH_SHORT).setAction(
             "Action",
