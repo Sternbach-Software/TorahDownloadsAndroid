@@ -138,7 +138,7 @@ class ChooserFastScrollerDialog(
         override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder =
             ViewHolder(
                 LayoutInflater.from(viewGroup.context)
-                    .inflate(R.layout.simple_grey_text_view, viewGroup, false)
+                    .inflate(R.layout.simple_grey_text_view_card, viewGroup, false)
             )
 
         override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {

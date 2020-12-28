@@ -3,6 +3,7 @@ package tech.torah.aldis.androidapp.activities
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
@@ -22,7 +23,6 @@ class ListOfPlaylistsPageActivity: AppCompatActivity(), TorahFilterable {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.plain_recycler_view_layout)
-        //Populating the recycler view and page
         val recyclerView: RecyclerView? = findViewById(R.id.recycler_view)
         recyclerView?.layoutManager = LinearLayoutManager(this)
         val listOfPlaylists = listOf(
@@ -63,10 +63,10 @@ class ListOfPlaylistsPageActivity: AppCompatActivity(), TorahFilterable {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater = menuInflater
         inflater.inflate(R.menu.downloads_favorites_history_pages_menu, menu)
-        val searchItem: MenuItem = menu!!.findItem(R.id.actionSearch)
-        val searchView: SearchView = searchItem.actionView as SearchView
-        val filterItem: MenuItem = menu!!.findItem(R.id.filter_button)
-        filterItem.setOnMenuItemClickListener {
+        val searchItem: MenuItem? = menu?.findItem(R.id.actionSearch)
+        val searchView: SearchView? = searchItem?.actionView as SearchView?
+        val filterItem: MenuItem? = menu?.findItem(R.id.filter_button)
+        filterItem?.setOnMenuItemClickListener {
 //            ShiurimSortOrFilterDialog(
 //                this,
 //                listOfSpeakerNames.toList(),
@@ -78,8 +78,8 @@ class ListOfPlaylistsPageActivity: AppCompatActivity(), TorahFilterable {
 //                .show(supportFragmentManager, TAG)
             true
         }
-        searchView.imeOptions = EditorInfo.IME_ACTION_DONE
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        searchView?.imeOptions = EditorInfo.IME_ACTION_DONE
+        searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
 //                playlistAdapter.filter(query ?: "")
                 return false
@@ -92,4 +92,6 @@ class ListOfPlaylistsPageActivity: AppCompatActivity(), TorahFilterable {
         })
         return true
     }
+
+    fun openOptionsMenu(view: View) {}
 }

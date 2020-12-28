@@ -4,7 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="45dp"
-    android:layout_marginStart="10dp">
+    android:layout_marginStart="10dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:background="@drawable/ripple">
     <ImageView
         android:id="@+id/drag_handle"
         android:layout_width="wrap_content"
@@ -15,7 +18,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:visibility="visible"/>
+        android:visibility="visible"
+        android:clickable="true"
+        android:focusable="true"/>
 <ImageView
         android:id="@+id/playlist_speaker_thumbnail"
         android:layout_width="40dp"
@@ -38,19 +43,19 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/playlist_title"
+            android:id="@+id/list_item_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="start|center"
             android:textAppearance="?attr/textAppearanceListItem"
-            tools:text="Playlist name" />
+            tools:text="Playlist name/Shiur name" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/playlist_number_of_shiurim"
+            android:id="@+id/subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="start|center"
-            tools:text="23 shiurim • 4 completed" />
+            tools:text="23 shiurim • 4 completed/Speaker name" />
     </LinearLayout>
 
     <com.google.android.material.textview.MaterialTextView
@@ -67,10 +72,10 @@
         android:id="@+id/more_options_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clickable="true"
-        android:onClick="openOptionsMenu"
         android:paddingStart="15dp"
         android:paddingEnd="15dp"
+        android:clickable="true"
+        android:onClick="openOptionsMenu"
         android:src="@drawable/ic_more_vert"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

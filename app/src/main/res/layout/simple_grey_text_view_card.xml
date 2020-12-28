@@ -9,6 +9,8 @@
     app:cardElevation="3dp"
     android:focusable="true"
     android:longClickable="true">
+    <!--all above margins are deisgned for fastscroller-->
+
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/text_view"
         android:layout_width="match_parent"
