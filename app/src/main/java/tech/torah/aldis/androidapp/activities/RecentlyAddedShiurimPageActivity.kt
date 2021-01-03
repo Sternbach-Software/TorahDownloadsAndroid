@@ -7,11 +7,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import tech.torah.aldis.androidapp.R
 import tech.torah.aldis.androidapp.adapters.shiurAdapter.ShiurAdapter
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.FunctionLibrary
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TorahFilterable
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.ShiurFullPage
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TabType
 import tech.torah.aldis.androidapp.dialogs.ShiurOptionsBottomSheetDialog
-import tech.torah.aldis.androidapp.dialogs.ShiurimSortOrFilterDialog
 
 private lateinit var listOfSpeakerNames: MutableList<String>
 private lateinit var listOfCategoryNames: MutableList<String>
@@ -59,32 +59,28 @@ class RecentlyAddedShiurimPageActivity : AppCompatActivity(), TorahFilterable {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val inflater = menuInflater
-        inflater.inflate(R.menu.downloads_favorites_history_pages_menu, menu)
-        val filterItem: MenuItem = menu!!.findItem(R.id.filter_button)
-        filterItem.setOnMenuItemClickListener {
-            ShiurimSortOrFilterDialog(
-                this,
-                listOfSpeakerNames.toList(),
-                listOfCategoryNames.toList(),
-                listOfSeriesNames.toList()
-            )
-                // I figure that it is worth the cost of passing new objects to the sort dialog to avoid the cost of
-                // eventual bugs due to passing in a reference to a mutable list
-                .show(supportFragmentManager, TAG)
-            true
-        }
+        FunctionLibrary.setupFilterAndSearch(
+            menu,
+            menuInflater,
+            this,
+            supportFragmentManager,
+            TAG,
+            listOfSpeakerNames,
+            listOfCategoryNames,
+            listOfSeriesNames
+        )
+        //</editor-fold>
         return true
     }
 
-    override fun callbackFilter(
-        tabType: TabType,
-        data: String,
-        filterWithinPreviousResults: Boolean
-    ) {
-        if (tabType == TabType.ALL) shiurAdapter.reset()
-        else shiurAdapter.filter(tabType, data/*,filterWithinPreviousResults*/)
+
+
+//    override fun filter(constraint: String) = shiurAdapter.filter(constraint , tabType =  TabType.NONE)
+    override fun filter(constraint: String, tabType: TabType) {
+    shiurAdapter.filter(constraint , tabType = tabType)
     }
+
+    override fun reset() = shiurAdapter.reset()
 
     fun openOptionsMenu(@Suppress("UNUSED_PARAMETER")v: View): Unit {
         ShiurOptionsBottomSheetDialog().apply {

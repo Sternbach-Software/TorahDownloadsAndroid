@@ -10,9 +10,7 @@
     android:layout_marginTop="5dp"
     android:layout_marginEnd="25dp"
     android:layout_marginStart="5dp"
-    app:cardElevation="3dp"
-    android:focusable="true"
-    android:longClickable="true">
+    app:cardElevation="3dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/shiur_card_constraint_layout_after_image"
@@ -36,18 +34,18 @@
             android:scaleType="fitCenter"
             android:src="@drawable/ic_cancel"
             android:background="@drawable/red_background"
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"
             android:backgroundTint="?attr/colorError"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-        </ImageView>
+            app:layout_constraintTop_toTopOf="parent"
+            android:focusable="true"
+            android:clickable="true"/>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/text_view"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:gravity="start|center"
-            xmlns:tools="http://schemas.android.com/tools"
             tools:text="abcdeghijklmnopqrstuvwxyz"
             android:text="abcdeghijklmnopqrstuvwxyz"
             app:layout_constraintStart_toStartOf="parent"

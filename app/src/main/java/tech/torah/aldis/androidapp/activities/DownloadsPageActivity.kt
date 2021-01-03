@@ -1,17 +1,26 @@
 package tech.torah.aldis.androidapp.activities
 
 import android.os.Bundle
+import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import tech.torah.aldis.androidapp.R
 import tech.torah.aldis.androidapp.adapters.shiurAdapter.ShiurAdapter
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.FunctionLibrary
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.ShiurFullPage
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TabType
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TorahFilterable
+import kotlin.properties.Delegates
 
-class DownloadsPageActivity: AppCompatActivity(), TorahFilterable {
+private const val TAG = "DownloadsPageActivity"
+
+class DownloadsPageActivity : AppCompatActivity(), TorahFilterable {
     private lateinit var shiurAdapter: ShiurAdapter
+    private val listOfSpeakerNames = mutableListOf<String>()
+    private val listOfSeriesNames = mutableListOf<String>()
+    private val listOfCategoryNames = mutableListOf<String>()
+    private var filterWithinPreviousResults by Delegates.notNull<Boolean>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.plain_recycler_view_layout)
@@ -80,24 +89,38 @@ class DownloadsPageActivity: AppCompatActivity(), TorahFilterable {
             ShiurFullPage(speaker = "Rabbi Tzvi Berkowitz"),
             ShiurFullPage(speaker = "Rabbi Yitzchak Berkowitz"),
         )
-        val listOfSpeakerNames = mutableListOf<String>()
-        val listOfSeriesNames = mutableListOf<String>()
-        val listOfCategoryNames = mutableListOf<String>()
+
 
         for (shiur in listOfShiurim) {
             listOfSpeakerNames.add(shiur.speaker)
             listOfSeriesNames.add(shiur.series)
             listOfCategoryNames.add(shiur.category)
         }
-        val shiurAdapter = ShiurAdapter(listOfShiurim)
+        shiurAdapter = ShiurAdapter(listOfShiurim)
         recyclerView?.adapter = shiurAdapter
     }
-    override fun callbackFilter(
-        tabType: TabType,
-        data: String,
-        filterWithinPreviousResults: Boolean
-    ) {
-        if (tabType == TabType.ALL) shiurAdapter.reset()
-        else shiurAdapter.filter(tabType, data/*,filterWithinPreviousResults*/)
+/*
+    override fun filter(
+        constraint: String
+    ) = shiurAdapter.filter(constraint, tabType = TabType.NONE)*/
+
+    override fun filter(
+        constraint: String, tabType: TabType
+    ) = shiurAdapter.filter(constraint, tabType = tabType)
+
+    override fun reset() = shiurAdapter.reset()
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        super.onCreateOptionsMenu(menu)
+        FunctionLibrary.setupFilterAndSearch(
+            menu,
+            menuInflater,
+            this,
+            supportFragmentManager,
+            TAG,
+            listOfSpeakerNames,
+            listOfCategoryNames,
+            listOfSeriesNames
+        )
+        return true
     }
 }

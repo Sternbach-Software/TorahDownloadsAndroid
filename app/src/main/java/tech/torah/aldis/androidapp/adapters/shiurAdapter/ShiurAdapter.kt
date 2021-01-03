@@ -7,11 +7,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.l4digital.fastscroll.FastScroller
 import tech.torah.aldis.androidapp.R
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.FunctionLibrary
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.ShiurFullPage
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TabType
-import java.util.*
+
 private const val TAG = "ShiurAdapter"
-class ShiurAdapter(private val originalShiurFullPageList: MutableList<ShiurFullPage>) :
+class ShiurAdapter(private val originalShiurFullPageList: List<ShiurFullPage>) :
     RecyclerView.Adapter<ShiurAdapter.ShiurViewHolder>(), FastScroller.SectionIndexer {
     //TODO consider making originalShiurFullPageList an immutable set (it never changes and it doesn't need doubles
     private val shiurFullPageList: MutableList<ShiurFullPage> = originalShiurFullPageList.toMutableList()
@@ -30,61 +31,20 @@ class ShiurAdapter(private val originalShiurFullPageList: MutableList<ShiurFullP
     override fun getSectionText(position: Int): CharSequence =
         shiurFullPageList[position].title.first().toString()
 
-    fun filter(tabType: TabType, constraint: String) {
-//TODO make filtering more efficient by using indices.
-/*
-        var completeListIndex = 0
-        var filteredListIndex = 0
-        while (completeListIndex < originalshiurList.size) {
-            val shiur: shiur = originalshiurList[completeListIndex]
-            if (shiur.name.toLowerCase(Locale.ROOT).trim().contains(constraint)) {
-                if (filteredListIndex < shiurFullPageList.size) {
-                    val filter: shiur = shiurFullPageList[filteredListIndex]
-                    if (shiur.name != filter.name) {
-                        shiurFullPageList.add(filteredListIndex, shiur)
-                        notifyItemInserted(filteredListIndex)
-                    }
-                } else {
-                    shiurFullPageList.add(filteredListIndex, shiur)
-                    notifyItemInserted(filteredListIndex)
-                }
-                filteredListIndex++
-            } else if (filteredListIndex < shiurFullPageList.size) {
-                val filter: shiur = shiurFullPageList[filteredListIndex]
-                if (shiur.name==filter.name) {
-                    shiurFullPageList.removeAt(filteredListIndex)
-                    notifyItemRemoved(filteredListIndex)
-                }
-            }
-            completeListIndex++
-        }
-*/
-
-        shiurFullPageList.clear()
-        if (constraint.isEmpty()) {
-            shiurFullPageList.addAll(originalShiurFullPageList)
-        } else {
-            val filterPattern = constraint.toLowerCase(Locale.ROOT).trim()
-            for (shiur in originalShiurFullPageList) {
-                val filterReciever = when (tabType) {
-                    TabType.CATEGORY -> shiur.category
-                    TabType.SERIES -> shiur.series
-                    TabType.SPEAKER -> shiur.speaker
-                    else -> ""
-                }
-                if (filterReciever.toLowerCase(Locale.ROOT) == filterPattern) {
-                    shiurFullPageList.add(shiur)
-                }
-            }
-        }
-        notifyDataSetChanged()
+    fun filter(constraint: String, filterWithinPreviousResults: Boolean = false, tabType: TabType) {
+        FunctionLibrary.filter(
+            constraint,
+            originalShiurFullPageList,
+            shiurFullPageList,
+            this,
+            filterWithinPreviousResults,
+            tabType= tabType,
+            exactMatch = false
+        )
     }
 
     fun reset() {
-        //TODO make reset more efficient by using indices.
-        shiurFullPageList.clear()
-        shiurFullPageList.addAll(originalShiurFullPageList)
-        notifyDataSetChanged()
+       FunctionLibrary.reset(originalShiurFullPageList,shiurFullPageList, this)
     }
 
     class ShiurViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

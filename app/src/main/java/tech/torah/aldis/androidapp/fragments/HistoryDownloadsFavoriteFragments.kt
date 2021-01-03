@@ -18,7 +18,7 @@ class PlaceholderFragment(shiurim: List<ShiurFullPage>, moreFromThis: Boolean) :
         super.onCreate(savedInstanceState)
         pageViewModel = ViewModelProvider(this).get(PageViewModel::class.java).apply {
             val tabType: TabType = when(arguments?.getInt(ARG_SECTION_NUMBER) ?: 0){
-                0 -> TabType.ALL
+                0 -> TabType.NONE
                 1 -> TabType.CATEGORY
                 2 -> TabType.SPEAKER
                 else -> TabType.SERIES

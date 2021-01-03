@@ -87,13 +87,16 @@
             <com.google.android.material.button.MaterialButton
                 android:layout_width="130dp"
                 android:layout_height="100dp"
+                android:layout_marginEnd="40dp"
                 android:text="History"
                 android:onClick="openHistoryPage"/>
-
-            <!--<com.google.android.material.button.MaterialButton
+<!--                android:layout_marginEnd="40dp"-->
+            <com.google.android.material.button.MaterialButton
                 android:layout_width="130dp"
                 android:layout_height="100dp"
-                android:layout_marginStart="40dp" />-->
+                android:layout_marginStart="40dp"
+                android:text="Testing"
+                android:onClick="openTestingPage"/>
         </LinearLayout>
         <!--<LinearLayout
             android:layout_width="match_parent"

@@ -40,6 +40,12 @@
         <activity
             android:name=".activities.HistoryPageActivity"
             android:label="History" />
+        <activity
+            android:name=".activities.IndividualPlaylistPageActivity"
+            android:label="Playlist" />
+        <activity
+            android:name=".activities.TestingActivity"
+            android:label="Testing Activity" />
     </application>
 
 </manifest>

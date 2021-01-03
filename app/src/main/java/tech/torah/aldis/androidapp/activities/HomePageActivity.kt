@@ -66,4 +66,9 @@ class HomePageActivity : AppCompatActivity() {
         /* val snackBar = Snackbar.make(it,"TO BE IMPLEMENTED",Snackbar.LENGTH_SHORT).setAction("Action",null)
          snackBar.show()*/
     }
+
+    fun openTestingPage(view: View) {
+        val intent = Intent(this@HomePageActivity, TestingActivity::class.java)
+        this@HomePageActivity.startActivity(intent)
+    }
 }

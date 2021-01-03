@@ -3,27 +3,15 @@ package tech.torah.aldis.androidapp.dialogs
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.view.inputmethod.EditorInfo
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
-import android.widget.ImageButton
 import android.widget.RadioButton
-import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.widget.SearchView
-import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.DialogFragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
-import com.google.android.material.checkbox.MaterialCheckBox
 import com.google.android.material.textfield.TextInputLayout
-import com.google.android.material.textview.MaterialTextView
-import com.l4digital.fastscroll.FastScrollView
-import com.l4digital.fastscroll.FastScroller
 import tech.torah.aldis.androidapp.R
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TorahFilterable
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TabType
-import tech.torah.aldis.androidapp.dialogs.ChooserFastScrollerDialog
 import java.util.*
 
 
@@ -188,9 +176,9 @@ class PlaylistsSortOrFilterDialog(
             populateAndDisplayFastScrollerDialogLambda
         )  // so that the user is not confused when clicking the end icon doesn't display the dialog, but the main body of the OutlinedBox does display it.
         filterButton.setOnClickListener {
-            //send back data to PARENT fragment using callback
-            torahFilterableCallback.callbackFilter(tabTypeBeingDisplayed, selectedListItem/*,
+            torahFilterableCallback.filter(selectedListItem,tabTypeBeingDisplayed/*,
                 filteringWithinPreviousResultsEnabled*/)
+            //send back data to PARENT fragment using callback
             // Now dismiss the fragment
             dismiss()
         }
@@ -200,8 +188,7 @@ class PlaylistsSortOrFilterDialog(
         }
         resetButton.setOnClickListener {
             //send back data to PARENT fragment using callback
-            torahFilterableCallback.callbackFilter(TabType.ALL, ""/*,
-                filteringWithinPreviousResultsEnabled*/)
+            torahFilterableCallback.reset()
             // Now dismiss the fragment
             dismiss()
         }

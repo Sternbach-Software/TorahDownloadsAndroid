@@ -23,12 +23,13 @@ class TabsActivity : AppCompatActivity(), TorahFilterable {
             dialogFragment.show(supportFragmentManager, TAG)
         }
 
-    override fun callbackFilter(
-        tabType: TabType,
-        data: String,
-        filterWithinPreviousResults: Boolean
-    ) {
-        findViewById<TextView>(R.id.textView).text = data
+
+    override fun filter(constraint: String, tabType: TabType) {
+        findViewById<TextView>(R.id.textView).text = constraint
+    }
+
+    override fun reset() {
+        //TODO("Not yet implemented")
     }
 
 /*

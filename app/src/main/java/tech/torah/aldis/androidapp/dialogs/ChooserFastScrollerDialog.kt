@@ -18,8 +18,8 @@ import com.google.android.material.textview.MaterialTextView
 import com.l4digital.fastscroll.FastScrollView
 import com.l4digital.fastscroll.FastScroller
 import tech.torah.aldis.androidapp.R
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.FunctionLibrary
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TabType
-import java.util.*
 
 private lateinit var selectedListItemTextView: MaterialTextView
 private lateinit var fastScrollerSelectButton: MaterialButton
@@ -59,8 +59,7 @@ class ChooserFastScrollerDialog(
         val searchView = menu.findItem(R.id.actionSearch).actionView as SearchView
         searchView.imeOptions = EditorInfo.IME_ACTION_DONE
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                itemAdapter.filter(query ?: "")
+            override fun onQueryTextSubmit(query: String?): Boolean = true
                 return false
             }
 
@@ -105,9 +104,9 @@ class ChooserFastScrollerDialog(
 
     }
 
-    inner class ItemAdapter(private val listItems: List<String>) :
+    inner class ItemAdapter(private val originalList: List<String>) :
         RecyclerView.Adapter<ItemAdapter.ViewHolder>(), FastScroller.SectionIndexer {
-        val tempListItems = listItems.toMutableList()
+        val workingList = originalList.toMutableList()
 
         inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             val textView: MaterialTextView = view.findViewById(R.id.text_view)
@@ -116,10 +115,10 @@ class ChooserFastScrollerDialog(
 
                 view.setOnClickListener {
 
-                    Log.d("", "Element $adapterPosition clicked.")
+                    Log.d(TAG, "Element $adapterPosition clicked.")
                     fastScrollerDeselectButton.isEnabled = true
                     fastScrollerSelectButton.isEnabled = true
-                    tempListItems[adapterPosition].let {
+                    workingList[adapterPosition].let {
                         selectedListItemTextView.text = it
                         selectedListItem = it
                     }
@@ -128,7 +127,7 @@ class ChooserFastScrollerDialog(
         }
 
         override fun getSectionText(position: Int): CharSequence {
-            val s = tempListItems[position]
+            val s = workingList[position]
             return s[s.lastIndexOf(' ') + 1].toString()/*if (s.contains("Rabbi"))
                 s.substring(s.indexOf(" ") + 1).first().toUpperCase().toString()
             else s.first().toUpperCase().toString()*/
@@ -142,54 +141,14 @@ class ChooserFastScrollerDialog(
             )
 
         override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-            Log.d("", "Element $position set.")
+            Log.d(TAG, "Element $position set.")
 
-            viewHolder.textView.text = tempListItems[position]
+            viewHolder.textView.text = workingList[position]
         }
 
-        override fun getItemCount(): Int = tempListItems.size
+        override fun getItemCount(): Int = workingList.size
         fun filter(constraint: String) {
-            Log.d(TAG, "Filter ran")
-/*
-        var completeListIndex = 0
-        var filteredListIndex = 0
-        while (completeListIndex < originalSpeakerList.size) {
-            val speaker: Speaker = originalSpeakerList[completeListIndex]
-            if (speaker.name.toLowerCase(Locale.ROOT).trim().contains(constraint)) {
-                if (filteredListIndex < speakerList.size) {
-                    val filter: Speaker = speakerList[filteredListIndex]
-                    if (speaker.name != filter.name) {
-                        speakerList.add(filteredListIndex, speaker)
-                        notifyItemInserted(filteredListIndex)
-                    }
-                } else {
-                    speakerList.add(filteredListIndex, speaker)
-                    notifyItemInserted(filteredListIndex)
-                }
-                filteredListIndex++
-            } else if (filteredListIndex < speakerList.size) {
-                val filter: Speaker = speakerList[filteredListIndex]
-                if (speaker.name==filter.name) {
-                    speakerList.removeAt(filteredListIndex)
-                    notifyItemRemoved(filteredListIndex)
-                }
-            }
-            completeListIndex++
+            FunctionLibrary.filter(constraint, originalList, workingList, this)
         }
-*/
-            tempListItems.clear()
-            if (constraint.isEmpty()) {
-                tempListItems.addAll(listItems)
-            } else {
-                val filterPattern = constraint.toLowerCase(Locale.ROOT).trim()
-                for (listItem in listItems) {
-                    if (listItem.toLowerCase(Locale.ROOT).contains(filterPattern)) {
-                        tempListItems.add(listItem)
-                    }
-                }
-            }
-            notifyDataSetChanged()
-        }
-
     }
 }

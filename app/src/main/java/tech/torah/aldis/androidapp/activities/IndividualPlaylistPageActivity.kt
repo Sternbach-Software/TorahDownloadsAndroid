@@ -1,6 +1,7 @@
 package tech.torah.aldis.androidapp.activities
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -123,12 +124,15 @@ class IndividualPlaylistPageActivity: AppCompatActivity(), TorahFilterable {
         val shiurAdapter = ShiurAdapter(listOfPlaylists)
         recyclerView?.adapter = shiurAdapter
     }
-    override fun callbackFilter(
-        tabType: TabType,
-        data: String,
-        filterWithinPreviousResults: Boolean
-    ) {
-        if (tabType == TabType.ALL) shiurAdapter.reset()
-        else shiurAdapter.filter(tabType, data/*,filterWithinPreviousResults*/)
+
+    fun openOptionsMenu(view: View) {}
+
+    override fun filter(constraint: String, tabType: TabType) {
+        shiurAdapter.filter(constraint , tabType = tabType)
     }
+
+    override fun reset() {
+        shiurAdapter.reset()
+    }
+
 }

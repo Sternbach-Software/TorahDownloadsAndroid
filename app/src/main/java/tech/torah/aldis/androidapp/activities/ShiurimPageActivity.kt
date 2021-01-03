@@ -166,53 +166,6 @@ class ShiurimPageActivity : AppCompatActivity() {
 
         override fun getSectionText(position: Int): CharSequence =
             shiurFullPageList[position].title.first().toString()
-/*
-    fun filter(constraint: String){
-
-*/
-/*
-        var completeListIndex = 0
-        var filteredListIndex = 0
-        while (completeListIndex < originalshiurList.size) {
-            val shiur: shiur = originalshiurList[completeListIndex]
-            if (shiur.name.toLowerCase(Locale.ROOT).trim().contains(constraint)) {
-                if (filteredListIndex < shiurFullPageList.size) {
-                    val filter: shiur = shiurFullPageList[filteredListIndex]
-                    if (shiur.name != filter.name) {
-                        shiurFullPageList.add(filteredListIndex, shiur)
-                        notifyItemInserted(filteredListIndex)
-                    }
-                } else {
-                    shiurFullPageList.add(filteredListIndex, shiur)
-                    notifyItemInserted(filteredListIndex)
-                }
-                filteredListIndex++
-            } else if (filteredListIndex < shiurFullPageList.size) {
-                val filter: shiur = shiurFullPageList[filteredListIndex]
-                if (shiur.name==filter.name) {
-                    shiurFullPageList.removeAt(filteredListIndex)
-                    notifyItemRemoved(filteredListIndex)
-                }
-            }
-            completeListIndex++
-        }
-*/
-/*
-
-        shiurFullPageList.clear()
-        if (constraint.isEmpty()) {
-            shiurFullPageList.addAll(originalshiurList)
-        } else {
-            val filterPattern = constraint.toLowerCase(Locale.ROOT).trim()
-            for (shiur in originalshiurList) {
-                if (shiur.name.toLowerCase(Locale.ROOT).contains(filterPattern)) {
-                    shiurFullPageList.add(shiur)
-                }
-            }
-        }
-        notifyDataSetChanged()
-    }
-*/
 
         class ShiurViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 

@@ -12,7 +12,6 @@ import com.google.android.material.textfield.TextInputLayout
 import tech.torah.aldis.androidapp.R
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TorahFilterable
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TabType
-import tech.torah.aldis.androidapp.dialogs.ChooserFastScrollerDialog
 import java.util.*
 
 
@@ -178,20 +177,15 @@ class ShiurimSortOrFilterDialog(
         )  // so that the user is not confused when clicking the end icon doesn't display the dialog, but the main body of the OutlinedBox does display it.
         filterButton.setOnClickListener {
             //send back data to PARENT fragment using callback
-            torahFilterableCallback.callbackFilter(tabTypeBeingDisplayed, selectedListItem/*,
-                filteringWithinPreviousResultsEnabled*/)
+            torahFilterableCallback.filter(selectedListItem,tabTypeBeingDisplayed)
             // Now dismiss the fragment
             dismiss()
         }
         cancelButton.setOnClickListener {
-            // Dismiss the fragment
             dismiss()
         }
         resetButton.setOnClickListener {
-            //send back data to PARENT fragment using callback
-            torahFilterableCallback.callbackFilter(TabType.ALL, ""/*,
-                filteringWithinPreviousResultsEnabled*/)
-            // Now dismiss the fragment
+            torahFilterableCallback.reset()
             dismiss()
         }
         /*filterWithinPreviousResultsCheckBox.setOnCheckedChangeListener { _, isChecked ->
