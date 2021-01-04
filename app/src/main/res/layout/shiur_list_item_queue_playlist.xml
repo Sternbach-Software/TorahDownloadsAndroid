@@ -7,7 +7,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <ImageView
-        android:id="@+id/playlist_speaker_thumbnail"
+        android:id="@+id/speaker_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
@@ -23,7 +23,7 @@
         android:orientation="vertical"
         android:paddingTop="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/playlist_speaker_thumbnail"
+        app:layout_constraintStart_toEndOf="@id/speaker_image"
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textview.MaterialTextView

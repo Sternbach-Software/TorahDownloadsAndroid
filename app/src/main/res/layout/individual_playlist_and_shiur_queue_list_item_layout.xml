@@ -22,7 +22,7 @@
         android:clickable="true"
         android:focusable="true"/>
 <ImageView
-        android:id="@+id/playlist_speaker_thumbnail"
+        android:id="@+id/speaker_image"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:scaleType="centerCrop"
@@ -39,7 +39,7 @@
         android:orientation="vertical"
         android:paddingTop="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/playlist_speaker_thumbnail"
+        app:layout_constraintStart_toEndOf="@id/speaker_image"
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textview.MaterialTextView

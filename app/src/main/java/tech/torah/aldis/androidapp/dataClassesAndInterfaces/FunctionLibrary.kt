@@ -125,8 +125,34 @@ object FunctionLibrary {
         listOfCategoryNames: List<String>,
         listOfSeriesNames: List<String>
     ) {
+        menu as Menu // let the compiler know that i want to treat menu:Menu? as Menu
+
+        setupFilterButton(
+            menuInflater,
+            menu,
+            torahFilterableCallback,
+            listOfSpeakerNames,
+            listOfCategoryNames,
+            listOfSeriesNames,
+            fragmentManager,
+            TAG
+        )
+
+        setupSearchView(menu, torahFilterableCallback)
+    }
+
+    fun setupFilterButton(
+        menuInflater: MenuInflater,
+        menu: Menu,
+        torahFilterableCallback: TorahFilterable,
+        listOfSpeakerNames: List<String>,
+        listOfCategoryNames: List<String>,
+        listOfSeriesNames: List<String>,
+        fragmentManager: FragmentManager,
+        TAG: String
+    ) {
         menuInflater.inflate(R.menu.downloads_favorites_history_pages_menu, menu)
-        val filterItem: MenuItem = menu!!.findItem(R.id.filter_button)
+        val filterItem: MenuItem = menu.findItem(R.id.filter_button)
         filterItem.setOnMenuItemClickListener {
             ShiurimSortOrFilterDialog(
                 torahFilterableCallback,
@@ -139,8 +165,12 @@ object FunctionLibrary {
                 .show(fragmentManager, TAG)
             true
         }
+    }
 
-        //<editor-fold desc="SearchView decleration">
+    fun setupSearchView(
+        menu: Menu,
+        torahFilterableCallback: TorahFilterable
+    ) {
         val searchView = menu.findItem(R.id.actionSearch).actionView as SearchView
         searchView.imeOptions = EditorInfo.IME_ACTION_DONE
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {

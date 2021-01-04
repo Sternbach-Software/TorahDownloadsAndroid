@@ -9,4 +9,16 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!--colors for deselected back arrow fast scroller-->
+    <!--dark is b00020-->
+    <color name="cancel">#B00020</color>
+
+    <color name="uncancel">#0041B0</color>
+   <!-- <color name="blue_dark_option1">#00B06F</color>
+    &lt;!&ndash;light is cf6679&ndash;&gt;
+    <color name="blue_light_option1">#66cfa9</color>-->
+    <!--maybe even-->
+<!--    <color name="blue_light_option3">#0300b0</color>-->
+
 </resources>

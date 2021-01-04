@@ -49,7 +49,6 @@ private var drawables = listOf(
     R.drawable.bh,
     R.drawable.bi,
     R.drawable.bj,
-    R.drawable.bk,
     R.drawable.bl,
     R.drawable.bm,
     R.drawable.bn,
@@ -64,13 +63,11 @@ private var drawables = listOf(
     R.drawable.bw,
     R.drawable.bx,
     R.drawable.by,
-    R.drawable.bz,
     R.drawable.ca,
     R.drawable.cb,
     R.drawable.cc,
     R.drawable.cd,
     R.drawable.ce,
-    R.drawable.cf,
     R.drawable.cg,
     R.drawable.ch,
     R.drawable.ci,
@@ -121,8 +118,8 @@ class SpeakerAdapter(private val originalSpeakerList: List<Speaker>) : RecyclerV
             if (speakerDescription != null) {
                 speakerDescription.text = speaker.description
             }
-            speakerImageView = itemView.findViewById(R.id.playlist_speaker_thumbnail)
-            //TODO Refactor mistake: R.id.playlist_speaker_thumbnail should be changed to R.id.speaker_image
+            speakerImageView = itemView.findViewById(R.id.speaker_image)
+            //TODO Refactor mistake: R.id.speaker_image should be changed to R.id.speaker_image
             speakerImageView.setImageResource(drawables[speakerPictureCount])
             speakerPictureCount = (speakerPictureCount +1) % drawables.size
         }

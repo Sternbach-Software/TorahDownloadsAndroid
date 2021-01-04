@@ -20,6 +20,7 @@ import com.l4digital.fastscroll.FastScroller
 import tech.torah.aldis.androidapp.R
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.FunctionLibrary
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TabType
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TorahFilterable
 
 private lateinit var selectedListItemTextView: MaterialTextView
 private lateinit var fastScrollerSelectButton: MaterialButton
@@ -33,7 +34,7 @@ class ChooserFastScrollerDialog(
     private val individualSpeakerCategorySeriesChooserAutoCompleteTextView: AutoCompleteTextView
 ) :
     DialogFragment() {
-    private lateinit var itemAdapter: ItemAdapter
+    private lateinit var chooserFastScrollerAdapter: ChooserFastScrollerAdapter
     private lateinit var toolbar: Toolbar
     private lateinit var selectedListItem: String
     override fun onCreateView(
@@ -54,22 +55,8 @@ class ChooserFastScrollerDialog(
         toolbar.inflateMenu(R.menu.speaker_page_menu)
         toolbar.title = resources.getString(tabTypeBeingDisplayed.nameId)
 
-        val menu: Menu = toolbar.menu
-        //<editor-fold desc="SearchView decleration">
-        val searchView = menu.findItem(R.id.actionSearch).actionView as SearchView
-        searchView.imeOptions = EditorInfo.IME_ACTION_DONE
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean = true
-                return false
-            }
+       FunctionLibrary.setupSearchView(toolbar.menu,chooserFastScrollerAdapter)
 
-            override fun onQueryTextChange(newText: String?): Boolean {
-                Log.d(TAG, "Search text changed.")
-                itemAdapter.filter(newText ?: "")
-                return false
-            }
-        })
-        //</editor-fold>
         fastScrollerCancelButton.setOnClickListener {
             dismiss()
         }
@@ -99,13 +86,13 @@ class ChooserFastScrollerDialog(
         fastScrollerDeselectButton = view.findViewById(R.id.fast_scroller_deselect_button)
         fastScrollerSelectButton = view.findViewById(R.id.fast_scroller_select_button)
 
-        itemAdapter = ItemAdapter(listItems)
-        recyclerView?.setAdapter(itemAdapter)
+        chooserFastScrollerAdapter = ChooserFastScrollerAdapter(listItems)
+        recyclerView?.setAdapter(chooserFastScrollerAdapter)
 
     }
 
-    inner class ItemAdapter(private val originalList: List<String>) :
-        RecyclerView.Adapter<ItemAdapter.ViewHolder>(), FastScroller.SectionIndexer {
+    inner class ChooserFastScrollerAdapter(private val originalList: List<String>) :
+        RecyclerView.Adapter<ChooserFastScrollerAdapter.ViewHolder>(), FastScroller.SectionIndexer, TorahFilterable {
         val workingList = originalList.toMutableList()
 
         inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -147,8 +134,10 @@ class ChooserFastScrollerDialog(
         }
 
         override fun getItemCount(): Int = workingList.size
-        fun filter(constraint: String) {
-            FunctionLibrary.filter(constraint, originalList, workingList, this)
-        }
+
+        override fun filter(constraint: String, tabType: TabType) = FunctionLibrary.filter(constraint, originalList, workingList, this, tabType = tabType)
+
+        override fun reset() = FunctionLibrary.reset(originalList,workingList,this)
+
     }
 }

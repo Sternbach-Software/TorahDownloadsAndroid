@@ -32,15 +32,15 @@
             android:layout_width="90dp"
             android:layout_height="match_parent"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_cancel"
-            android:background="@color/cancel"
+            android:src="@drawable/ic_redo"
+            android:background="@drawable/blue_background"
             android:foreground="?android:attr/selectableItemBackgroundBorderless"
-            android:backgroundTint="@color/cancel"
+            android:backgroundTint="@color/uncancel"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:focusable="true"
             android:clickable="true"/>
-
+<!--I like blue_dark_option2 and blue_light_option2-->
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/text_view"
             android:layout_width="match_parent"
@@ -52,6 +52,8 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
+    <include tools:layout="@layout/selected_filter_option_card_view"/>
+<!--    <include tools:layout="@layout/selected_filter_option_card_view"/>-->
 </com.google.android.material.card.MaterialCardView>
     <!--
     Version 1: 4 buttons on shiur card
