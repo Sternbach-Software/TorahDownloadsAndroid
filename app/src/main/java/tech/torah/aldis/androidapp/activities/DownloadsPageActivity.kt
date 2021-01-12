@@ -2,20 +2,19 @@ package tech.torah.aldis.androidapp.activities
 
 import android.os.Bundle
 import android.view.Menu
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import tech.torah.aldis.androidapp.R
 import tech.torah.aldis.androidapp.adapters.shiurAdapter.ShiurAdapter
-import tech.torah.aldis.androidapp.dataClassesAndInterfaces.FunctionLibrary
-import tech.torah.aldis.androidapp.dataClassesAndInterfaces.ShiurFullPage
-import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TabType
-import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TorahFilterable
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.*
+import tech.torah.aldis.androidapp.dialogs.ShiurOptionsBottomSheetDialog
 import kotlin.properties.Delegates
 
 private const val TAG = "DownloadsPageActivity"
 
-class DownloadsPageActivity : AppCompatActivity(), TorahFilterable {
+class DownloadsPageActivity : AppCompatActivity(), TorahFilterable, HoldsShiurCard {
     private lateinit var shiurAdapter: ShiurAdapter
     private val listOfSpeakerNames = mutableListOf<String>()
     private val listOfSeriesNames = mutableListOf<String>()
@@ -105,10 +104,11 @@ class DownloadsPageActivity : AppCompatActivity(), TorahFilterable {
     ) = shiurAdapter.filter(constraint, tabType = TabType.NONE)*/
 
     override fun filter(
-        constraint: String, tabType: TabType
-    ) = shiurAdapter.filter(constraint, tabType = tabType)
+        constraint: String, tabType: TabType, exactMatch: Boolean
+    ) = shiurAdapter.filter(constraint, tabType, exactMatch = exactMatch)
 
     override fun reset() = shiurAdapter.reset()
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         super.onCreateOptionsMenu(menu)
         FunctionLibrary.setupFilterAndSearch(
@@ -123,4 +123,12 @@ class DownloadsPageActivity : AppCompatActivity(), TorahFilterable {
         )
         return true
     }
+
+    override fun openOptionsMenu(view: View) {
+        ShiurOptionsBottomSheetDialog().apply {
+        show(supportFragmentManager, tag)
+    }
+    }
+
+
 }

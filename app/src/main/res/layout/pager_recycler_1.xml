@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--For testing with ViewPager2-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <!--this layout and pager_recycler_2 were created because the view pager was never instantiating the other RecyclerView, because they were coming from the same layout file. This was my workaround. -->
+    <androidx.recyclerview.widget.RecyclerView
+        tools:listitem="@layout/individual_shiur_card_layout"
+        tools:itemCount="10"
+        android:id="@+id/pager_recycler_1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</FrameLayout>

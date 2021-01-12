@@ -8,13 +8,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.l4digital.fastscroll.FastScroller
 import tech.torah.aldis.androidapp.R
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.HoldsShiurCard
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.ShiurFullPage
 import tech.torah.aldis.androidapp.dialogs.ShiurOptionsBottomSheetDialog
 
 
 private const val TAG = "ShiurimPageActivity"
 
-class ShiurimPageActivity : AppCompatActivity() {
+class ShiurimPageActivity : AppCompatActivity(), HoldsShiurCard {
     private lateinit var shiurAdapter: ShiurAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,7 +54,7 @@ class ShiurimPageActivity : AppCompatActivity() {
         recyclerView?.adapter = shiurAdapter
     }
 
-    fun openOptionsMenu(@Suppress("UNUSED_PARAMETER")v: View): Unit {
+    override fun openOptionsMenu(view: View): Unit {
         ShiurOptionsBottomSheetDialog().apply {
             show(supportFragmentManager, tag)
         }

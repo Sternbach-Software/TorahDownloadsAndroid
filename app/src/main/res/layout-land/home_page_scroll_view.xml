@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Unfinished-->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingTop="40dp">
+
+            <com.google.android.material.button.MaterialButton
+
+                android:layout_width="300dp"
+                android:layout_height="230dp"
+                android:layout_marginEnd="40dp"
+                android:text="Speakers"
+                android:onClick="openSpeakerPage"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="300dp"
+                android:layout_height="230dp"
+                android:layout_marginStart="40dp"
+                android:text="Recently Added"
+                android:onClick="openRecentlyAddedShiurimPage"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingTop="40dp">
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="300dp"
+                android:layout_height="230dp"
+                android:layout_marginEnd="40dp"
+                android:text="My Playlists"
+                android:onClick="openPlaylistsPage"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="300dp"
+                android:layout_height="230dp"
+                android:layout_marginStart="40dp"
+                android:text="Categories"
+                android:onClick="openCategoriesPage"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingTop="40dp">
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="300dp"
+                android:layout_height="230dp"
+                android:layout_marginEnd="40dp"
+                android:text="Favorites"
+                android:onClick="openFavoritesPage"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="300dp"
+                android:layout_height="230dp"
+                android:layout_marginStart="40dp"
+                android:text="Downloads"
+                android:onClick="openDownloadsPage"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingTop="40dp">
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="300dp"
+                android:layout_height="230dp"
+                android:layout_marginEnd="40dp"
+                android:text="History"
+                android:onClick="openHistoryPage"/>
+<!--                android:layout_marginEnd="40dp"-->
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="300dp"
+                android:layout_height="230dp"
+                android:layout_marginStart="40dp"
+                android:text="Testing"
+                android:onClick="openTestingPage"/>
+        </LinearLayout>
+        <!--<LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingTop="40dp">
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="300dp"
+                android:layout_height="230dp"
+                android:layout_marginEnd="40dp"
+                android:text="Series"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="300dp"
+                android:layout_height="230dp"
+                android:layout_marginStart="40dp" />
+        </LinearLayout>-->
+    </LinearLayout>
+</ScrollView>
+    <!--
+<androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+    tools:listitem="@layout/home_screen_button"
+    app:spanCount="2"
+    android:layout_gravity="center">
+
+
+</androidx.recyclerview.widget.RecyclerView>-->

@@ -1,5 +1,6 @@
 package tech.torah.aldis.androidapp.dataClassesAndInterfaces
 
+import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -10,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import tech.torah.aldis.androidapp.R
 import tech.torah.aldis.androidapp.dialogs.ShiurimSortOrFilterDialog
 import java.util.*
-
+private const val TAG = "FunctionLibrary"
 /**
  * This is a library for functions used throughout the app, such a filter() for a RecyclerView, to facilitate DRYness.
  * */
@@ -25,10 +26,10 @@ object FunctionLibrary {
         originalList: List<T>,
         workingList: MutableList<T>,
         recyclerView: RecyclerView.Adapter<VH>,
-        filterWithinPreviousResults: Boolean = false,
-        animation: Boolean = false,
         tabType: TabType = TabType.NONE,
-        exactMatch: Boolean = false
+        exactMatch: Boolean = false,
+        filterWithinPreviousResults: Boolean = false,
+        animation: Boolean = false
     ) {
         //TODO Would it make filtering more efficient by using indices instead of full objects? Or are they just references...?
         fun String.matchesConstraint(constraint: String) = when(exactMatch){
@@ -36,7 +37,6 @@ object FunctionLibrary {
             false -> this.contains(constraint)
         }
         if (animation) {
-
             if (filterWithinPreviousResults) TODO("animation version of fiter does not currently take into account whether they are searching within previous results (i.e. it ignores it and only filters within the original list), and therefore does not supprt filtering within previous results.")
             var completeListIndex = 0
             var filteredListIndex = 0
@@ -90,6 +90,7 @@ object FunctionLibrary {
             }
             recyclerView.notifyDataSetChanged()
         }
+        Log.d(TAG,"Working List (After mutation) = $workingList")
     }
 
     fun <T, VH : RecyclerView.ViewHolder> reset(originalList: List<T>,
@@ -104,7 +105,7 @@ object FunctionLibrary {
     private fun <T> T.getReceiver(
         tabType: TabType
     ): String = when (this) {
-        //What about when the user is filtering for only playlists with e.g. 5 or more shiurim? What about searching for a category or series?
+        //TODO What about when the user is filtering for only playlists with e.g. 5 or more shiurim? What about searching for a category or series? add support all search criteria
         is Speaker -> name
         is ShiurFullPage -> when (tabType) {
             TabType.CATEGORY -> category
@@ -113,7 +114,7 @@ object FunctionLibrary {
             TabType.NONE -> title
         }
         is Playlist -> playlistName
-        else -> this as String /*""*/ //TODO else -> "" - this could easily cause bugs - determine what should happen when it is none of the above
+        else -> this as String
     }
     fun setupFilterAndSearch(
         menu: Menu?,
@@ -125,20 +126,21 @@ object FunctionLibrary {
         listOfCategoryNames: List<String>,
         listOfSeriesNames: List<String>
     ) {
-        menu as Menu // let the compiler know that i want to treat menu:Menu? as Menu
+//        menu as Menu // let the compiler know that i want to treat menu:Menu? as Menu
 
-        setupFilterButton(
-            menuInflater,
-            menu,
-            torahFilterableCallback,
-            listOfSpeakerNames,
-            listOfCategoryNames,
-            listOfSeriesNames,
-            fragmentManager,
-            TAG
-        )
-
-        setupSearchView(menu, torahFilterableCallback)
+        if (menu != null) {
+            setupFilterButton(
+                menuInflater,
+                menu,
+                torahFilterableCallback,
+                listOfSpeakerNames,
+                listOfCategoryNames,
+                listOfSeriesNames,
+                fragmentManager,
+                TAG
+            )
+            setupSearchView(menu, torahFilterableCallback)
+        }
     }
 
     fun setupFilterButton(
@@ -171,13 +173,13 @@ object FunctionLibrary {
         menu: Menu,
         torahFilterableCallback: TorahFilterable
     ) {
-        val searchView = menu.findItem(R.id.actionSearch).actionView as SearchView
-        searchView.imeOptions = EditorInfo.IME_ACTION_DONE
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        val searchView = menu.findItem(R.id.actionSearch)?.actionView as SearchView?
+        searchView?.imeOptions = EditorInfo.IME_ACTION_DONE
+        searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean = true
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                torahFilterableCallback.filter(newText ?: "")
+                torahFilterableCallback.search(newText ?: "")
                 return false
             }
         })

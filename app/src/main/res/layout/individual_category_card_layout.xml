@@ -38,8 +38,8 @@
             android:textAppearance="?attr/textAppearanceHeadline6"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Chumash" />
-
+            tools:text="Orech ChaimOrech ChaimOrech ChaimOrech ChaimOr" />
+<!--Was tools:text="Chumash"-->
         <TextView
             android:id="@+id/subcategory"
             android:layout_width="match_parent"

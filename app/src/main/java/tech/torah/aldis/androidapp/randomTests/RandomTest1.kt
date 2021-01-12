@@ -1,5 +1,6 @@
 package tech.torah.aldis.androidapp.randomTests
 
+import android.annotation.SuppressLint
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.ShiurFullPage
 import java.io.File
 
@@ -13,7 +14,7 @@ import java.io.File
 import java.text.DecimalFormat
 */
 
-
+@Suppress("Unused")
 fun main() {
 /*    val listOfNameLengths = mutableListOf<Int>()
     val regex = "(?<=\"name\":\")[\\w\\s]+(?=\")".toRegex()

@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.l4digital.fastscroll.FastScrollRecyclerView
 import tech.torah.aldis.androidapp.R
 import tech.torah.aldis.androidapp.adapters.speakerAdapter.SpeakerAdapter
-import tech.torah.aldis.androidapp.dataClassesAndInterfaces.FunctionLibrary
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.Speaker
 import java.io.BufferedReader
 import java.io.IOException
@@ -18,9 +17,9 @@ import java.io.InputStream
 import java.io.InputStreamReader
 
 
-private const val TAG = "SpeakerPageActivity"
+private const val TAG = "ListOfSpeakerPageActivity"
 
-class SpeakerPageActivity : AppCompatActivity() {
+class ListOfSpeakerPageActivity : AppCompatActivity() {
         private lateinit var speakerAdapter: SpeakerAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -116,7 +115,7 @@ class SpeakerPageActivity : AppCompatActivity() {
         override fun onCreateOptionsMenu(menu: Menu?): Boolean {
             //TODO consider using FunctionLibrary.setupFilterAndSearch() - would have to also consider what the speakers can be filtered or sorted by
             val inflater = menuInflater
-            inflater.inflate(R.menu.speaker_page_menu, menu)
+            inflater.inflate(R.menu.search_bar_only, menu)
             val searchItem: MenuItem = menu!!.findItem(R.id.actionSearch)
             val searchView: SearchView = searchItem.actionView as SearchView
             searchView.imeOptions = EditorInfo.IME_ACTION_DONE
@@ -124,7 +123,7 @@ class SpeakerPageActivity : AppCompatActivity() {
                 override fun onQueryTextSubmit(query: String?): Boolean = true
 
                 override fun onQueryTextChange(query: String?): Boolean {
-                    speakerAdapter.filter(query ?: "")
+                    speakerAdapter.search(query ?: "")
                     return false
                 }
             })

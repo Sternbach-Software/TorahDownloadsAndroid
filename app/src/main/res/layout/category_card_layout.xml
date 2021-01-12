@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linear_layout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingEnd="16dp">
-
+    android:layout_height="wrap_content">
+<!--The minimum length of category name is 2 and the maximum length is 46. The average length is 14.077972709551657-->
+<!--TODO choose between this and individual_category_card_layout.xml.
+Am currently leaning towards this, being that it currently wraps the title onto the next line,
+and may possibly look nicer in arbitrary GridLayouts than individual_category_card_layout.xml would in the same layout.-->
     <com.google.android.material.card.MaterialCardView
 
-        android:id="@+id/card"
+        android:id="@+id/individual_category_card"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:strokeWidth="1dp"
@@ -20,24 +21,20 @@
         android:layout_margin="8dp"
         android:clickable="true"
         android:focusable="true">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+<!--TODO talk with team about: If the above MaterialCardView becomes wrap_content, the cards in the same row of the RecycerlView will be different sizes (and will be skewed across rows). If it is match_parent, some cards will have a huge gap of space because of the really big card in the row.-->
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="16dp">
 
                 <!-- Title, secondary and supporting text -->
                 <TextView
-                    android:id="@+id/speaker_name"
+                    android:id="@+id/category_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="Rabbi Anemer"
+                    tools:text="Orech ChaimOrech ChaimOrech ChaimOrech ChaimOr"
                     android:textAppearance="?attr/textAppearanceHeadline6" />
                 <!--
                             <TextView
@@ -54,21 +51,21 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    tools:text="Description"
+                    tools:text="Shmiras Halashon"
                     android:textAppearance="?attr/textAppearanceBody2"
                     android:textColor="?android:attr/textColorSecondary" />
                 <TextView
                     android:id="@+id/subcategory2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="Description"
+                    tools:text="Hilchos Brachos"
                     android:textAppearance="?attr/textAppearanceBody2"
                     android:textColor="?android:attr/textColorSecondary" />
                 <TextView
                     android:id="@+id/subcategory3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="Description"
+                    tools:text="Hilchos Tefilla"
                     android:textAppearance="?attr/textAppearanceBody2"
                     android:textColor="?android:attr/textColorSecondary" />
                 <!--ellipses-->
@@ -76,12 +73,12 @@
                     android:id="@+id/ellipses"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="..."
+                    android:text="..."
                     android:textAppearance="?attr/textAppearanceBody2"
-                    android:textColor="?android:attr/textColorSecondary" />
-
-            </LinearLayout>
-            <!--
+                    android:textColor="?android:attr/textColorSecondary"
+                    android:visibility="visible"/>
+                <!--visibility will be set to "gone" if the category does not have more than 3 subcategories-->
+                <!--
 
                         &lt;!&ndash; Buttons &ndash;&gt;
                         <LinearLayout
@@ -104,7 +101,6 @@
                                 style="?attr/borderlessButtonStyle" />
                         </LinearLayout>
             -->
-
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>

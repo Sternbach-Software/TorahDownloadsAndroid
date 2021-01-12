@@ -72,9 +72,9 @@ class TestingActivity : AppCompatActivity() {
         recyclerView?.adapter = (itemAdapter)
     }
 
-    inner class ItemAdapter(private val listItems: List<String>) :
+    class ItemAdapter(private val listItems: List<String>) :
         RecyclerView.Adapter<ItemAdapter.ViewHolder>(), FastScroller.SectionIndexer {
-        val tempListItems = listItems.toMutableList()
+        private val tempListItems = listItems.toMutableList()
 
         inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             val textView: MaterialTextView = view.findViewById(R.id.text_view)
@@ -110,7 +110,13 @@ class TestingActivity : AppCompatActivity() {
 
         override fun getItemCount(): Int = tempListItems.size
         fun filter(constraint: String) {
-FunctionLibrary.filter(constraint, listItems, tempListItems, this, exactMatch = false)
+FunctionLibrary.filter(
+    constraint,
+    listItems,
+    tempListItems,
+    this,
+    exactMatch = false
+)
         }
 
     }

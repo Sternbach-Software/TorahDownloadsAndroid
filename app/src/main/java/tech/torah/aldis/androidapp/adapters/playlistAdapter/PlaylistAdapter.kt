@@ -12,11 +12,12 @@ import tech.torah.aldis.androidapp.activities.IndividualPlaylistPageActivity
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.FunctionLibrary
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.Playlist
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TabType
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TorahFilterable
 
 private const val TAG = "PlaylistAdapter"
 
 class PlaylistAdapter(private val originalListOfPlaylists: List<Playlist>) :
-    RecyclerView.Adapter<PlaylistAdapter.ViewHolder>() {
+    RecyclerView.Adapter<PlaylistAdapter.ViewHolder>(), TorahFilterable {
     private val temporaryListOfPlaylists = originalListOfPlaylists.toMutableList()
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -56,16 +57,18 @@ class PlaylistAdapter(private val originalListOfPlaylists: List<Playlist>) :
 
     override fun getItemCount(): Int = originalListOfPlaylists.size
 
-    fun filter(tabType: TabType, constraint: String) {
+    override fun filter(constraint: String, tabType: TabType, exactMatch: Boolean) {
         FunctionLibrary.filter(
             constraint,
             originalListOfPlaylists,
             temporaryListOfPlaylists,
             this,
-            exactMatch = false,)
+            tabType,
+            exactMatch
+        )
     }
 
-    fun reset() {
+    override fun reset() {
         //TODO would it make reset more efficient by using indices?
         temporaryListOfPlaylists.clear()
         temporaryListOfPlaylists.addAll(originalListOfPlaylists)

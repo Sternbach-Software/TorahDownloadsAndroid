@@ -2,22 +2,17 @@ package tech.torah.aldis.androidapp.activities
 
 import android.os.Bundle
 import android.view.Menu
-import android.view.MenuItem
 import android.view.View
-import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import tech.torah.aldis.androidapp.R
 import tech.torah.aldis.androidapp.adapters.playlistAdapter.PlaylistAdapter
-import tech.torah.aldis.androidapp.dataClassesAndInterfaces.Playlist
-import tech.torah.aldis.androidapp.dataClassesAndInterfaces.FunctionLibrary
-import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TabType
-import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TorahFilterable
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.*
+import tech.torah.aldis.androidapp.dialogs.ShiurOptionsBottomSheetDialog
 
 private const val TAG = "ListOfPlaylistsPageActivity"
-class ListOfPlaylistsPageActivity: AppCompatActivity(), TorahFilterable {
+class ListOfPlaylistsPageActivity: AppCompatActivity(), TorahFilterable, HoldsShiurCard {
     private lateinit var playlistAdapter: PlaylistAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,12 +52,16 @@ class ListOfPlaylistsPageActivity: AppCompatActivity(), TorahFilterable {
         return true
     }
 
-    fun openOptionsMenu(view: View) {}
+    override fun openOptionsMenu(view: View) {
+        ShiurOptionsBottomSheetDialog().apply {
+            show(supportFragmentManager, tag)
+        }
+    }
   /*  override fun filter(constraint: String) {
         TODO("Not yet implemented")
     }*/
 
-    override fun filter(constraint: String, tabType: TabType) {
+    override fun filter(constraint: String, tabType: TabType, exactMatch: Boolean) {
         TODO("Not yet implemented")
     //       playlistAdapter.filter(constraint , tabType = tabType)
     }

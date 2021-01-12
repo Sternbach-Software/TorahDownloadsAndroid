@@ -1,8 +1,6 @@
 package tech.torah.aldis.androidapp.activities
 
 import android.os.Bundle
-import android.widget.Button
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import tech.torah.aldis.androidapp.R
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TabType
@@ -16,7 +14,7 @@ class TabsActivity : AppCompatActivity(), TorahFilterable {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.testing_layout)
-        findViewById<Button>(R.id.buttonShowDialog).setOnClickListener { showDialog() }
+//        findViewById<Button>(R.id.buttonShowDialog).setOnClickListener { showDialog() }
     }
         private fun showDialog() {
             val dialogFragment = ShiurimSortOrFilterDialog(this,listOf("a","b"),listOf("c","d"),listOf("e","f"))
@@ -24,8 +22,9 @@ class TabsActivity : AppCompatActivity(), TorahFilterable {
         }
 
 
-    override fun filter(constraint: String, tabType: TabType) {
-        findViewById<TextView>(R.id.textView).text = constraint
+    override fun filter(constraint: String, tabType: TabType, exactMatch: Boolean) {
+//        findViewById<TextView>(R.id.textView).text = constraint
+        TODO("Not yet implemented")
     }
 
     override fun reset() {

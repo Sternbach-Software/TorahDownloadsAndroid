@@ -1,15 +1,21 @@
 package tech.torah.aldis.androidapp.adapters.speakerAdapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.card.MaterialCardView
 import com.l4digital.fastscroll.FastScroller
 import tech.torah.aldis.androidapp.R
+import tech.torah.aldis.androidapp.activities.IndividualSpeakerPageActivity
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.CONSTANTS.EXTRA_SPEAKER_DETAILS
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.FunctionLibrary
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.Speaker
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TabType
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TorahFilterable
 
 private var speakerPictureCount = 0
 private var drawables = listOf(
@@ -80,7 +86,7 @@ private var drawables = listOf(
 private lateinit var speakerImageView: ImageView
 
 class SpeakerAdapter(private val originalSpeakerList: List<Speaker>) : RecyclerView.Adapter<SpeakerAdapter.SpeakerViewHolder>(),
-    FastScroller.SectionIndexer {
+    FastScroller.SectionIndexer, TorahFilterable {
 
     private val speakerList: MutableList<Speaker> = originalSpeakerList.toMutableList()
 
@@ -98,30 +104,49 @@ class SpeakerAdapter(private val originalSpeakerList: List<Speaker>) : RecyclerV
         speakerList[position]
     )
 
-    fun filter(constraint: String){
-        FunctionLibrary.filter(
-            constraint,
-            originalSpeakerList,
-            speakerList,
-            this
-        )
-    }
-
     class SpeakerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bindItems(speaker: Speaker) {
-            val speakerName = itemView.findViewById(R.id.speaker_name) as TextView?
-            val speakerDescription = itemView.findViewById(R.id.speaker_description) as TextView?
-            if (speakerName != null) {
-                speakerName.text = speaker.name
+            val speakerNameTextView = itemView.findViewById(R.id.speaker_name) as TextView?
+            val speakerDescriptionTextView = itemView.findViewById(R.id.speaker_description) as TextView?
+            val name = speaker.name
+            val description = speaker.description
+            if (speakerNameTextView != null) {
+                speakerNameTextView.text = name
             }
-            if (speakerDescription != null) {
-                speakerDescription.text = speaker.description
+            if (speakerDescriptionTextView != null) {
+                speakerDescriptionTextView.text = description
             }
             speakerImageView = itemView.findViewById(R.id.speaker_image)
             //TODO Refactor mistake: R.id.speaker_image should be changed to R.id.speaker_image
             speakerImageView.setImageResource(drawables[speakerPictureCount])
+            (itemView.findViewById(R.id.individual_speaker_card) as MaterialCardView).setOnClickListener{
+                val context = itemView.context
+                val intent = Intent(context, IndividualSpeakerPageActivity::class.java).apply {
+                    putStringArrayListExtra(EXTRA_SPEAKER_DETAILS,
+                        arrayListOf(name, description))
+                }
+                context.startActivity(intent)
+            }
             speakerPictureCount = (speakerPictureCount +1) % drawables.size
         }
+    }
+
+    override fun filter(constraint: String, tabType: TabType, exactMatch: Boolean) {
+        FunctionLibrary.filter(
+            constraint,
+            originalSpeakerList,
+            speakerList,
+            this,
+            tabType,
+            exactMatch
+        )
+    }
+
+    override fun reset() {
+        FunctionLibrary.reset(
+            originalSpeakerList,
+            speakerList,
+            this)
     }
 }

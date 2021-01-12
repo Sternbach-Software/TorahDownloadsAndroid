@@ -8,10 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import tech.torah.aldis.androidapp.R
 import tech.torah.aldis.androidapp.adapters.shiurAdapter.ShiurAdapter
-import tech.torah.aldis.androidapp.dataClassesAndInterfaces.FunctionLibrary
-import tech.torah.aldis.androidapp.dataClassesAndInterfaces.ShiurFullPage
-import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TabType
-import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TorahFilterable
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.*
 import tech.torah.aldis.androidapp.dialogs.ShiurOptionsBottomSheetDialog
 
 private lateinit var listOfSpeakerNames: MutableList<String>
@@ -19,7 +16,7 @@ private lateinit var listOfCategoryNames: MutableList<String>
 private lateinit var listOfSeriesNames: MutableList<String>
 private const val TAG = "FavoritesPageActivity"
 
-class FavoritesPageActivity : AppCompatActivity(), TorahFilterable {
+class FavoritesPageActivity : AppCompatActivity(), TorahFilterable, HoldsShiurCard {
     private lateinit var shiurAdapter: ShiurAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -118,15 +115,15 @@ class FavoritesPageActivity : AppCompatActivity(), TorahFilterable {
         return true
     }
 
-    fun openOptionsMenu(@Suppress("UNUSED_PARAMETER") v: View): Unit {
+    override fun openOptionsMenu(view: View): Unit {
         ShiurOptionsBottomSheetDialog().apply {
             show(supportFragmentManager, tag)
         }
     }
 
 
-    override fun filter(constraint: String, tabType: TabType) {
-        shiurAdapter.filter(constraint,tabType = tabType)
+    override fun filter(constraint: String, tabType: TabType, exactMatch: Boolean) {
+        shiurAdapter.filter(constraint, tabType, exactMatch = exactMatch)
     }
 
     override fun reset() {

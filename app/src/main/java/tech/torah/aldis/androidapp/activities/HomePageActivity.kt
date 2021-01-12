@@ -15,7 +15,7 @@ class HomePageActivity : AppCompatActivity() {
         setContentView(R.layout.home_page_scroll_view)
     }
     fun openSpeakerPage(v: View) {
-        val intent = Intent(this@HomePageActivity, SpeakerPageActivity::class.java)
+        val intent = Intent(this@HomePageActivity, ListOfSpeakerPageActivity::class.java)
         this@HomePageActivity.startActivity(intent)
     }
     fun openRecentlyAddedShiurimPage(v: View) {
@@ -61,14 +61,14 @@ class HomePageActivity : AppCompatActivity() {
         snackBar.show()
     }
     fun openCategoriesPage(v: View) {
-        val intent = Intent(this@HomePageActivity, CategoriesPageActivity::class.java)
+        val intent = Intent(this@HomePageActivity, ParentCategoriesPageActivity::class.java)
         this@HomePageActivity.startActivity(intent)
         /* val snackBar = Snackbar.make(it,"TO BE IMPLEMENTED",Snackbar.LENGTH_SHORT).setAction("Action",null)
          snackBar.show()*/
     }
 
     fun openTestingPage(view: View) {
-        val intent = Intent(this@HomePageActivity, TestingActivity::class.java)
+        val intent = Intent(this@HomePageActivity, ParallelNestedScrollingActivity::class.java)
         this@HomePageActivity.startActivity(intent)
     }
 }

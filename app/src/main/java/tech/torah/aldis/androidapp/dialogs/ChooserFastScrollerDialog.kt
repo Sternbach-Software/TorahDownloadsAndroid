@@ -3,12 +3,8 @@ package tech.torah.aldis.androidapp.dialogs
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
-import android.widget.AutoCompleteTextView
-import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,6 +14,7 @@ import com.google.android.material.textview.MaterialTextView
 import com.l4digital.fastscroll.FastScrollView
 import com.l4digital.fastscroll.FastScroller
 import tech.torah.aldis.androidapp.R
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.CallbackListener
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.FunctionLibrary
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TabType
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TorahFilterable
@@ -31,7 +28,7 @@ private const val TAG = "ChooserFastScrollerDialog"
 class ChooserFastScrollerDialog(
     private val listItems: List<String>,
     private val tabTypeBeingDisplayed: TabType,
-    private val individualSpeakerCategorySeriesChooserAutoCompleteTextView: AutoCompleteTextView
+    private val callbackListener: CallbackListener
 ) :
     DialogFragment() {
     private lateinit var chooserFastScrollerAdapter: ChooserFastScrollerAdapter
@@ -52,16 +49,15 @@ class ChooserFastScrollerDialog(
         fastScrollerDeselectButton = view.findViewById(R.id.fast_scroller_deselect_button)
         fastScrollerSelectButton = view.findViewById(R.id.fast_scroller_select_button)
 
-        toolbar.inflateMenu(R.menu.speaker_page_menu)
+        toolbar.inflateMenu(R.menu.search_bar_only)
         toolbar.title = resources.getString(tabTypeBeingDisplayed.nameId)
 
-       FunctionLibrary.setupSearchView(toolbar.menu,chooserFastScrollerAdapter)
 
         fastScrollerCancelButton.setOnClickListener {
             dismiss()
         }
         fastScrollerSelectButton.setOnClickListener {
-            individualSpeakerCategorySeriesChooserAutoCompleteTextView.setText(selectedListItem)
+            callbackListener.onDataReceived(selectedListItem)
             dismiss()
         }
         fastScrollerDeselectButton.setOnClickListener {
@@ -87,10 +83,12 @@ class ChooserFastScrollerDialog(
         fastScrollerSelectButton = view.findViewById(R.id.fast_scroller_select_button)
 
         chooserFastScrollerAdapter = ChooserFastScrollerAdapter(listItems)
+        FunctionLibrary.setupSearchView(toolbar.menu,chooserFastScrollerAdapter) //this was in
+        // onCreateView, but chooserFastScrollerAdapter had not yet been initialized
+
         recyclerView?.setAdapter(chooserFastScrollerAdapter)
 
     }
-
     inner class ChooserFastScrollerAdapter(private val originalList: List<String>) :
         RecyclerView.Adapter<ChooserFastScrollerAdapter.ViewHolder>(), FastScroller.SectionIndexer, TorahFilterable {
         val workingList = originalList.toMutableList()
@@ -106,6 +104,7 @@ class ChooserFastScrollerDialog(
                     fastScrollerDeselectButton.isEnabled = true
                     fastScrollerSelectButton.isEnabled = true
                     workingList[adapterPosition].let {
+                        Log.d(TAG, "workingList[adapterPosition] = $it")
                         selectedListItemTextView.text = it
                         selectedListItem = it
                     }
@@ -135,9 +134,18 @@ class ChooserFastScrollerDialog(
 
         override fun getItemCount(): Int = workingList.size
 
-        override fun filter(constraint: String, tabType: TabType) = FunctionLibrary.filter(constraint, originalList, workingList, this, tabType = tabType)
+        override fun filter(constraint: String, tabType: TabType, exactMatch: Boolean) =
+            FunctionLibrary.filter(
+                constraint,
+                originalList,
+                workingList,
+                this,
+                tabType,
+                exactMatch
+            )
 
         override fun reset() = FunctionLibrary.reset(originalList,workingList,this)
 
     }
+
 }

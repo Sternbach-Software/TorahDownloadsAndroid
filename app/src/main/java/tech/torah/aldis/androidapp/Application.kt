@@ -1,19 +1,17 @@
 package tech.torah.aldis.androidapp
 
 import android.app.Application
-import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
+import android.os.Process
+import android.util.Log
 import kotlinx.serialization.ExperimentalSerializationApi
-import kotlinx.serialization.json.Json
-import retrofit2.Retrofit
-import tech.torah.aldis.androidapp.dataClassesAndInterfaces.ApiClientV1
-import tech.torah.aldis.androidapp.dataClassesAndInterfaces.CONSTANTS
-import okhttp3.MediaType.Companion.toMediaType
-/*
+private const val TAG = "TorahDownloadsApplication"
 class TorahDownloadsApplication: Application() {
    @ExperimentalSerializationApi
    override fun onCreate() {
       super.onCreate()
-      val retrofit = Retrofit.Builder()
+//       Log.d(TAG, "$TAG.onCreate ran")
+
+/*      val retrofit = Retrofit.Builder()
          .addConverterFactory(Json {
             encodeDefaults = true
             ignoreUnknownKeys = true
@@ -21,6 +19,6 @@ class TorahDownloadsApplication: Application() {
          .baseUrl(CONSTANTS.serverUrl)
          .build()
       val apiClient = retrofit.create(ApiClientV1::class.java)
-      apiClient.getSpeaker()
+      apiClient.getSpeaker()*/
    }
-}*/
+}

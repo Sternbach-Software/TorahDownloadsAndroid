@@ -10,6 +10,7 @@ import androidx.fragment.app.DialogFragment
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputLayout
 import tech.torah.aldis.androidapp.R
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.CallbackListener
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TorahFilterable
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TabType
 import java.util.*
@@ -47,7 +48,7 @@ class PlaylistsSortOrFilterDialog(
     private val listOfCategoryNames: List<String>,
     private val listOfSeriesNames: List<String>
 ) :
-    DialogFragment() {
+    DialogFragment(), CallbackListener {
     private val listOfPossibleListItems = listOf(
         listOfSpeakerNames,
         listOfCategoryNames,
@@ -163,7 +164,7 @@ class PlaylistsSortOrFilterDialog(
             if (::tabTypeBeingDisplayed.isInitialized || ::fastScrollerDialogListItems.isInitialized) ChooserFastScrollerDialog( // would use &&, but if one is true, both are true, and && will always check both, but || will only check the second if the first is false, and I think that if the first is false, the second must also be false, but I am not 100% sure.
                 fastScrollerDialogListItems,
                 tabTypeBeingDisplayed,
-                individualSpeakerCategorySeriesChooserAutoCompleteTextView
+                this
             ).show(
                 childFragmentManager,
                 TAG
@@ -176,8 +177,7 @@ class PlaylistsSortOrFilterDialog(
             populateAndDisplayFastScrollerDialogLambda
         )  // so that the user is not confused when clicking the end icon doesn't display the dialog, but the main body of the OutlinedBox does display it.
         filterButton.setOnClickListener {
-            torahFilterableCallback.filter(selectedListItem,tabTypeBeingDisplayed/*,
-                filteringWithinPreviousResultsEnabled*/)
+            torahFilterableCallback.filter(selectedListItem, tabTypeBeingDisplayed, true)
             //send back data to PARENT fragment using callback
             // Now dismiss the fragment
             dismiss()
@@ -242,6 +242,11 @@ class PlaylistsSortOrFilterDialog(
                 filterCondition
             )
         }
+    }
+
+    override fun onDataReceived(data: String) {
+        selectedListItem = data
+        individualSpeakerCategorySeriesChooserAutoCompleteTextView.setText(data)
     }
 }
 

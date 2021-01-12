@@ -1,5 +1,5 @@
 package tech.torah.aldis.androidapp.dataClassesAndInterfaces
-
+//[Tt]orah(?!\.?(anytime|torahanytime))
 object CONSTANTS {
     val genericListOfAvailableSpeakers = listOf(
         "Rabbi Yehuda Ades",
@@ -504,4 +504,21 @@ object CONSTANTS {
     ).sorted()
     val genericListOfAvailableSeries = listOf("Amud Yomi", "Daf Yomi", "a")
     val serverUrl = "https://www.torahdownloads.org"
+    /**
+     * An ArrayList<String> of speaker details
+     * @size 2 elements
+     * @element First is the speaker name
+     * @element Second is the description
+     * */
+    val EXTRA_SPEAKER_DETAILS = "tech.torah.aldis.android.speakers.details"
+
+    /**
+     * An ArrayList<Category> of category details.
+     * @size 4 elements
+     * @element First is the category name
+     * @element Second is a subcategory
+     * @element Third is a subcategory
+     * @element Fourth is a subcategory
+     * */
+    val EXTRA_CATEGORY_DETAILS = "tech.torah.aldis.android.category.details"
 }
