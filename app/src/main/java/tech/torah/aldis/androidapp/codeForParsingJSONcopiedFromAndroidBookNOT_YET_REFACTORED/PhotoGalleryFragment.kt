@@ -1,4 +1,4 @@
-package tech.torah.aldis.androidapp.searching
+package tech.torah.aldis.androidapp.codeForParsingJSONcopiedFromAndroidBookNOT_YET_REFACTORED
 /*
 
 import android.graphics.drawable.BitmapDrawable

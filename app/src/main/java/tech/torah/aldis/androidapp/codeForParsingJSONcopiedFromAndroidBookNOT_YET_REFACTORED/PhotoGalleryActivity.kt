@@ -1,8 +1,7 @@
-package tech.torah.aldis.androidapp.searching
+package tech.torah.aldis.androidapp.codeForParsingJSONcopiedFromAndroidBookNOT_YET_REFACTORED
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import tech.torah.aldis.androidapp.R
 
 class PhotoGalleryActivity : AppCompatActivity() {
 

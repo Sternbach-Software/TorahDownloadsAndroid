@@ -1,4 +1,4 @@
-package tech.torah.aldis.androidapp.searching
+package tech.torah.aldis.androidapp.codeForParsingJSONcopiedFromAndroidBookNOT_YET_REFACTORED
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -6,10 +6,10 @@ import android.util.Log
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import tech.torah.aldis.androidapp.searching.api.FlickrApi
-import tech.torah.aldis.androidapp.searching.api.FlickrResponse
-import tech.torah.aldis.androidapp.searching.api.PhotoInterceptor
-import tech.torah.aldis.androidapp.searching.api.PhotoResponse
+import tech.torah.aldis.androidapp.codeForParsingJSONcopiedFromAndroidBookNOT_YET_REFACTORED.api.FlickrApi
+import tech.torah.aldis.androidapp.codeForParsingJSONcopiedFromAndroidBookNOT_YET_REFACTORED.api.FlickrResponse
+import tech.torah.aldis.androidapp.codeForParsingJSONcopiedFromAndroidBookNOT_YET_REFACTORED.api.PhotoInterceptor
+import tech.torah.aldis.androidapp.codeForParsingJSONcopiedFromAndroidBookNOT_YET_REFACTORED.api.PhotoResponse
 import okhttp3.OkHttpClient
 import okhttp3.ResponseBody
 import retrofit2.Call

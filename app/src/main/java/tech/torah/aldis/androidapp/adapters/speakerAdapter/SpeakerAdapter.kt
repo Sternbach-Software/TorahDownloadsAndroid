@@ -118,7 +118,6 @@ class SpeakerAdapter(private val originalSpeakerList: List<Speaker>) : RecyclerV
                 speakerDescriptionTextView.text = description
             }
             speakerImageView = itemView.findViewById(R.id.speaker_image)
-            //TODO Refactor mistake: R.id.speaker_image should be changed to R.id.speaker_image
             speakerImageView.setImageResource(drawables[speakerPictureCount])
             (itemView.findViewById(R.id.individual_speaker_card) as MaterialCardView).setOnClickListener{
                 val context = itemView.context

@@ -1,4 +1,4 @@
-package tech.torah.aldis.androidapp.searching.api
+package tech.torah.aldis.androidapp.codeForParsingJSONcopiedFromAndroidBookNOT_YET_REFACTORED.api
 
 import okhttp3.HttpUrl
 import okhttp3.Interceptor
