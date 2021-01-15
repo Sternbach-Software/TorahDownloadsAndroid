@@ -1,12 +1,18 @@
 package tech.torah.aldis.androidapp.adapters.categoryAdapter
 
+import android.content.Intent
+import android.os.Build
+import android.os.Parcelable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import tech.torah.aldis.androidapp.R
+import tech.torah.aldis.androidapp.activities.ShiurimPageActivity
+import tech.torah.aldis.androidapp.activities.SubcategoriesPageActivity
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.*
 
 /*class CategoryAdapter:
@@ -47,10 +53,13 @@ import tech.torah.aldis.androidapp.dataClassesAndInterfaces.*
         TODO("Not yet implemented")
     }
 }*/
+private const val TAG = "CategoryAdapter"
 class CategoryAdapter(private val originalList: ArrayList<Category>) :
     RecyclerView.Adapter<CategoryAdapter.ViewHolder>(), TorahFilterable, TorahAdapter {
     private val workingList = originalList.clone() as ArrayList<Category>
-    class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    inner class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
         val categoryName: TextView
         val subcategory1: TextView
         val subcategory2: TextView
@@ -59,7 +68,19 @@ class CategoryAdapter(private val originalList: ArrayList<Category>) :
 //        val subcategory5: TextView
 
         init {
-            v.setOnClickListener { Log.d("", "Element $adapterPosition clicked.") }
+            Log.d(TAG,"Init ran ${v.accessibilityClassName}")
+            v.setOnClickListener {
+                val buttonCategory = workingList[adapterPosition]
+                Log.d(TAG,"Button category = $buttonCategory")
+                val context = it.context
+                val hasChildren = buttonCategory.hasChildren
+                val intent =  Intent(context, if (hasChildren) SubcategoriesPageActivity::class.java else ShiurimPageActivity::class.java).apply {
+                    if (hasChildren) putParcelableArrayListExtra(CONSTANTS.INTENT_EXTRA_CATEGORY_DETAILS,buttonCategory.children)
+                    else putParcelableArrayListExtra(CONSTANTS.INTENT_EXTRA_CATEGORY_CHILD_SHIURIM,getChildShiurim(buttonCategory))
+                    putExtra(CONSTANTS.INTENT_EXTRA_SUBCATEGORY_PARENT_NAME,buttonCategory.name)
+                }
+                context.startActivity(intent)
+            }
             categoryName = v.findViewById(R.id.category_name)
             subcategory1 = v.findViewById(R.id.subcategory1)
             subcategory2 = v.findViewById(R.id.subcategory2)
@@ -67,6 +88,10 @@ class CategoryAdapter(private val originalList: ArrayList<Category>) :
 //            subcategory4 = v.findViewById(R.id.subcategory4)
 //            subcategory5 = v.findViewById(R.id.subcategory5)
         }
+    }
+
+    private fun getChildShiurim(buttonCategory: Category): ArrayList<out Parcelable> {
+        return CONSTANTS.sampleListOfShiurim
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
@@ -77,14 +102,15 @@ class CategoryAdapter(private val originalList: ArrayList<Category>) :
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        Log.d("", "Element $position set.")
+        Log.d(TAG, "Element $position set.")
 
         val category = workingList[position]
         viewHolder.categoryName.text = category.name
         val children = category.children
-        viewHolder.subcategory1.text = children?.get(0)?.name ?: ""
-        viewHolder.subcategory2.text = children?.get(1)?.name ?: ""
-        viewHolder.subcategory3.text = children?.get(2)?.name ?: ""
+        fun hasAtLeast(numElements: Int) = children?.size ?: -1 >= numElements
+        if (hasAtLeast(1)) viewHolder.subcategory1.text = children?.get(0)?.name ?: ""
+        if (hasAtLeast(2)) viewHolder.subcategory2.text = children?.get(1)?.name ?: ""
+        if (hasAtLeast(3)) viewHolder.subcategory3.text = children?.get(2)?.name ?: ""
     }
 
     override fun getItemCount(): Int = workingList.size

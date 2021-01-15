@@ -1,4 +1,10 @@
 package tech.torah.aldis.androidapp.dataClassesAndInterfaces
+
+import android.os.Parcelable
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.shiurVariants.Shiur
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.shiurVariants.ShiurCategoryPage
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.shiurVariants.ShiurFullPage
+
 //[Tt]orah(?!\.?(anytime|torahanytime))
 object CONSTANTS {
     val genericListOfAvailableSpeakers = listOf(
@@ -504,13 +510,14 @@ object CONSTANTS {
     ).sorted()
     val genericListOfAvailableSeries = listOf("Amud Yomi", "Daf Yomi", "a")
     val serverUrl = "https://www.torahdownloads.org"
+
     /**
      * An ArrayList<String> of speaker details
      * @size 2 elements
      * @element First is the speaker name
      * @element Second is the description
      * */
-    val EXTRA_SPEAKER_DETAILS = "tech.torah.aldis.android.speakers.details"
+    val INTENT_EXTRA_SPEAKER_DETAILS = "tech.torah.aldis.android.speakers.details"
 
     /**
      * An ArrayList<Category> of category details.
@@ -520,5 +527,210 @@ object CONSTANTS {
      * @element Third is a subcategory
      * @element Fourth is a subcategory
      * */
-    val EXTRA_CATEGORY_DETAILS = "tech.torah.aldis.android.category.details"
+    val INTENT_EXTRA_CATEGORY_DETAILS = "tech.torah.aldis.android.category.details"
+    val INTENT_EXTRA_SUBCATEGORY_PARENT_NAME = "tech.torah.aldis.android.category.parent_name"
+    val INTENT_EXTRA_CATEGORY_CHILD_SHIURIM = "tech.torah.aldis.android.category.shiurim"
+    val sampleListOfShiurim = arrayListOf<Parcelable>(
+           ShiurCategoryPage(
+            ShiurID = "23691",
+            Title = "Rambam #0014: Ch. 2: Laws of the fundamentals of the Torah",
+            Length = "1080",
+            FormattedLength = "18",
+            SpeakerID = "165",
+            Speaker = "Rabbi Berel Bell",
+            SpeakerSE = "rabbi-berel-bell"
+        ), ShiurCategoryPage(
+            ShiurID = "13659",
+            Title = "Ntroduction To Pirkei Avot",
+            Length = "3829",
+            FormattedLength = "63",
+            SpeakerID = "14",
+            Speaker = "Rabbi Mordechai Becher",
+            SpeakerSE = "rabbi-mordechai-becher"
+        ), ShiurCategoryPage(
+            ShiurID = "23690",
+            Title = "Rambam #0013: Ch. 1: Laws of the fundamentals of the Torah",
+            Length = "1060",
+            FormattedLength = "17",
+            SpeakerID = "165",
+            Speaker = "Rabbi Berel Bell",
+            SpeakerSE = "rabbi-berel-bell"
+        ), ShiurCategoryPage(
+            ShiurID = "23691",
+            Title = "Rambam #0014: Ch. 2: Laws of the fundamentals of the Torah",
+            Length = "1080",
+            FormattedLength = "18",
+            SpeakerID = "165",
+            Speaker = "Rabbi Berel Bell",
+            SpeakerSE = "rabbi-berel-bell"
+        ), ShiurCategoryPage(
+            ShiurID = "23692",
+            Title = "Rambam #0015: Ch. 3: Laws of the fundamentals of the Torah",
+            Length = "1032",
+            FormattedLength = "17",
+            SpeakerID = "165",
+            Speaker = "Rabbi Berel Bell",
+            SpeakerSE = "rabbi-berel-bell"
+        ), ShiurCategoryPage(
+            ShiurID = "23693",
+            Title = "Rambam #0016: Ch. 4: Laws of the fundamentals of the Torah",
+            Length = "1519",
+            FormattedLength = "25",
+            SpeakerID = "165",
+            Speaker = "Rabbi Berel Bell",
+            SpeakerSE = "rabbi-berel-bell"
+        ), ShiurCategoryPage(
+            ShiurID = "23694",
+            Title = "Rambam #0017: Ch. 5: Laws of the fundamentals of the Torah",
+            Length = "1374",
+            FormattedLength = "22",
+            SpeakerID = "165",
+            Speaker = "Rabbi Berel Bell",
+            SpeakerSE = "rabbi-berel-bell"
+        ), ShiurCategoryPage(
+            ShiurID = "23695",
+            Title = "Rambam #0018: Ch. 6: Laws of the fundamentals of the Torah",
+            Length = "996",
+            FormattedLength = "16",
+            SpeakerID = "165",
+            Speaker = "Rabbi Berel Bell",
+            SpeakerSE = "rabbi-berel-bell"
+        ), ShiurCategoryPage(
+            ShiurID = "23696",
+            Title = "Rambam #0019: Ch. 7: Laws of the fundamentals of the Torah",
+            Length = "1187",
+            FormattedLength = "19",
+            SpeakerID = "165",
+            Speaker = "Rabbi Berel Bell",
+            SpeakerSE = "rabbi-berel-bell"
+        ), ShiurCategoryPage(
+            ShiurID = "23697",
+            Title = "Rambam #0020: Ch. 8: Laws of the fundamentals of the Torah",
+            Length = "543",
+            FormattedLength = "9",
+            SpeakerID = "165",
+            Speaker = "Rabbi Berel Bell",
+            SpeakerSE = "rabbi-berel-bell"
+        ), ShiurCategoryPage(
+            ShiurID = "23698",
+            Title = "Rambam #0021: Ch. 9: Laws of the fundamentals of the Torah",
+            Length = "745",
+            FormattedLength = "12",
+            SpeakerID = "165",
+            Speaker = "Rabbi Berel Bell",
+            SpeakerSE = "rabbi-berel-bell"
+        ), ShiurCategoryPage(
+            ShiurID = "23699",
+            Title = "Rambam #0022: Ch. 10: Laws of the fundamentals of the Torah",
+            Length = "840",
+            FormattedLength = "14",
+            SpeakerID = "165",
+            Speaker = "Rabbi Berel Bell",
+            SpeakerSE = "rabbi-berel-bell"
+        ), ShiurCategoryPage(
+            ShiurID = "23666",
+            Title = "Rambam #0023: Ch. 1: Laws of Deyos (Character)",
+            Length = "853",
+            FormattedLength = "14",
+            SpeakerID = "165",
+            Speaker = "Rabbi Berel Bell",
+            SpeakerSE = "rabbi-berel-bell"
+        ), ShiurCategoryPage(
+            ShiurID = "23667",
+            Title = "Rambam #0024: Ch. 2: Laws of Deyos (Character)",
+            Length = "1093",
+            FormattedLength = "18",
+            SpeakerID = "165",
+            Speaker = "Rabbi Berel Bell",
+            SpeakerSE = "rabbi-berel-bell"
+        ), ShiurCategoryPage(
+            ShiurID = "23668",
+            Title = "Rambam #0025: Ch. 3: Laws of Deyos (Character)",
+            Length = "662",
+            FormattedLength = "11",
+            SpeakerID = "165",
+            Speaker = "Rabbi Berel Bell",
+            SpeakerSE = "rabbi-berel-bell"
+        ), ShiurCategoryPage(
+            ShiurID = "23669",
+            Title = "Rambam #0026: Ch. 4: Laws of Deyos (Character)",
+            Length = "1819",
+            FormattedLength = "30",
+            SpeakerID = "165",
+            Speaker = "Rabbi Berel Bell",
+            SpeakerSE = "rabbi-berel-bell"
+        ), ShiurCategoryPage(
+            ShiurID = "23670",
+            Title = "Rambam #0027: Ch. 5: Laws of Deyos (Character)",
+            Length = "1637",
+            FormattedLength = "27",
+            SpeakerID = "165",
+            Speaker = "Rabbi Berel Bell",
+            SpeakerSE = "rabbi-berel-bell"
+        ), ShiurCategoryPage(
+            ShiurID = "23671",
+            Title = "Rambam #0028: Ch. 6: Laws of Deyos (Character)",
+            Length = "947",
+            FormattedLength = "15",
+            SpeakerID = "165",
+            Speaker = "Rabbi Berel Bell",
+            SpeakerSE = "rabbi-berel-bell"
+        ), ShiurCategoryPage(
+            ShiurID = "23672",
+            Title = "Rambam #0029: Ch. 7: Laws of Deyos (Character)",
+            Length = "869",
+            FormattedLength = "14",
+            SpeakerID = "165",
+            Speaker = "Rabbi Berel Bell",
+            SpeakerSE = "rabbi-berel-bell"
+        ), ShiurCategoryPage(
+            ShiurID = "23673",
+            Title = "Rambam #0030: Ch. 1: Laws of learning Torah",
+            Length = "933",
+            FormattedLength = "15",
+            SpeakerID = "165",
+            Speaker = "Rabbi Berel Bell",
+            SpeakerSE = "rabbi-berel-bell"
+        ), ShiurCategoryPage(
+            ShiurID = "23674",
+            Title = "Rambam #0031: Ch. 2: Laws of learning Torah",
+            Length = "443",
+            FormattedLength = "7",
+            SpeakerID = "165",
+            Speaker = "Rabbi Berel Bell",
+            SpeakerSE = "rabbi-berel-bell"
+        ), ShiurCategoryPage(
+            ShiurID = "23675",
+            Title = "Rambam #0032: Ch. 3: Laws of learning Torah",
+            Length = "1095",
+            FormattedLength = "18",
+            SpeakerID = "165",
+            Speaker = "Rabbi Berel Bell",
+            SpeakerSE = "rabbi-berel-bell"
+        ), ShiurCategoryPage(
+            ShiurID = "23676",
+            Title = "Rambam #0033: Ch. 4: Laws of learning Torah",
+            Length = "1009",
+            FormattedLength = "16",
+            SpeakerID = "165",
+            Speaker = "Rabbi Berel Bell",
+            SpeakerSE = "rabbi-berel-bell"
+        ), ShiurCategoryPage(
+            ShiurID = "23677",
+            Title = "Rambam #0034: Ch. 5: Laws of learning Torah",
+            Length = "1480",
+            FormattedLength = "24",
+            SpeakerID = "165",
+            Speaker = "Rabbi Berel Bell",
+            SpeakerSE = "rabbi-berel-bell"
+        ), ShiurCategoryPage(
+            ShiurID = "23678",
+            Title = "Rambam #0035: Ch. 6: Laws of learning Torah",
+            Length = "1589",
+            FormattedLength = "26",
+            SpeakerID = "165",
+            Speaker = "Rabbi Berel Bell",
+            SpeakerSE = "rabbi-berel-bell"
+        )
+    )
 }

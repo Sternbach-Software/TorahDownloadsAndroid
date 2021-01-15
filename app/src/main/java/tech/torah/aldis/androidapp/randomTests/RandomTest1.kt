@@ -1,7 +1,6 @@
 package tech.torah.aldis.androidapp.randomTests
 
-import android.annotation.SuppressLint
-import tech.torah.aldis.androidapp.dataClassesAndInterfaces.ShiurFullPage
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.shiurVariants.ShiurFullPage
 import java.io.File
 
 //import tech.torah.aldis.androidapp.Constants

@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import tech.torah.aldis.androidapp.PageViewModel
 import tech.torah.aldis.androidapp.R
-import tech.torah.aldis.androidapp.dataClassesAndInterfaces.ShiurFullPage
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.shiurVariants.ShiurFullPage
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TabType
 
 class MoreFromThisFragment(/*originalShiur: ShiurFullPage*/shiurim: List<ShiurFullPage>) : Fragment() {

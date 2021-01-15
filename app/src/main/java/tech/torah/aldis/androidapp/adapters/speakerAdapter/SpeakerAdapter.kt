@@ -11,7 +11,7 @@ import com.google.android.material.card.MaterialCardView
 import com.l4digital.fastscroll.FastScroller
 import tech.torah.aldis.androidapp.R
 import tech.torah.aldis.androidapp.activities.IndividualSpeakerPageActivity
-import tech.torah.aldis.androidapp.dataClassesAndInterfaces.CONSTANTS.EXTRA_SPEAKER_DETAILS
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.CONSTANTS.INTENT_EXTRA_SPEAKER_DETAILS
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.FunctionLibrary
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.Speaker
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TabType
@@ -122,7 +122,7 @@ class SpeakerAdapter(private val originalSpeakerList: List<Speaker>) : RecyclerV
             (itemView.findViewById(R.id.individual_speaker_card) as MaterialCardView).setOnClickListener{
                 val context = itemView.context
                 val intent = Intent(context, IndividualSpeakerPageActivity::class.java).apply {
-                    putStringArrayListExtra(EXTRA_SPEAKER_DETAILS,
+                    putStringArrayListExtra(INTENT_EXTRA_SPEAKER_DETAILS,
                         arrayListOf(name, description))
                 }
                 context.startActivity(intent)

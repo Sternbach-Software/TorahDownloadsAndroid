@@ -3,9 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/linear_layout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true">
 <!--The minimum length of category name is 2 and the maximum length is 46. The average length is 14.077972709551657-->
 <!--TODO choose between this and individual_category_card_layout.xml.
 Am currently leaning towards this, being that it currently wraps the title onto the next line,
@@ -18,9 +19,7 @@ and may possibly look nicer in arbitrary GridLayouts than individual_category_ca
         app:strokeWidth="1dp"
         app:strokeColor="@color/material_on_surface_stroke"
         app:cardElevation="2dp"
-        android:layout_margin="8dp"
-        android:clickable="true"
-        android:focusable="true">
+        android:layout_margin="8dp">
 <!--TODO talk with team about: If the above MaterialCardView becomes wrap_content, the cards in the same row of the RecycerlView will be different sizes (and will be skewed across rows). If it is match_parent, some cards will have a huge gap of space because of the really big card in the row.-->
 
             <LinearLayout
@@ -33,8 +32,12 @@ and may possibly look nicer in arbitrary GridLayouts than individual_category_ca
                 <TextView
                     android:id="@+id/category_name"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    tools:text="Orech ChaimOrech ChaimOrech ChaimOrech ChaimOr"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:ellipsize="none"
+                    android:maxLines="100"
+                    android:scrollHorizontally="false"
+                    tools:text="Orech Chaim Orech Chaim Orech Chaim Orech Chaim Or"
                     android:textAppearance="?attr/textAppearanceHeadline6" />
                 <!--
                             <TextView

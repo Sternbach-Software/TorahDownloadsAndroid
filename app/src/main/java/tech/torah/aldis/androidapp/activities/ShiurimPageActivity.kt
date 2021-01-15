@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.l4digital.fastscroll.FastScroller
 import tech.torah.aldis.androidapp.R
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.HoldsShiurCard
-import tech.torah.aldis.androidapp.dataClassesAndInterfaces.ShiurFullPage
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.shiurVariants.ShiurFullPage
 import tech.torah.aldis.androidapp.dialogs.ShiurOptionsBottomSheetDialog
 
 
@@ -76,7 +76,7 @@ class ShiurimPageActivity : AppCompatActivity(), HoldsShiurCard {
             holder.bindItems(shiurFullPageList[position])
 
         override fun getSectionText(position: Int): CharSequence =
-            shiurFullPageList[position].title.first().toString()
+            shiurFullPageList[position].title!!.first().toString()
 
         class ShiurViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 

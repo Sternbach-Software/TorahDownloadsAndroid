@@ -6,7 +6,7 @@ import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import tech.torah.aldis.androidapp.R
 import tech.torah.aldis.androidapp.SectionsPagerAdapter
-import tech.torah.aldis.androidapp.dataClassesAndInterfaces.ShiurFullPage
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.shiurVariants.ShiurFullPage
 
 
 class MoreFromThisActivity : AppCompatActivity() {

@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.button.MaterialButton
 import tech.torah.aldis.androidapp.R
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.CONSTANTS
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.CONSTANTS.INTENT_EXTRA_SUBCATEGORY_PARENT_NAME
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.Category
 
 
@@ -23,11 +24,39 @@ class ParentCategoriesPageActivity : AppCompatActivity() {
             Category(
                 name = "Chumash",
                 children = arrayListOf(
-                    Category(name = "Category A"),
-                    Category(name = "Category B"),
-                    Category(name = "Category C"),
-                    Category(name = "Category D"),
-                    Category(name = "Category E")
+                    Category(
+                        name = "Sefer Bereishis", children = arrayListOf(
+                            Category(name = "Bereishis"),
+                            Category(name = "Noach"),
+                            Category(name = "Lech Lecha"),
+                            Category(name = "Vayeira"),
+                            Category(name = "Chayei Sarah")
+                        )
+                    ),
+                    Category(
+                        name = "Sefer Shemos", children = arrayListOf(
+                            Category(name = "Shemos"),
+                            Category(name = "Va'eira"),
+                            Category(name = "Bo"),
+                            Category(name = "Beshalach"),
+                        )
+                    ),
+                    Category(
+                        name = "Sefer Vayikra", children = arrayListOf(
+                            Category(name = "Vayikra"),
+                            Category(name = "Tzav"),
+                            Category(name = "Shemini"),
+                            Category(name = "Tazria"),
+                        )
+                    ),
+                    Category(
+                        name = "Sefer Bamidbar", children = arrayListOf(
+                            Category(name = "Bamidbar"),
+                            Category(name = "Naso"),
+                            Category(name = "Beha'aloscha"),
+                        )
+                    ),
+                    Category(name = "Sefer Devarim")
                 )
             ),
             Category(
@@ -166,10 +195,10 @@ class ParentCategoriesPageActivity : AppCompatActivity() {
             val button = MaterialButton(this)
 
             button.text = currentCategoryName
-
+            button.tag = currentCategory
             if (numberOfChildrenInChildLinearLayout == 2) {
 
-                val pair = createRightButton(index,categories,button)
+                val pair = createRightButton(index, categories, button)
                 linearLayout = pair.first
                 numberOfChildrenInChildLinearLayout = pair.second
 
@@ -180,25 +209,20 @@ class ParentCategoriesPageActivity : AppCompatActivity() {
                     categories,
                     numberOfChildrenInChildLinearLayout,
                     button,
-                    linearLayout)
+                    linearLayout
+                )
 
             }
 
             button.setOnClickListener {
                 val context = button.context
+                val buttonCategory = button.tag as Category
                 val intent = Intent(context, SubcategoriesPageActivity::class.java).apply {
-    //                    val stringArrayList = arrayListOf(
-    //                        currentCategoryName,
-    //                        "Category A",
-    //                        "Category B",
-    //                        "Category C",
-    //                        "Category D",
-    //                        "Category E")
-    //                    currentCategory.children.forEach{stringArrayList.add(it.name)}
                     putParcelableArrayListExtra(
-                        CONSTANTS.EXTRA_CATEGORY_DETAILS,
-                        categories
+                        CONSTANTS.INTENT_EXTRA_CATEGORY_DETAILS,
+                        buttonCategory.children
                     )
+                        putExtra(INTENT_EXTRA_SUBCATEGORY_PARENT_NAME,buttonCategory.name)
                 }
                 context.startActivity(intent)
             }

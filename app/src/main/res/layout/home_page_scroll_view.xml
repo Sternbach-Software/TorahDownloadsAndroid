@@ -16,19 +16,18 @@
             android:paddingTop="40dp">
 
             <com.google.android.material.button.MaterialButton
-
+                android:id="@+id/open_speaker_page_button"
                 android:layout_width="130dp"
                 android:layout_height="100dp"
                 android:layout_marginEnd="40dp"
-                android:text="Speakers"
-                android:onClick="openSpeakerPage"/>
+                android:text="Speakers"/>
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/open_recently_added_page_button"
                 android:layout_width="130dp"
                 android:layout_height="100dp"
                 android:layout_marginStart="40dp"
-                android:text="Recently Added"
-                android:onClick="openRecentlyAddedShiurimPage"/>
+                android:text="Recently Added"/>
 
         </LinearLayout>
 
@@ -40,18 +39,18 @@
             android:paddingTop="40dp">
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/open_playlists_page_button"
                 android:layout_width="130dp"
                 android:layout_height="100dp"
                 android:layout_marginEnd="40dp"
-                android:text="My Playlists"
-                android:onClick="openPlaylistsPage"/>
+                android:text="My Playlists"/>
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/open_categories_page_button"
                 android:layout_width="130dp"
                 android:layout_height="100dp"
                 android:layout_marginStart="40dp"
-                android:text="Categories"
-                android:onClick="openCategoriesPage"/>
+                android:text="Categories"/>
 
         </LinearLayout>
 
@@ -63,18 +62,18 @@
             android:paddingTop="40dp">
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/open_favorites_page_button"
                 android:layout_width="130dp"
                 android:layout_height="100dp"
                 android:layout_marginEnd="40dp"
-                android:text="Favorites"
-                android:onClick="openFavoritesPage"/>
+                android:text="Favorites"/>
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/open_downloads_page_button"
                 android:layout_width="130dp"
                 android:layout_height="100dp"
                 android:layout_marginStart="40dp"
-                android:text="Downloads"
-                android:onClick="openDownloadsPage"/>
+                android:text="Downloads"/>
         </LinearLayout>
 
         <LinearLayout
@@ -85,18 +84,18 @@
             android:paddingTop="40dp">
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/open_history_page_button"
                 android:layout_width="130dp"
                 android:layout_height="100dp"
                 android:layout_marginEnd="40dp"
-                android:text="History"
-                android:onClick="openHistoryPage"/>
+                android:text="History"/>
 <!--                android:layout_marginEnd="40dp"-->
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/open_testing_page_button"
                 android:layout_width="130dp"
                 android:layout_height="100dp"
                 android:layout_marginStart="40dp"
-                android:text="Testing"
-                android:onClick="openTestingPage"/>
+                android:text="Testing"/>
         </LinearLayout>
         <!--<LinearLayout
             android:layout_width="match_parent"

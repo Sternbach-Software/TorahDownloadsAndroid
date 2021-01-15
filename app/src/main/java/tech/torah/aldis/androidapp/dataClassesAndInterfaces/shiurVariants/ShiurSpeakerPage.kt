@@ -1,4 +1,4 @@
-package tech.torah.aldis.androidapp.dataClassesAndInterfaces
+package tech.torah.aldis.androidapp.dataClassesAndInterfaces.shiurVariants
 
 data class ShiurSpeakerPage(
 val ShiurID: String ="1013475",
@@ -11,4 +11,4 @@ val CategoryID: String ="157",
 val Category: String ="Bereishis",
 val CategorySE: String ="berieshis",
 val Uploaded: String ="2016-10-31 14:33:16"
-)
+):Shiur

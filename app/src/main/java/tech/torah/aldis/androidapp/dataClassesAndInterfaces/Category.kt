@@ -41,4 +41,5 @@ data class Category(
             return arrayOfNulls(size)
         }
     }
+    val hasChildren = children?.size ?: -1 > 0
 }

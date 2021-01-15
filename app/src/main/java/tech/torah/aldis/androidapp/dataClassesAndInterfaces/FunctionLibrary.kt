@@ -9,6 +9,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import tech.torah.aldis.androidapp.R
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.shiurVariants.ShiurFullPage
 import tech.torah.aldis.androidapp.dialogs.ShiurimSortOrFilterDialog
 import java.util.*
 private const val TAG = "FunctionLibrary"
@@ -108,10 +109,10 @@ object FunctionLibrary {
         //TODO What about when the user is filtering for only playlists with e.g. 5 or more shiurim? What about searching for a category or series? add support all search criteria
         is Speaker -> name
         is ShiurFullPage -> when (tabType) {
-            TabType.CATEGORY -> category
-            TabType.SERIES -> series
-            TabType.SPEAKER -> speaker
-            TabType.NONE -> title
+            TabType.CATEGORY -> category!!
+            TabType.SERIES -> series!!
+            TabType.SPEAKER -> speaker!!
+            TabType.NONE -> title!!
         }
         is Playlist -> playlistName
         else -> this as String

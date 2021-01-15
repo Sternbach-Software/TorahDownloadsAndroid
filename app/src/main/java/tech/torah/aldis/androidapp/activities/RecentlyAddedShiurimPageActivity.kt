@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import tech.torah.aldis.androidapp.R
 import tech.torah.aldis.androidapp.adapters.shiurAdapter.ShiurAdapter
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.*
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.shiurVariants.ShiurFullPage
 import tech.torah.aldis.androidapp.dialogs.ShiurOptionsBottomSheetDialog
 
 private lateinit var listOfSpeakerNames: MutableList<String>
@@ -41,9 +42,9 @@ class RecentlyAddedShiurimPageActivity : AppCompatActivity(), TorahFilterable, H
         listOfCategoryNames = mutableListOf()
 
         for (shiur in listOfShiurim) {
-            listOfSpeakerNames.add(shiur.speaker)
-            listOfSeriesNames.add(shiur.series)
-            listOfCategoryNames.add(shiur.category)
+            shiur.speaker?.let { listOfSpeakerNames.add(it) }
+            shiur.series?.let { listOfSeriesNames.add(it) }
+            shiur.category?.let { listOfCategoryNames.add(it) }
         }
         listOfSpeakerNames = listOfSpeakerNames.toSet().toMutableList()
         listOfSeriesNames = listOfSeriesNames.toSet().toMutableList()

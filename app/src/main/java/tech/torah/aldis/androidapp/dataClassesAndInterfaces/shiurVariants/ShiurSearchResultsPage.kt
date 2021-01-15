@@ -1,4 +1,4 @@
-package tech.torah.aldis.androidapp.dataClassesAndInterfaces
+package tech.torah.aldis.androidapp.dataClassesAndInterfaces.shiurVariants
 
 data class ShiurSearchResultsPage(
 val ShiurID:String= "20373",
@@ -9,4 +9,4 @@ val SpeakerID:String= "140",
 val Speaker:String= "Rabbi Yaakov Moishe Shurkin",
 val SpeakerSE:String= "rabbi- yaakov-moishe-shurkin",
 val url:String= "\\/shiur-20373.html"
-)
+):Shiur

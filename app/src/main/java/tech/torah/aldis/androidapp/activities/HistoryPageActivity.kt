@@ -10,6 +10,7 @@ import tech.torah.aldis.androidapp.R
 import tech.torah.aldis.androidapp.dialogs.ShiurOptionsBottomSheetDialog
 import tech.torah.aldis.androidapp.adapters.shiurAdapter.ShiurAdapter
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.*
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.shiurVariants.ShiurFullPage
 
 private lateinit var listOfSpeakerNames: MutableList<String>
 private lateinit var listOfCategoryNames: MutableList<String>
@@ -93,9 +94,9 @@ class HistoryPageActivity : AppCompatActivity(), TorahFilterable, HoldsShiurCard
         listOfCategoryNames = mutableListOf()
 
         for (shiur in listOfShiurim) {
-            listOfSpeakerNames.add(shiur.speaker)
-            listOfSeriesNames.add(shiur.series)
-            listOfCategoryNames.add(shiur.category)
+            shiur.speaker?.let { listOfSpeakerNames.add(it) }
+            shiur.series?.let { listOfSeriesNames.add(it) }
+            shiur.category?.let { listOfCategoryNames.add(it) }
         }
         val shiurAdapter = ShiurAdapter(listOfShiurim)
         recyclerView?.adapter = shiurAdapter

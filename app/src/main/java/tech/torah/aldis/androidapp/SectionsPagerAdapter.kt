@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import tech.torah.aldis.androidapp.dataClassesAndInterfaces.ShiurFullPage
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.shiurVariants.ShiurFullPage
 import tech.torah.aldis.androidapp.fragments.MoreFromThisFragment
 import tech.torah.aldis.androidapp.fragments.PlaceholderFragment
 

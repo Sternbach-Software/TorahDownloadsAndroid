@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import tech.torah.aldis.androidapp.R
-import tech.torah.aldis.androidapp.dataClassesAndInterfaces.ShiurFullPage
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.shiurVariants.ShiurFullPage
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TabType
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TorahFilterable
 import tech.torah.aldis.androidapp.adapters.shiurAdapter.ShiurAdapter

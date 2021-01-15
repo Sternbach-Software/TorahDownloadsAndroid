@@ -2,7 +2,7 @@ package tech.torah.aldis.androidapp
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import tech.torah.aldis.androidapp.dataClassesAndInterfaces.ShiurFullPage
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.shiurVariants.ShiurFullPage
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TabType
 
 class PageViewModel : ViewModel() {

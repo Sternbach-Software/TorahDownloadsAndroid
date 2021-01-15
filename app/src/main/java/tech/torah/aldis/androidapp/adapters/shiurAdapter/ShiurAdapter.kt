@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.l4digital.fastscroll.FastScroller
 import tech.torah.aldis.androidapp.R
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.FunctionLibrary
-import tech.torah.aldis.androidapp.dataClassesAndInterfaces.ShiurFullPage
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.shiurVariants.ShiurFullPage
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TabType
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TorahFilterable
 
@@ -30,7 +30,7 @@ class ShiurAdapter(private val originalShiurFullPageList: List<ShiurFullPage>) :
         holder.bindItem(shiurFullPageList[position])
 
     override fun getSectionText(position: Int): CharSequence =
-        shiurFullPageList[position].title.first().toString()
+        shiurFullPageList[position].title!!.first().toString()
 
     override fun filter(
         constraint: String,

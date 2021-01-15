@@ -1,4 +1,4 @@
-package tech.torah.aldis.androidapp.dataClassesAndInterfaces
+package tech.torah.aldis.androidapp.dataClassesAndInterfaces.shiurVariants
 
 data class ShiurQuickSeriesShiurPage(
 val ShiurID:String = "1023366",
@@ -9,4 +9,4 @@ val FormattedLength:String = "00:05:38",
 val SpeakerID:String = "5",
 val Speaker:String = "Rabbi Eliyahu Reingold",
 val SpeakerSE:String = "rabbi-eliyahu-reingold"
-)
+):Shiur
