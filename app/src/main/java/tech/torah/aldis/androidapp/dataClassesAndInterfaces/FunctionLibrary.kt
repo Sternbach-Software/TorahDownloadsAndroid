@@ -138,7 +138,8 @@ object FunctionLibrary {
                 listOfCategoryNames,
                 listOfSeriesNames,
                 fragmentManager,
-                TAG
+                TAG,
+                true
             )
             setupSearchView(menu, torahFilterableCallback)
         }
@@ -152,9 +153,10 @@ object FunctionLibrary {
         listOfCategoryNames: List<String>,
         listOfSeriesNames: List<String>,
         fragmentManager: FragmentManager,
-        TAG: String
+        TAG: String,
+        alsoUsingSearchButton:Boolean
     ) {
-        menuInflater.inflate(R.menu.downloads_favorites_history_pages_menu, menu)
+        menuInflater.inflate(if(alsoUsingSearchButton) R.menu.search_bar_and_filter_button else R.menu.filter_button_only, menu)
         val filterItem: MenuItem = menu.findItem(R.id.filter_button)
         filterItem.setOnMenuItemClickListener {
             ShiurimSortOrFilterDialog(
@@ -175,7 +177,7 @@ object FunctionLibrary {
         torahFilterableCallback: TorahFilterable
     ) {
         val searchView = menu.findItem(R.id.actionSearch)?.actionView as SearchView?
-        searchView?.imeOptions = EditorInfo.IME_ACTION_DONE
+        searchView?.imeOptions = EditorInfo.IME_ACTION_DONE //TODO figure out the right ime action
         searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean = true
 

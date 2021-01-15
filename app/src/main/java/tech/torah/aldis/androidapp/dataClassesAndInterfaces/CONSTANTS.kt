@@ -733,4 +733,5 @@ object CONSTANTS {
             SpeakerSE = "rabbi-berel-bell"
         )
     )
+    val regexForTitle = """(?<="Title": ")[\w\s-()\.'-,;]+(?=",)"""
 }

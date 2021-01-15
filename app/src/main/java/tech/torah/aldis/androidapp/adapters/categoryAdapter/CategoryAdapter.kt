@@ -11,7 +11,7 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import tech.torah.aldis.androidapp.R
-import tech.torah.aldis.androidapp.activities.ShiurimPageActivity
+import tech.torah.aldis.androidapp.activities.BaseShiurimPageActivity
 import tech.torah.aldis.androidapp.activities.SubcategoriesPageActivity
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.*
 
@@ -74,7 +74,7 @@ class CategoryAdapter(private val originalList: ArrayList<Category>) :
                 Log.d(TAG,"Button category = $buttonCategory")
                 val context = it.context
                 val hasChildren = buttonCategory.hasChildren
-                val intent =  Intent(context, if (hasChildren) SubcategoriesPageActivity::class.java else ShiurimPageActivity::class.java).apply {
+                val intent =  Intent(context, if (hasChildren) SubcategoriesPageActivity::class.java else BaseShiurimPageActivity::class.java).apply {
                     if (hasChildren) putParcelableArrayListExtra(CONSTANTS.INTENT_EXTRA_CATEGORY_DETAILS,buttonCategory.children)
                     else putParcelableArrayListExtra(CONSTANTS.INTENT_EXTRA_CATEGORY_CHILD_SHIURIM,getChildShiurim(buttonCategory))
                     putExtra(CONSTANTS.INTENT_EXTRA_SUBCATEGORY_PARENT_NAME,buttonCategory.name)

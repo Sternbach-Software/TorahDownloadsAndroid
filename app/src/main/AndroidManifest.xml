@@ -18,35 +18,33 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.ShiurimPageActivity"
+            android:name=".activities.BaseShiurimPageActivity"
             android:label="@string/shiurim_activity_name"/>
         <activity
             android:name=".activities.ListOfSpeakerPageActivity"
             android:label="@string/speakers_activity_name"/>
         <activity
             android:name=".activities.RecentlyAddedShiurimPageActivity"
-            android:label="Recently Added Shiurim" />
+            android:label="@string/recently_added_shiurim" />
         <activity
             android:name=".activities.ListOfPlaylistsPageActivity"
-            android:label="Playlists" />
+            android:label="@string/playlists" />
         <activity
             android:name=".activities.FavoritesPageActivity"
-            android:label="Favorites" />
+            android:label="@string/favorites" />
         <activity
             android:name=".activities.DownloadsPageActivity"
-            android:label="Downloads" />
+            android:label="@string/downloads" />
         <activity
             android:name=".activities.ParentCategoriesPageActivity"
-            android:label="Categories" />
+            android:label="@string/categories" />
         <activity
             android:name=".activities.HistoryPageActivity"
-            android:label="History" />
+            android:label="@string/history" />
         <activity
-            android:name=".activities.IndividualPlaylistPageActivity"
-            android:label="Playlist" />
+            android:name=".activities.IndividualPlaylistPageActivity"/> <!--label will change on a case-by-case basis-->
         <activity
-            android:name=".activities.SubcategoriesPageActivity"
-            android:label="Subcategory Page" />
+            android:name=".activities.SubcategoriesPageActivity" /> <!--label will change on a case-by-case basis-->
         <activity
             android:name=".activities.TestingActivity"
             android:label="Testing Activity" />

@@ -10,5 +10,6 @@ val DateModified: String ="2016-10-31 14:37:50",
 val CategoryID: String ="157",
 val Category: String ="Bereishis",
 val CategorySE: String ="berieshis",
-val Uploaded: String ="2016-10-31 14:33:16"
-):Shiur
+val Uploaded: String ="2016-10-31 14:33:16",
+val Speaker:String = "TODO"
+):Shiur(ShiurID,Title,Length,Speaker)

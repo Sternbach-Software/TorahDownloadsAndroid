@@ -3,17 +3,15 @@ package tech.torah.aldis.androidapp.activities
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.snackbar.Snackbar
-import android.view.View
 import com.google.android.material.button.MaterialButton
 import tech.torah.aldis.androidapp.R
 
 private const val TAG = "HomePageActivity"
-@Suppress("UNUSED_PARAMETER")
 class HomePageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.home_page_scroll_view)
+
         findViewById<MaterialButton>(R.id.open_speaker_page_button).setOnClickListener {
             val intent = Intent(this@HomePageActivity, ListOfSpeakerPageActivity::class.java)
             this@HomePageActivity.startActivity(intent)
@@ -31,16 +29,14 @@ class HomePageActivity : AppCompatActivity() {
             this@HomePageActivity.startActivity(intent)
         }
         findViewById<MaterialButton>(R.id.open_history_page_button).setOnClickListener {
-
-            //TODO to implement
-
+            val intent = Intent(this@HomePageActivity, HistoryPageActivity::class.java)
+            this@HomePageActivity.startActivity(intent)
         }
         findViewById<MaterialButton>(R.id.open_playlists_page_button).setOnClickListener {
             val intent = Intent(this@HomePageActivity, ListOfPlaylistsPageActivity::class.java)
             this@HomePageActivity.startActivity(intent)
         }
         findViewById<MaterialButton>(R.id.open_recently_added_page_button).setOnClickListener {
-
             val intent = Intent(this@HomePageActivity, RecentlyAddedShiurimPageActivity::class.java)
             this@HomePageActivity.startActivity(intent)
         }

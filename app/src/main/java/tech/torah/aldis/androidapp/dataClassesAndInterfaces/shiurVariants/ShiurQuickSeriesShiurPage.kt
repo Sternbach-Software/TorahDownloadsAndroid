@@ -9,4 +9,4 @@ val FormattedLength:String = "00:05:38",
 val SpeakerID:String = "5",
 val Speaker:String = "Rabbi Eliyahu Reingold",
 val SpeakerSE:String = "rabbi-eliyahu-reingold"
-):Shiur
+):Shiur(ShiurID,Title,Length,Speaker)

@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.l4digital.fastscroll.FastScrollRecyclerView
 import tech.torah.aldis.androidapp.R
 import tech.torah.aldis.androidapp.adapters.speakerAdapter.SpeakerAdapter
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.FunctionLibrary
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.Speaker
 import java.io.BufferedReader
 import java.io.IOException
@@ -17,7 +18,7 @@ import java.io.InputStream
 import java.io.InputStreamReader
 
 
-private const val TAG = "ListOfSpeakerPageActivity"
+private const val TAG = "ListOfSpeakerPageActivi"
 
 class ListOfSpeakerPageActivity : AppCompatActivity() {
         private lateinit var speakerAdapter: SpeakerAdapter
@@ -98,7 +99,7 @@ class ListOfSpeakerPageActivity : AppCompatActivity() {
             var tContents:String? = ""
 
             val stringBuilder = StringBuilder()
-            val isa:InputStream = this.resources .openRawResource(inFile)
+            val isa:InputStream = this.resources.openRawResource(inFile)
             val reader = BufferedReader(InputStreamReader(isa))
             while (true) {
                 try {
@@ -116,17 +117,9 @@ class ListOfSpeakerPageActivity : AppCompatActivity() {
             //TODO consider using FunctionLibrary.setupFilterAndSearch() - would have to also consider what the speakers can be filtered or sorted by
             val inflater = menuInflater
             inflater.inflate(R.menu.search_bar_only, menu)
-            val searchItem: MenuItem = menu!!.findItem(R.id.actionSearch)
-            val searchView: SearchView = searchItem.actionView as SearchView
-            searchView.imeOptions = EditorInfo.IME_ACTION_DONE
-            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(query: String?): Boolean = true
-
-                override fun onQueryTextChange(query: String?): Boolean {
-                    speakerAdapter.search(query ?: "")
-                    return false
-                }
-            })
+            if (menu != null) {
+                FunctionLibrary.setupSearchView(menu,speakerAdapter)
+            }
             return true
         }
 }

@@ -11,12 +11,13 @@ import tech.torah.aldis.androidapp.dataClassesAndInterfaces.FunctionLibrary
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.shiurVariants.ShiurFullPage
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TabType
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TorahFilterable
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.shiurVariants.Shiur
 
 private const val TAG = "ShiurAdapter"
-class ShiurAdapter(private val originalShiurFullPageList: List<ShiurFullPage>) :
+class ShiurAdapter(private val originalShiurFullPageList: List<Shiur/*FullPage*/>) :
     RecyclerView.Adapter<ShiurAdapter.ShiurViewHolder>(), FastScroller.SectionIndexer, TorahFilterable {
     //TODO consider making originalShiurFullPageList an immutable set (it never changes and it doesn't need doubles
-    private val shiurFullPageList: MutableList<ShiurFullPage> = originalShiurFullPageList.toMutableList()
+    private val shiurFullPageList: MutableList<Shiur/*FullPage*/> = originalShiurFullPageList.toMutableList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShiurViewHolder {
         val v = LayoutInflater.from(parent.context)
@@ -30,7 +31,7 @@ class ShiurAdapter(private val originalShiurFullPageList: List<ShiurFullPage>) :
         holder.bindItem(shiurFullPageList[position])
 
     override fun getSectionText(position: Int): CharSequence =
-        shiurFullPageList[position].title!!.first().toString()
+        shiurFullPageList[position].baseTitle!!.first().toString()
 
     override fun filter(
         constraint: String,
@@ -52,15 +53,11 @@ class ShiurAdapter(private val originalShiurFullPageList: List<ShiurFullPage>) :
 
     class ShiurViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bindItem(shiurFullPage: ShiurFullPage) {
+        fun bindItem(shiurFullPage: Shiur/*FullPage*/) {
             val shiurTitle = itemView.findViewById(R.id.shiur_title) as TextView?
             val shiurSpeaker = itemView.findViewById(R.id.shiur_speaker) as TextView?
-//            val rectangle = ResourcesCompat.getDrawable(itemView.context.resources,R.drawable.card_progress_indicator,itemView.context.theme)
-//            rectangle?.setBounds(1,2,3,4)
-//            Log.d(TAG,"bounds 1,2,3,4")
-//            itemView.background = rectangle
-                shiurTitle?.text = shiurFullPage.title
-                shiurSpeaker?.text = shiurFullPage.speaker
+                shiurTitle?.text = shiurFullPage.baseTitle
+                shiurSpeaker?.text = shiurFullPage.baseSpeaker
         }
     }
 }

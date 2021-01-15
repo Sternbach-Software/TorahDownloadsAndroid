@@ -9,4 +9,4 @@ val SpeakerID:String= "140",
 val Speaker:String= "Rabbi Yaakov Moishe Shurkin",
 val SpeakerSE:String= "rabbi- yaakov-moishe-shurkin",
 val url:String= "\\/shiur-20373.html"
-):Shiur
+):Shiur(ShiurID,Title,Length,Speaker)

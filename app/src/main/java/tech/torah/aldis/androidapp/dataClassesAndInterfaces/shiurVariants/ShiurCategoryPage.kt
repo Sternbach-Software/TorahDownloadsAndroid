@@ -11,7 +11,7 @@ val FormattedLength:String? = "63",
 val SpeakerID:String? = "14",
 val Speaker:String? = "Rabbi Mordechai Becher",
 val SpeakerSE:String? = "rabbi-mordechai-becher"
-):Shiur, Parcelable {
+):Shiur(ShiurID,Title,Length,Speaker), Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
         parcel.readString(),

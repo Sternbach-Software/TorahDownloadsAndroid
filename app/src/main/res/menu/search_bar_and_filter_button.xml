@@ -5,15 +5,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
     <item
-        android:id="@+id/filter_button"
-        android:title="Filter"
-        android:icon="@drawable/ic_filter"
-        app:showAsAction="ifRoom|collapseActionView"/>
-    <item
         android:id="@+id/actionSearch"
         android:title="Search"
         android:icon="@drawable/ic_search_icon"
-        app:showAsAction="ifRoom|collapseActionView"
+        app:showAsAction="always"
         app:actionViewClass="androidx.appcompat.widget.SearchView" />
+    <item
+        android:id="@+id/filter_button"
+        android:title="Filter"
+        android:icon="@drawable/ic_filter"
+        app:showAsAction="always"/>
 
 </menu>

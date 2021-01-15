@@ -1,5 +1,6 @@
 package tech.torah.aldis.androidapp.dialogs
 
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -69,12 +70,11 @@ class ChooserFastScrollerDialog(
         return view
     }
 
-    override fun getTheme(): Int = R.style.DialogTheme
+    override fun getTheme(): Int = /*if(Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN)*/ R.style.DialogTheme /*else R.style.DialogTheme_API16Support*/ //TODO
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         val recyclerView: FastScrollView? = view.findViewById(R.id.fast_scroller)
         recyclerView?.setLayoutManager(LinearLayoutManager(context))
 

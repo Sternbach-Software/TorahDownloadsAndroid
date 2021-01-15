@@ -10,7 +10,7 @@ data class ShiurFullPage(
     val title: String? = "Chinuch - Shiur 1",
     val speaker/*Rabbi Yisroel Belsky*/: String? = "Rabbi Yisroel Belsky",
     val speaker_image: String? = "assets\\/speakers\\/64.jpg",
-    val length: Int = 83,
+    val length: String? = "83",
     val links: List<String>? = listOf(
         "shiur-1008064-download.mp3",
         "\\/c-223-chinuch-parenting.html",
@@ -32,14 +32,14 @@ data class ShiurFullPage(
     val series: String? = "C",
     val quickseries: String? = "",
     val quickseries_name: String? = ""
-) : Shiur, TorahFilter, Parcelable {
+) : Shiur(id,title,length,speaker), TorahFilter, Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
-        parcel.readInt(),
+        parcel.readString(),
         parcel.createStringArrayList(),
         parcel.readString(),
         parcel.readString(),
@@ -60,7 +60,7 @@ data class ShiurFullPage(
         parcel.writeString(title)
         parcel.writeString(speaker)
         parcel.writeString(speaker_image)
-        parcel.writeInt(length)
+        parcel.writeString(length)
         parcel.writeStringList(links)
         parcel.writeString(category)
         parcel.writeString(attachment)
