@@ -116,7 +116,7 @@
             android:layout_marginStart="5dp"
             android:minWidth="240dp"
             android:clickable="true">
-<!--TODO find this function and make the style of this TextInputLayout into "Widget.MaterialComponents.TextInputLayout.OutlinedBox": 01-12 19:37:03.805 2668-2668/tech.torah.aldis.androidapp E/dalvikvm: Could not find class 'android.graphics.drawable.RippleDrawable', referenced from method com.google.android.material.textfield.DropdownMenuEndIconDelegate.addRippleEffectOnOutlinedLayout-->
+<!--TODO find this function and make the style of this TextInputLayout into "Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
                 <AutoCompleteTextView
                     android:id="@+id/individual_speaker_category_series_chooser_auto_complete_text_view"
                     android:layout_width="match_parent"

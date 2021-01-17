@@ -8,16 +8,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.l4digital.fastscroll.FastScroller
 import tech.torah.aldis.androidapp.R
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.FunctionLibrary
-import tech.torah.aldis.androidapp.dataClassesAndInterfaces.shiurVariants.ShiurFullPage
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TabType
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TorahFilterable
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.shiurVariants.Shiur
 
 private const val TAG = "ShiurAdapter"
-class ShiurAdapter(private val originalShiurFullPageList: List<Shiur/*FullPage*/>) :
+class ShiurAdapter(private val originalShiurList: List<Shiur/*FullPage*/>) :
     RecyclerView.Adapter<ShiurAdapter.ShiurViewHolder>(), FastScroller.SectionIndexer, TorahFilterable {
     //TODO consider making originalShiurFullPageList an immutable set (it never changes and it doesn't need doubles
-    private val shiurFullPageList: MutableList<Shiur/*FullPage*/> = originalShiurFullPageList.toMutableList()
+    private val shiurFullPageList: MutableList<Shiur/*FullPage*/> = originalShiurList.toMutableList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShiurViewHolder {
         val v = LayoutInflater.from(parent.context)
@@ -39,7 +38,7 @@ class ShiurAdapter(private val originalShiurFullPageList: List<Shiur/*FullPage*/
         exactMatch: Boolean) {
         FunctionLibrary.filter(
             constraint,
-            originalShiurFullPageList,
+            originalShiurList,
             shiurFullPageList,
             this,
             tabType,
@@ -48,7 +47,7 @@ class ShiurAdapter(private val originalShiurFullPageList: List<Shiur/*FullPage*/
     }
 
     override fun reset() {
-       FunctionLibrary.reset(originalShiurFullPageList,shiurFullPageList, this)
+       FunctionLibrary.reset(originalShiurList,shiurFullPageList, this)
     }
 
     class ShiurViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

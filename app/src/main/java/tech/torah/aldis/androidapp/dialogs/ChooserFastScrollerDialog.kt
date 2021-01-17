@@ -1,9 +1,9 @@
 package tech.torah.aldis.androidapp.dialogs
 
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
@@ -25,7 +25,7 @@ private lateinit var fastScrollerSelectButton: MaterialButton
 private lateinit var fastScrollerCancelButton: MaterialButton
 private lateinit var fastScrollerDeselectButton: MaterialButton
 
-private const val TAG = "ChooserFastScrollerDialog"
+private const val TAG = "ChooserFastScrollerDial"
 class ChooserFastScrollerDialog(
     private val listItems: List<String>,
     private val tabTypeBeingDisplayed: TabType,
@@ -83,7 +83,7 @@ class ChooserFastScrollerDialog(
         fastScrollerSelectButton = view.findViewById(R.id.fast_scroller_select_button)
 
         chooserFastScrollerAdapter = ChooserFastScrollerAdapter(listItems)
-        FunctionLibrary.setupSearchView(toolbar.menu,chooserFastScrollerAdapter) //this was in
+        FunctionLibrary.setupSearchView(MenuInflater(toolbar.context), toolbar.menu, chooserFastScrollerAdapter,false) //this was in
         // onCreateView, but chooserFastScrollerAdapter had not yet been initialized
 
         recyclerView?.setAdapter(chooserFastScrollerAdapter)

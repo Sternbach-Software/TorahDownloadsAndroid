@@ -510,28 +510,8 @@ object CONSTANTS {
     ).sorted()
     val genericListOfAvailableSeries = listOf("Amud Yomi", "Daf Yomi", "a")
     val serverUrl = "https://www.torahdownloads.org"
-
-    /**
-     * An ArrayList<String> of speaker details
-     * @size 2 elements
-     * @element First is the speaker name
-     * @element Second is the description
-     * */
-    val INTENT_EXTRA_SPEAKER_DETAILS = "tech.torah.aldis.android.speakers.details"
-
-    /**
-     * An ArrayList<Category> of category details.
-     * @size 4 elements
-     * @element First is the category name
-     * @element Second is a subcategory
-     * @element Third is a subcategory
-     * @element Fourth is a subcategory
-     * */
-    val INTENT_EXTRA_CATEGORY_DETAILS = "tech.torah.aldis.android.category.details"
-    val INTENT_EXTRA_SUBCATEGORY_PARENT_NAME = "tech.torah.aldis.android.category.parent_name"
-    val INTENT_EXTRA_CATEGORY_CHILD_SHIURIM = "tech.torah.aldis.android.category.shiurim"
     val sampleListOfShiurim = arrayListOf<Parcelable>(
-           ShiurCategoryPage(
+        ShiurCategoryPage(
             ShiurID = "23691",
             Title = "Rambam #0014: Ch. 2: Laws of the fundamentals of the Torah",
             Length = "1080",
@@ -734,4 +714,29 @@ object CONSTANTS {
         )
     )
     val regexForTitle = """(?<="Title": ")[\w\s-()\.'-,;]+(?=",)"""
+
+    /**
+     * An ArrayList<String> of speaker details
+     * @size 2 elements
+     * @element First is the speaker name
+     * @element Second is the description
+     * */
+    val INTENT_EXTRA_SPEAKER_DETAILS = "tech.torah.aldis.android.speakers.details"
+
+    /**
+     * An ArrayList<Category> of category details.
+     * @size 4 elements
+     * @element First is the category name
+     * @element Second is a subcategory
+     * @element Third is a subcategory
+     * @element Fourth is a subcategory
+     * */
+    val INTENT_EXTRA_CATEGORY_DETAILS = "tech.torah.aldis.android.category.details"
+    val INTENT_EXTRA_SUBCATEGORY_PARENT_NAME = "tech.torah.aldis.android.category.parent_name"
+    val INTENT_EXTRA_CATEGORY_CHILD_SHIURIM = "tech.torah.aldis.android.category.shiurim"
+    val INTENT_EXTRA_SPEAKER_CHILD_SHIURIM = "tech.torah.aldis.android.speaker.shiurim"
+    val INTENT_EXTRA_MORE_FROM_THIS_SPEAKER = "tech.torah.aldis.android.more_for_this.speaker"
+    val INTENT_EXTRA_MORE_FROM_THIS_CATEGORY = "tech.torah.aldis.android.more_for_this.category"
+    val INTENT_EXTRA_MORE_FROM_THIS_SERIES = "tech.torah.aldis.android.more_for_this.series"
+
 }

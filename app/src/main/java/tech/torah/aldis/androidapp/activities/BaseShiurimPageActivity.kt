@@ -7,10 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import tech.torah.aldis.androidapp.R
 import tech.torah.aldis.androidapp.adapters.shiurAdapter.ShiurAdapter
-import tech.torah.aldis.androidapp.dataClassesAndInterfaces.FunctionLibrary
-import tech.torah.aldis.androidapp.dataClassesAndInterfaces.HoldsShiurCard
-import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TabType
-import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TorahFilterable
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.*
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.shiurVariants.Shiur
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.shiurVariants.ShiurFullPage
 import tech.torah.aldis.androidapp.dialogs.ShiurOptionsBottomSheetDialog
@@ -31,7 +28,7 @@ open class BaseShiurimPageActivity : AppCompatActivity(), TorahFilterable, Holds
         setContentView(R.layout.plain_recycler_view_layout)
         supportActionBar?.title = pageTitle
         //TODO figure out how to customize the title and list of shiurim by getting the intent extras if they exist
-        listOfShiurim = mutableListOf(
+        listOfShiurim = (intent.getParcelableArrayExtra(CONSTANTS.INTENT_EXTRA_SPEAKER_CHILD_SHIURIM) as ArrayList<Shiur>?)?.toMutableList() ?: mutableListOf(
             ShiurFullPage(title = "Halachos of Neir Havdala; Emulating HASHEM's Chesed  (Agudah Parsha Shiur Beraishis  5777)",speaker = "Rabbi Yehuda Ades",category="Chayei Sarah"),
             ShiurFullPage(title = "Halachos of Neir Havdala; Emulating HASHEM's Chesed  (Agudah Parsha Shiur Beraishis  5777)",speaker = "Rabbi Gedaliah Anemer",category="Chayei Sarah"),
             ShiurFullPage(title = "Languages- Parshas Beraishis 5779",speaker = "Rabbi David Ashear",category="Chayei Sarah"),
@@ -99,21 +96,27 @@ open class BaseShiurimPageActivity : AppCompatActivity(), TorahFilterable, Holds
         listOfSeriesNames = mutableListOf()
         listOfCategoryNames = mutableListOf()
 
-        for (shiur in listOfShiurim as MutableList<ShiurFullPage>) {
-            shiur.speaker?.let { listOfSpeakerNames.add(it) }
-            shiur.series?.let { listOfSeriesNames.add(it) }
-            shiur.category?.let { listOfCategoryNames.add(it) }
+        for (shiur in listOfShiurim as MutableList<Shiur>) {
+            shiur.baseSpeaker?.let { listOfSpeakerNames.add(it) }
+//            shiur.baseSeries?.let { listOfSeriesNames.add(it) }
+//            shiur.baseCategory?.let { listOfCategoryNames.add(it) }
         }
+
         listOfSpeakerNames = listOfSpeakerNames.toSet().toMutableList()
         listOfSeriesNames = listOfSeriesNames.toSet().toMutableList()
         listOfCategoryNames = listOfCategoryNames.toSet().toMutableList()
         //TODO I have a feeling that all of this new object creating is using a lot of RAM.
         // I do a significant amount of this also in ShiurAdapter, and anywhere which interfaces
         // with ShiurimSortOrFilterDialog.
-        shiurAdapter = ShiurAdapter(listOfShiurim as MutableList<ShiurFullPage>)
+        shiurAdapter = ShiurAdapter(listOfShiurim)
         recyclerView?.adapter = shiurAdapter
     }
-
+    fun Shiur.getSpeakerReciever():String?{
+        return when(this){
+            is ShiurFullPage -> speaker
+            else -> baseSpeaker
+        }
+    }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         FunctionLibrary.setupFilterAndSearch(
             menu,

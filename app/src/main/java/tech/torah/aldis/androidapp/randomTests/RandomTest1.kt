@@ -1,5 +1,6 @@
 package tech.torah.aldis.androidapp.randomTests
 
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.shiurVariants.Shiur
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.shiurVariants.ShiurFullPage
 import java.io.File
 
@@ -58,7 +59,7 @@ public inline fun <T> List<T>.myforEach(action: (T) -> Unit): List<T> {
     for (element in this) action(element)
     return this
 }
-fun addToXIfIDisGreaterThanFIveHundred(it: ShiurFullPage, xes: MutableList<ShiurFullPage>) {
+fun addToXIfIDisGreaterThanFIveHundred(it: ShiurFullPage, xes: MutableList<Shiur>) {
 
 }
 

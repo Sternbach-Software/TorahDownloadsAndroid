@@ -12,11 +12,21 @@ import tech.torah.aldis.androidapp.R
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.shiurVariants.ShiurFullPage
 import tech.torah.aldis.androidapp.dialogs.ShiurimSortOrFilterDialog
 import java.util.*
-private const val TAG = "FunctionLibrary"
+
 /**
  * This is a library for functions used throughout the app, such a filter() for a RecyclerView, to facilitate DRYness.
  * */
 object FunctionLibrary {
+    private const val TAG = "FunctionLibrary"
+
+    /**
+     * This is used by [setupFilterButton] and [setupSearchView] to know whether to inflate a layout
+     * or not. If this is true, a layout has already been inflated and the client of the function has
+     * chosen whether to have one or both of the buttons on the action bar, so the function should not
+     * inflate a layout.
+     * */
+    private var layoutInflatedHasBeen = false
+
     /**
      * Filters a recycler view based on a constraint
      * @param constraint can be a partial phrase from a SearchView or an entry from a [ChooserFastScrollerDialog]
@@ -33,7 +43,7 @@ object FunctionLibrary {
         animation: Boolean = false
     ) {
         //TODO Would it make filtering more efficient by using indices instead of full objects? Or are they just references...?
-        fun String.matchesConstraint(constraint: String) = when(exactMatch){
+        fun String.matchesConstraint(constraint: String) = when (exactMatch) {
             true -> this == constraint
             false -> this.contains(constraint)
         }
@@ -69,10 +79,9 @@ object FunctionLibrary {
         } else {
 /* // */if (!filterWithinPreviousResults) workingList.clear()
             if (constraint.isEmpty()) { //TODO I feel like i should add "&& workingList.size > 0" but I feel like when i first wrote this code i worked through it better than i have it now. I hope I remember to test it by filtering letter by letter, and then selecting the whole searchphrase and deleting it at one time. I am assuming that this TODO is only applicable for
-                if(workingList.size != 0) workingList.clear()
+                if (workingList.size != 0) workingList.clear()
                 workingList.addAll(originalList)
-            }
-            else {
+            } else {
                 val filterPattern = constraint.toLowerCase(Locale.ROOT).trim()
                 val tempWorkingList: List<T> =
                     if (filterWithinPreviousResults) workingList.toList() else listOf()
@@ -91,12 +100,14 @@ object FunctionLibrary {
             }
             recyclerView.notifyDataSetChanged()
         }
-        Log.d(TAG,"Working List (After mutation) = $workingList")
+        Log.d(TAG, "Working List (After mutation) = $workingList")
     }
 
-    fun <T, VH : RecyclerView.ViewHolder> reset(originalList: List<T>,
-              workingList: MutableList<T>,
-              recyclerView: RecyclerView.Adapter<VH>){
+    fun <T, VH : RecyclerView.ViewHolder> reset(
+        originalList: List<T>,
+        workingList: MutableList<T>,
+        recyclerView: RecyclerView.Adapter<VH>
+    ) {
         //TODO make reset more efficient by using indices?
         workingList.clear()
         workingList.addAll(originalList)
@@ -117,6 +128,7 @@ object FunctionLibrary {
         is Playlist -> playlistName
         else -> this as String
     }
+
     fun setupFilterAndSearch(
         menu: Menu?,
         menuInflater: MenuInflater,
@@ -141,7 +153,7 @@ object FunctionLibrary {
                 TAG,
                 true
             )
-            setupSearchView(menu, torahFilterableCallback)
+            setupSearchView(menuInflater, menu, torahFilterableCallback, true)
         }
     }
 
@@ -154,11 +166,17 @@ object FunctionLibrary {
         listOfSeriesNames: List<String>,
         fragmentManager: FragmentManager,
         TAG: String,
-        alsoUsingSearchButton:Boolean
+        alsoUsingSearchButton: Boolean
     ) {
-        menuInflater.inflate(if(alsoUsingSearchButton) R.menu.search_bar_and_filter_button else R.menu.filter_button_only, menu)
-        val filterItem: MenuItem = menu.findItem(R.id.filter_button)
-        filterItem.setOnMenuItemClickListener {
+        if (!layoutInflatedHasBeen) {
+            menuInflater.inflate(
+                if (alsoUsingSearchButton) R.menu.search_bar_and_filter_button else R.menu.filter_button_only,
+                menu
+            )
+            layoutInflatedHasBeen = true
+        }
+        val filterItem: MenuItem? = menu.findItem(R.id.filter_button)
+        filterItem?.setOnMenuItemClickListener {
             ShiurimSortOrFilterDialog(
                 torahFilterableCallback,
                 listOfSpeakerNames.toList(),
@@ -173,9 +191,18 @@ object FunctionLibrary {
     }
 
     fun setupSearchView(
+        menuInflater: MenuInflater,
         menu: Menu,
-        torahFilterableCallback: TorahFilterable
+        torahFilterableCallback: TorahFilterable,
+        alsoUsingFilterButton: Boolean
     ) {
+        if (!layoutInflatedHasBeen) {
+            menuInflater.inflate(
+                if (alsoUsingFilterButton) R.menu.search_bar_and_filter_button else R.menu.search_bar_only,
+                menu
+            )
+            layoutInflatedHasBeen = true
+        }
         val searchView = menu.findItem(R.id.actionSearch)?.actionView as SearchView?
         searchView?.imeOptions = EditorInfo.IME_ACTION_DONE //TODO figure out the right ime action
         searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {

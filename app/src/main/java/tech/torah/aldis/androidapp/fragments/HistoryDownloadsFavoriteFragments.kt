@@ -8,10 +8,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import tech.torah.aldis.androidapp.PageViewModel
 import tech.torah.aldis.androidapp.R
-import tech.torah.aldis.androidapp.dataClassesAndInterfaces.shiurVariants.ShiurFullPage
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TabType
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.shiurVariants.Shiur
 
-class PlaceholderFragment(shiurim: List<ShiurFullPage>, moreFromThis: Boolean) : Fragment() {
+class PlaceholderFragment(shiurim: List<Shiur>, moreFromThis: Boolean) : Fragment() {
  private lateinit var pageViewModel: PageViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,7 +52,7 @@ class PlaceholderFragment(shiurim: List<ShiurFullPage>, moreFromThis: Boolean) :
          * number.
          */
         @JvmStatic
-        fun newInstance(sectionNumber: Int, shiurim: List<ShiurFullPage>, moreFromThis:Boolean): PlaceholderFragment {
+        fun newInstance(sectionNumber: Int, shiurim: List<Shiur>, moreFromThis:Boolean): PlaceholderFragment {
             return PlaceholderFragment(shiurim, moreFromThis).apply {
                 arguments = Bundle().apply {
                     putInt(ARG_SECTION_NUMBER, sectionNumber)

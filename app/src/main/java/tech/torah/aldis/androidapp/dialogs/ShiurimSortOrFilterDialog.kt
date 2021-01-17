@@ -19,7 +19,7 @@ import java.util.*
 /**
  * This is the dialog that will be used for filtering the Downloads, Favorites, and History pages
  * */
-private const val TAG = "DownloadsFavoritesHistoryFilterDialogFragment"
+private const val TAG = "ShiurimSortOrFilterDial"
 //private lateinit var progressiveFilterExplanationImageButton: ImageButton
 private lateinit var filterButton: MaterialButton
 private lateinit var cancelButton: MaterialButton
@@ -244,6 +244,38 @@ class ShiurimSortOrFilterDialog(
     override fun onDataReceived(data: String) {
         selectedListItem = data
         individualSpeakerCategorySeriesChooserAutoCompleteTextView.setText(data)
+    }
+     /**
+     * From [com.google.android.material.textfield.DropdownMenuEndIconDelegate]
+     * */
+    private fun addRippleEffectOnOutlinedLayout(
+        editText: AutoCompleteTextView,
+        rippleColor: Int,
+        states: Array<IntArray>,
+        boxBackground: MaterialShapeDrawable
+    ) {
+        //TODO to implement
+        val editTextBackground: LayerDrawable
+        val surfaceColor = MaterialColors.getColor(editText, R.attr.colorSurface)
+        val rippleBackground = MaterialShapeDrawable(boxBackground.shapeAppearanceModel)
+        val pressedBackgroundColor = MaterialColors.layer(rippleColor, surfaceColor, 0.1f)
+        val rippleBackgroundColors = intArrayOf(pressedBackgroundColor, Color.TRANSPARENT)
+        rippleBackground.fillColor = ColorStateList(states, rippleBackgroundColors)
+        editTextBackground = if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
+            rippleBackground.setTint(surfaceColor)
+            val colors = intArrayOf(pressedBackgroundColor, surfaceColor)
+            val rippleColorStateList = ColorStateList(states, colors)
+            val mask = MaterialShapeDrawable(boxBackground.shapeAppearanceModel)
+            mask.setTint(Color.WHITE)
+            val rippleDrawable: Drawable =
+                RippleDrawable(rippleColorStateList, rippleBackground, mask)
+            val layers = arrayOf(rippleDrawable, boxBackground)
+            LayerDrawable(layers)
+        } else {
+            val layers = arrayOf<Drawable>(rippleBackground, boxBackground)
+            LayerDrawable(layers)
+        }
+        ViewCompat.setBackground(editText, editTextBackground)
     }
 }
 

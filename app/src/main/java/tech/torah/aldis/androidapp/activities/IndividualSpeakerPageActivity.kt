@@ -30,7 +30,7 @@ class IndividualSpeakerPageActivity: AppCompatActivity() {
         inflater.inflate(R.menu.speaker_page, menu)
         val viewShiurimButtton: MenuItem? = menu?.findItem(R.id.view_shiurim)
         viewShiurimButtton?.setOnMenuItemClickListener {
-            val intent = Intent(this@IndividualSpeakerPageActivity, RecentlyAddedShiurimPageActivity::class.java)
+            val intent = Intent(this@IndividualSpeakerPageActivity, BaseShiurimPageActivity::class.java)
             this@IndividualSpeakerPageActivity.startActivity(intent)
             true
         }

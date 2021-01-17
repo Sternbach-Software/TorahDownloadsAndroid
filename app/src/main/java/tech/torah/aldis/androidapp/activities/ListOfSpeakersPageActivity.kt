@@ -3,9 +3,7 @@ package tech.torah.aldis.androidapp.activities
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.l4digital.fastscroll.FastScrollRecyclerView
 import tech.torah.aldis.androidapp.R
@@ -114,11 +112,9 @@ class ListOfSpeakerPageActivity : AppCompatActivity() {
             return stringBuilder.toString()
         }
         override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-            //TODO consider using FunctionLibrary.setupFilterAndSearch() - would have to also consider what the speakers can be filtered or sorted by
-            val inflater = menuInflater
-            inflater.inflate(R.menu.search_bar_only, menu)
+            //TODO Should we use FunctionLibrary.setupFilterAndSearch()? What can the speakers be filtered or sorted by?
             if (menu != null) {
-                FunctionLibrary.setupSearchView(menu,speakerAdapter)
+                FunctionLibrary.setupSearchView(menuInflater, menu, speakerAdapter,false)
             }
             return true
         }
