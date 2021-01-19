@@ -714,6 +714,16 @@ object CONSTANTS {
         )
     )
     val regexForTitle = """(?<="Title": ")[\w\s-()\.'-,;]+(?=",)"""
+    val randomWord = { wordLength:Int ->
+        val allowedChars = ('A'..'Z') + ('a'..'z')
+        (1..wordLength)
+            .map { allowedChars.random() }
+            .joinToString("")
+    }
+    val listOfRandomWords = {numWords:Int, wordLength:Int->
+        val randomListOfWords = mutableListOf<String>()
+        for (i in 1..numWords) randomListOfWords.add(randomWord(wordLength))
+    }
 
     /**
      * An ArrayList<String> of speaker details

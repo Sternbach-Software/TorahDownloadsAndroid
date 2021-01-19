@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.l4digital.fastscroll.FastScroller
 import tech.torah.aldis.androidapp.R
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.FunctionLibrary
-import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TabType
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.ShiurFilterOption
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TorahFilterable
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.shiurVariants.Shiur
 
@@ -34,14 +34,14 @@ class ShiurAdapter(private val originalShiurList: List<Shiur/*FullPage*/>) :
 
     override fun filter(
         constraint: String,
-        tabType: TabType,
+        shiurFilterOption: ShiurFilterOption,
         exactMatch: Boolean) {
         FunctionLibrary.filter(
             constraint,
             originalShiurList,
             shiurFullPageList,
             this,
-            tabType,
+            shiurFilterOption,
             exactMatch
         )
     }

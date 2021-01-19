@@ -171,7 +171,7 @@
 
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/individual_speaker_category_series_chooser_text_input_layout"
+            android:id="@+id/individual_filter_criterion_chooser_text_input_layout"
             style="@style/DropdownMenuWithNoEndIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -180,7 +180,7 @@
             android:clickable="true">
 
             <AutoCompleteTextView
-                android:id="@+id/individual_speaker_category_series_chooser_auto_complete_text_view"
+                android:id="@+id/individual_filter_criterion_chooser_chooser_auto_complete_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="none"

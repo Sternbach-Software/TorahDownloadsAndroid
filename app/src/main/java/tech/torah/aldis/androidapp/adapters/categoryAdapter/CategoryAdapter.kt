@@ -45,7 +45,7 @@ import tech.torah.aldis.androidapp.dataClassesAndInterfaces.*
         TODO("Not yet implemented")
     }
 
-    override fun filter(constraint: String, tabType: TabType, exactMatch: Boolean) {
+    override fun filter(constraint: String, tabType: ShiurFilterOption, exactMatch: Boolean) {
         TODO("Not yet implemented")
     }
 
@@ -114,13 +114,13 @@ class CategoryAdapter(private val originalList: ArrayList<Category>) :
     }
 
     override fun getItemCount(): Int = workingList.size
-    override fun filter(constraint: String, tabType: TabType, exactMatch: Boolean) {
+    override fun filter(constraint: String, shiurFilterOption: ShiurFilterOption, exactMatch: Boolean) {
         FunctionLibrary.filter(
             constraint,
             originalList,
             workingList,
             this,
-            tabType,
+            shiurFilterOption,
             exactMatch
         )
     }

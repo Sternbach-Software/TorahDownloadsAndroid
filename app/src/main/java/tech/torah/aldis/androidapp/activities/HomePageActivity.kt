@@ -44,6 +44,10 @@ class HomePageActivity : AppCompatActivity() {
             val intent = Intent(this@HomePageActivity, ParallelNestedScrollingActivity::class.java)
             this@HomePageActivity.startActivity(intent)
         }
+        findViewById<MaterialButton>(R.id.open_testing_page_2_button).setOnClickListener {
+            val intent = Intent(this@HomePageActivity, TabsActivity::class.java)
+            this@HomePageActivity.startActivity(intent)
+        }
     }
     /*val snackBar = Snackbar.make(it,"TO BE IMPLEMENTED",Snackbar.LENGTH_LONG).setAction("Action",null)
       snackBar.show()*/

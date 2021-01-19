@@ -1,9 +1,9 @@
 package tech.torah.aldis.androidapp.activities
 
 import android.os.Bundle
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import tech.torah.aldis.androidapp.R
-import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TabType
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.ShiurFilterOption
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TorahFilterable
 import tech.torah.aldis.androidapp.dialogs.ShiurimSortOrFilterDialog
 
@@ -13,16 +13,17 @@ class TabsActivity : AppCompatActivity(), TorahFilterable {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.testing_layout)
-//        findViewById<Button>(R.id.buttonShowDialog).setOnClickListener { showDialog() }
+        val button = Button(applicationContext)
+        setContentView(button)
+        /*findViewById<Button>(R.id.buttonShowDialog)*/button.setOnClickListener { showDialog() }
     }
         private fun showDialog() {
-            val dialogFragment = ShiurimSortOrFilterDialog(this,listOf("a","b"),listOf("c","d"),listOf("e","f"))
-            dialogFragment.show(supportFragmentManager, TAG)
+//            val dialogFragment = ShiurimSortOrFilterDialog(this,mapOf("a" to listOf("a","b"),"b" to listOf("c","d"),"c" to listOf("e","f")))
+//            dialogFragment.show(supportFragmentManager, TAG)
         }
 
 
-    override fun filter(constraint: String, tabType: TabType, exactMatch: Boolean) {
+    override fun filter(constraint: String, shiurFilterOption: ShiurFilterOption, exactMatch: Boolean) {
 //        findViewById<TextView>(R.id.textView).text = constraint
         TODO("Not yet implemented")
     }

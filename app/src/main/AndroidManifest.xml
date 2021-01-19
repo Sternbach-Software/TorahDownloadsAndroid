@@ -54,6 +54,9 @@
         <activity
             android:name=".activities.IndividualSpeakerPageActivity"
             android:label="Testing Activity" />
+        <activity
+            android:name=".activities.TabsActivity"
+            android:label="Testing Activity" />
     </application>
 
 </manifest>

@@ -17,21 +17,22 @@ import com.l4digital.fastscroll.FastScroller
 import tech.torah.aldis.androidapp.R
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.CallbackListener
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.FunctionLibrary
-import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TabType
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.ShiurFilterOption
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TorahFilterable
 
-private lateinit var selectedListItemTextView: MaterialTextView
-private lateinit var fastScrollerSelectButton: MaterialButton
-private lateinit var fastScrollerCancelButton: MaterialButton
-private lateinit var fastScrollerDeselectButton: MaterialButton
+
 
 private const val TAG = "ChooserFastScrollerDial"
 class ChooserFastScrollerDialog(
     private val listItems: List<String>,
-    private val tabTypeBeingDisplayed: TabType,
+    private val shiurFilterOptionBeingDisplayed: ShiurFilterOption,
     private val callbackListener: CallbackListener
 ) :
     DialogFragment() {
+    private lateinit var selectedListItemTextView: MaterialTextView
+    private lateinit var fastScrollerSelectButton: MaterialButton
+    private lateinit var fastScrollerCancelButton: MaterialButton
+    private lateinit var fastScrollerDeselectButton: MaterialButton
     private lateinit var chooserFastScrollerAdapter: ChooserFastScrollerAdapter
     private lateinit var toolbar: Toolbar
     private lateinit var selectedListItem: String
@@ -39,7 +40,7 @@ class ChooserFastScrollerDialog(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         isCancelable = true
         setHasOptionsMenu(true)
         val view: View =
@@ -51,7 +52,19 @@ class ChooserFastScrollerDialog(
         fastScrollerSelectButton = view.findViewById(R.id.fast_scroller_select_button)
 
         toolbar.inflateMenu(R.menu.search_bar_only)
-        toolbar.title = resources.getString(tabTypeBeingDisplayed.nameId)
+        toolbar.title = resources.getString(shiurFilterOptionBeingDisplayed.nameStringResourceId)
+        chooserFastScrollerAdapter = ChooserFastScrollerAdapter(listItems)
+        FunctionLibrary.setupSearchView(
+            MenuInflater(toolbar.context),
+            toolbar.menu,
+            chooserFastScrollerAdapter,
+            alsoUsingFilterButton = false,
+            shouldInflateLayout = false,
+            false,
+            null,
+            context,
+            view
+        )
 
 
         fastScrollerCancelButton.setOnClickListener {
@@ -77,15 +90,6 @@ class ChooserFastScrollerDialog(
         super.onViewCreated(view, savedInstanceState)
         val recyclerView: FastScrollView? = view.findViewById(R.id.fast_scroller)
         recyclerView?.setLayoutManager(LinearLayoutManager(context))
-
-        fastScrollerCancelButton = view.findViewById(R.id.fast_scroller_cancel_button)
-        fastScrollerDeselectButton = view.findViewById(R.id.fast_scroller_deselect_button)
-        fastScrollerSelectButton = view.findViewById(R.id.fast_scroller_select_button)
-
-        chooserFastScrollerAdapter = ChooserFastScrollerAdapter(listItems)
-        FunctionLibrary.setupSearchView(MenuInflater(toolbar.context), toolbar.menu, chooserFastScrollerAdapter,false) //this was in
-        // onCreateView, but chooserFastScrollerAdapter had not yet been initialized
-
         recyclerView?.setAdapter(chooserFastScrollerAdapter)
 
     }
@@ -134,13 +138,13 @@ class ChooserFastScrollerDialog(
 
         override fun getItemCount(): Int = workingList.size
 
-        override fun filter(constraint: String, tabType: TabType, exactMatch: Boolean) =
+        override fun filter(constraint: String, shiurFilterOption: ShiurFilterOption, exactMatch: Boolean) =
             FunctionLibrary.filter(
                 constraint,
                 originalList,
                 workingList,
                 this,
-                tabType,
+                shiurFilterOption,
                 exactMatch
             )
 

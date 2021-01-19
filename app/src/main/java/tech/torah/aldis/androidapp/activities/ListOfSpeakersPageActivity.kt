@@ -114,7 +114,15 @@ class ListOfSpeakerPageActivity : AppCompatActivity() {
         override fun onCreateOptionsMenu(menu: Menu?): Boolean {
             //TODO Should we use FunctionLibrary.setupFilterAndSearch()? What can the speakers be filtered or sorted by?
             if (menu != null) {
-                FunctionLibrary.setupSearchView(menuInflater, menu, speakerAdapter,false)
+                FunctionLibrary.setupSearchView(
+                    menuInflater, menu, speakerAdapter,
+                    alsoUsingFilterButton = false,
+                    shouldInflateLayout = true,
+                    true,
+                    this,
+                    null,
+                    null
+                )
             }
             return true
         }

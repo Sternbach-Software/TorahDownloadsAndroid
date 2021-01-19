@@ -8,7 +8,7 @@
         android:id="@+id/actionSearch"
         android:title="Search"
         android:icon="@drawable/ic_search_icon"
-        app:showAsAction="ifRoom|collapseActionView"
+        app:showAsAction="always"
         app:actionViewClass="androidx.appcompat.widget.SearchView" />
 <!--    <item
         android:id="@+id/animation_checkbox"

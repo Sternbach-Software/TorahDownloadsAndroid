@@ -7,9 +7,9 @@ package tech.torah.aldis.androidapp.dataClassesAndInterfaces
  *
  * */
 interface TorahFilterable {
-    //    fun callbackFilter(tabType: TabType, data: String, filterWithinPreviousResults: Boolean = false)
+    //    fun callbackFilter(tabType: ShiurFilterOption, data: String, filterWithinPreviousResults: Boolean = false)
     /**
-     * This is for activites like the speaker page, which don't have an associated TabType.
+     * This is for activites like the speaker page, which don't have an associated ShiurFilterOption.
      * */
     /*fun *//*<T, VH : RecyclerView.VpViewHolder>*//* filter(
         constraint: String*//*,
@@ -18,11 +18,11 @@ interface TorahFilterable {
         recyclerView: RecyclerView.Adapter<VH>,
         filterWithinPreviousResults: Boolean = false,
         animation: Boolean = false,
-        tabType: TabType = TabType.NONE,
+        tabType: ShiurFilterOption = ShiurFilterOption.NONE,
         exactMatch: Boolean = false*//*
     )*/
     /**
-     * This is for most activities, which need to know which [TabType] is being filtered for. filter(constraint: String) will call through to this function, passing TabType as TabType.NONE
+     * This is for most activities, which need to know which [ShiurFilterOption] is being filtered for. filter(constraint: String) will call through to this function, passing ShiurFilterOption as ShiurFilterOption.NONE
      * Most of the time, [filter] is being called by ChooserFastScrollerDialog which should be
      an exact match, so that is the default.
      */
@@ -33,7 +33,7 @@ interface TorahFilterable {
         recyclerView: RecyclerView.Adapter<VH>,
         filterWithinPreviousResults: Boolean = false,
         animation: Boolean = false,*/
-        tabType: TabType = TabType.NONE,
+        shiurFilterOption: ShiurFilterOption = ShiurFilterOption.NONE,
         exactMatch: Boolean = true,
 //        exactMatch: Boolean = false
     )

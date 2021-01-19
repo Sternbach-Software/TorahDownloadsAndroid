@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
     <!--I know that this constraint layout may be pointless because I have nested views anyway,
      but I would rather not change it until I have everything worked out.-->
 
@@ -12,8 +12,8 @@
         android:id="@+id/radio_group_and_sort_layout_simple"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
         <!--Filter/Sort radio group-->
 
         <RadioGroup
@@ -43,14 +43,14 @@
         <!--Alphabetical Order dropdown-->
 
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:id="@+id/sort_order_text_input_layout_simple"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="Alphabetical Order"
             android:padding="5dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <AutoCompleteTextView
                 android:id="@+id/sort_order_dropdown_simple"
@@ -60,7 +60,6 @@
 
         </com.google.android.material.textfield.TextInputLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
     <!--Linear layout of linear layouts-->
@@ -73,87 +72,159 @@
         app:layout_constraintBottom_toTopOf="@+id/cancel_button_simple"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/radio_group_and_sort_layout_simple">
-<!--
-        <LinearLayout
+        <!--
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.checkbox.MaterialCheckBox
+                        android:id="@+id/filter_within_previous_results_checkbox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Filter within previous results"/>
+                    <ImageButton
+                        android:id="@+id/progressive_filter_explanation_image_button"
+                        android:layout_marginStart="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/empty"
+                        android:src="@drawable/ic_help_outline"/>
+                </LinearLayout>-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/filter_criterion_dropdown"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_marginStart="5dp">
 
-            <com.google.android.material.checkbox.MaterialCheckBox
-                android:id="@+id/filter_within_previous_results_checkbox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Filter within previous results"/>
-            <ImageButton
-                android:id="@+id/progressive_filter_explanation_image_button"
-                android:layout_marginStart="5dp"
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/empty"
-                android:src="@drawable/ic_help_outline"/>
-        </LinearLayout>-->
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                android:id="@+id/filter_criterion_dropdown"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp">
-
-                <AutoCompleteTextView
-                    android:id="@+id/filter_criterion_chooser"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="none"
-                    android:maxLines="1"/>
-
-            </com.google.android.material.textfield.TextInputLayout>
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/individual_speaker_category_series_chooser_text_input_layout"
-                style="@style/DropdownMenuWithNoEndIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:minWidth="240dp"
-            android:clickable="true">
-<!--TODO find this function and make the style of this TextInputLayout into "Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
-                <AutoCompleteTextView
-                    android:id="@+id/individual_speaker_category_series_chooser_auto_complete_text_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="none"
-                    android:clickable="true"/>
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-<!--            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/individual_speaker_category_series_text_input_layout"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            <AutoCompleteTextView
+                android:id="@+id/filter_criterion_chooser"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:layout_marginStart="10dp">-->
+                android:layout_height="wrap_content"
+                android:inputType="none"
+                android:maxLines="1" />
 
-<!--
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/individual_speaker_category_series_chooser_text_view"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_layout_for_use_seekbar_switch"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_height="wrap_content">
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/use_seekbar_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"/>
+            <TextView
+                android:id="@+id/switch_text_view"
+                android:layout_width="wrap_content"
+                android:text="Use range seekbar"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"/>
+        </LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/individual_filter_criterion_chooser_text_input_layout"
+            style="@style/DropdownMenuWithNoEndIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:minWidth="240dp">
+            <!--TODO find this function and make the style of this TextInputLayout into "Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+            <AutoCompleteTextView
+                android:id="@+id/individual_filter_criterion_chooser_chooser_auto_complete_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:inputType="none" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!--            <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/individual_speaker_category_series_text_input_layout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:layout_marginStart="10dp">-->
+
+        <!--
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/individual_speaker_category_series_chooser_text_view"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:ellipsize="end"
+                            android:inputType="none"
+                            android:singleLine="true"
+                            android:clickable="true"/>
+        -->
+
+        <LinearLayout
+            android:id="@+id/linear_layout_for_seekbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="24dp"
+            android:visibility="gone"
+            tools:visibility="visible">
+<!--padding bottom is used to make the transition animation between using the seekbar and not, not as dramatic in terms of making the dialog resize itself-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/seekbar_start_progress_indicator"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="start"
-                    android:ellipsize="end"
-                    android:inputType="none"
-                    android:singleLine="true"
-                    android:clickable="true"/>
--->
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    tools:text="5 hr 22 min 33 sec"
+                    android:layout_marginStart="5dp"/>
 
+                <TextView
+                    android:id="@+id/seekbar_end_progress_indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"                    tools:text="0 hr 0 min 0 sec"
+                    android:layout_marginEnd="5dp" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <it.sephiroth.android.library.rangeseekbar.RangeSeekBar
+                android:id="@+id/rangeSeekBar"
+                style="@style/Base.Sephiroth.Widget.RangeSeekBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                app:range_progress_startEnd_minDiff="0"
+                app:range_progress_offset="0dp"
+            />
+            <!--
+            android:max="100"
+    app:range_progress_offset="0dp"//not 100% sure what this does
+
+            -->
+
+        </LinearLayout>
     </LinearLayout>
 
 
-
-
     <!--Filter/Sort, Cancel, and Reset buttons-->
-
 
 
     <com.google.android.material.button.MaterialButton

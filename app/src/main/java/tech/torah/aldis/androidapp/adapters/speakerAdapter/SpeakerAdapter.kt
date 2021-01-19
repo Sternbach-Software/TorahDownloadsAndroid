@@ -14,80 +14,80 @@ import tech.torah.aldis.androidapp.activities.IndividualSpeakerPageActivity
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.CONSTANTS.INTENT_EXTRA_SPEAKER_DETAILS
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.FunctionLibrary
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.Speaker
-import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TabType
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.ShiurFilterOption
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TorahFilterable
 
-private var speakerPictureCount = 0
-private var drawables = listOf(
-    R.drawable.a,
-    R.drawable.ab,
-    R.drawable.ac,
-    R.drawable.ad,
-    R.drawable.ae,
-    R.drawable.af,
-    R.drawable.ag,
-    R.drawable.ah,
-    R.drawable.ai,
-    R.drawable.aj,
-    R.drawable.ak,
-    R.drawable.al,
-    R.drawable.am,
-    R.drawable.an,
-    R.drawable.ao,
-    R.drawable.ap,
-    R.drawable.aq,
-    R.drawable.ar,
-    R.drawable.`as`,
-    R.drawable.at,
-    R.drawable.au,
-    R.drawable.av,
-    R.drawable.aw,
-    R.drawable.ax,
-    R.drawable.ay,
-    R.drawable.az,
-    R.drawable.ba,
-    R.drawable.bb,
-    R.drawable.bc,
-    R.drawable.bd,
-    R.drawable.be,
-    R.drawable.bf,
-    R.drawable.bg,
-    R.drawable.bh,
-    R.drawable.bi,
-    R.drawable.bj,
-    R.drawable.bl,
-    R.drawable.bm,
-    R.drawable.bn,
-    R.drawable.bo,
-    R.drawable.bp,
-    R.drawable.bq,
-    R.drawable.br,
-    R.drawable.bs,
-    R.drawable.bt,
-    R.drawable.bu,
-    R.drawable.bv,
-    R.drawable.bw,
-    R.drawable.bx,
-    R.drawable.by,
-    R.drawable.ca,
-    R.drawable.cb,
-    R.drawable.cc,
-    R.drawable.cd,
-    R.drawable.ce,
-    R.drawable.cg,
-    R.drawable.ch,
-    R.drawable.ci,
-    R.drawable.cj,
-    R.drawable.ck,
-    R.drawable.cl,
-    R.drawable.cm,
-    R.drawable.cn,
-)
-private lateinit var speakerImageView: ImageView
+
 
 class SpeakerAdapter(private val originalSpeakerList: List<Speaker>) : RecyclerView.Adapter<SpeakerAdapter.SpeakerViewHolder>(),
     FastScroller.SectionIndexer, TorahFilterable {
-
+    private var speakerPictureCount = 0
+    private var drawables = listOf(
+        R.drawable.a,
+        R.drawable.ab,
+        R.drawable.ac,
+        R.drawable.ad,
+        R.drawable.ae,
+        R.drawable.af,
+        R.drawable.ag,
+        R.drawable.ah,
+        R.drawable.ai,
+        R.drawable.aj,
+        R.drawable.ak,
+        R.drawable.al,
+        R.drawable.am,
+        R.drawable.an,
+        R.drawable.ao,
+        R.drawable.ap,
+        R.drawable.aq,
+        R.drawable.ar,
+        R.drawable.`as`,
+        R.drawable.at,
+        R.drawable.au,
+        R.drawable.av,
+        R.drawable.aw,
+        R.drawable.ax,
+        R.drawable.ay,
+        R.drawable.az,
+        R.drawable.ba,
+        R.drawable.bb,
+        R.drawable.bc,
+        R.drawable.bd,
+        R.drawable.be,
+        R.drawable.bf,
+        R.drawable.bg,
+        R.drawable.bh,
+        R.drawable.bi,
+        R.drawable.bj,
+        R.drawable.bl,
+        R.drawable.bm,
+        R.drawable.bn,
+        R.drawable.bo,
+        R.drawable.bp,
+        R.drawable.bq,
+        R.drawable.br,
+        R.drawable.bs,
+        R.drawable.bt,
+        R.drawable.bu,
+        R.drawable.bv,
+        R.drawable.bw,
+        R.drawable.bx,
+        R.drawable.by,
+        R.drawable.ca,
+        R.drawable.cb,
+        R.drawable.cc,
+        R.drawable.cd,
+        R.drawable.ce,
+        R.drawable.cg,
+        R.drawable.ch,
+        R.drawable.ci,
+        R.drawable.cj,
+        R.drawable.ck,
+        R.drawable.cl,
+        R.drawable.cm,
+        R.drawable.cn,
+    )
+    private lateinit var speakerImageView: ImageView
     private val speakerList: MutableList<Speaker> = originalSpeakerList.toMutableList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SpeakerViewHolder {
@@ -104,7 +104,7 @@ class SpeakerAdapter(private val originalSpeakerList: List<Speaker>) : RecyclerV
         speakerList[position]
     )
 
-    class SpeakerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class SpeakerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bindItems(speaker: Speaker) {
             val speakerNameTextView = itemView.findViewById(R.id.speaker_name) as TextView?
@@ -131,13 +131,13 @@ class SpeakerAdapter(private val originalSpeakerList: List<Speaker>) : RecyclerV
         }
     }
 
-    override fun filter(constraint: String, tabType: TabType, exactMatch: Boolean) {
+    override fun filter(constraint: String, shiurFilterOption: ShiurFilterOption, exactMatch: Boolean) {
         FunctionLibrary.filter(
             constraint,
             originalSpeakerList,
             speakerList,
             this,
-            tabType,
+            shiurFilterOption,
             exactMatch
         )
     }

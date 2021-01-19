@@ -47,8 +47,9 @@ class ListOfPlaylistsPageActivity: AppCompatActivity(), TorahFilterable, HoldsSh
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-       FunctionLibrary.setupFilterAndSearch(menu,menuInflater,this,supportFragmentManager,TAG,
-           listOf(""), listOf(""),listOf(""))
+//       FunctionLibrary.setupFilterAndSearch(menu,menuInflater,this,supportFragmentManager,TAG,
+//           mapOf("" to listOf(""),"" to  listOf(""), "" to listOf("")),true,this,null,null)
+        TODO("To implement")
         return true
     }
 
@@ -61,9 +62,9 @@ class ListOfPlaylistsPageActivity: AppCompatActivity(), TorahFilterable, HoldsSh
         TODO("Not yet implemented")
     }*/
 
-    override fun filter(constraint: String, tabType: TabType, exactMatch: Boolean) {
+    override fun filter(constraint: String, shiurFilterOption: ShiurFilterOption, exactMatch: Boolean) {
         TODO("Not yet implemented")
-    //       playlistAdapter.filter(constraint , tabType = tabType)
+    //       playlistAdapter.filter(constraint , shiurFilterOption = shiurFilterOption)
     }
 
     override fun reset() {

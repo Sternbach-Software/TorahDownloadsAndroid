@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import tech.torah.aldis.androidapp.PageViewModel
 import tech.torah.aldis.androidapp.R
-import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TabType
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.ShiurFilterOption
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.shiurVariants.Shiur
 
 class PlaceholderFragment(shiurim: List<Shiur>, moreFromThis: Boolean) : Fragment() {
@@ -17,11 +17,11 @@ class PlaceholderFragment(shiurim: List<Shiur>, moreFromThis: Boolean) : Fragmen
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         pageViewModel = ViewModelProvider(this).get(PageViewModel::class.java).apply {
-            val tabType: TabType = when(arguments?.getInt(ARG_SECTION_NUMBER) ?: 0){
-                0 -> TabType.NONE
-                1 -> TabType.CATEGORY
-                2 -> TabType.SPEAKER
-                else -> TabType.SERIES
+            val shiurFilterOption: ShiurFilterOption = when(arguments?.getInt(ARG_SECTION_NUMBER) ?: 0){
+                0 -> ShiurFilterOption.NONE
+                1 -> ShiurFilterOption.CATEGORY
+                2 -> ShiurFilterOption.SPEAKER
+                else -> ShiurFilterOption.SERIES
             }
 //            setTabTypeAndTorahFilter(tabType,)
         }

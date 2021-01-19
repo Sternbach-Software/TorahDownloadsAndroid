@@ -11,7 +11,7 @@ import tech.torah.aldis.androidapp.R
 import tech.torah.aldis.androidapp.activities.IndividualPlaylistPageActivity
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.FunctionLibrary
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.Playlist
-import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TabType
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.ShiurFilterOption
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TorahFilterable
 
 private const val TAG = "PlaylistAdapter"
@@ -57,13 +57,13 @@ class PlaylistAdapter(private val originalListOfPlaylists: List<Playlist>) :
 
     override fun getItemCount(): Int = originalListOfPlaylists.size
 
-    override fun filter(constraint: String, tabType: TabType, exactMatch: Boolean) {
+    override fun filter(constraint: String, shiurFilterOption: ShiurFilterOption, exactMatch: Boolean) {
         FunctionLibrary.filter(
             constraint,
             originalListOfPlaylists,
             temporaryListOfPlaylists,
             this,
-            tabType,
+            shiurFilterOption,
             exactMatch
         )
     }

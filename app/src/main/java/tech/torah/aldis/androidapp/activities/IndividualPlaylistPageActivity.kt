@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import tech.torah.aldis.androidapp.R
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.shiurVariants.ShiurFullPage
-import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TabType
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.ShiurFilterOption
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TorahFilterable
 import tech.torah.aldis.androidapp.adapters.shiurAdapter.ShiurAdapter
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.HoldsShiurCard
@@ -133,8 +133,8 @@ class IndividualPlaylistPageActivity: AppCompatActivity(), TorahFilterable, Hold
         }
     }
 
-    override fun filter(constraint: String, tabType: TabType, exactMatch: Boolean) {
-        shiurAdapter.filter(constraint, tabType, exactMatch = exactMatch)
+    override fun filter(constraint: String, shiurFilterOption: ShiurFilterOption, exactMatch: Boolean) {
+        shiurAdapter.filter(constraint, shiurFilterOption, exactMatch = exactMatch)
     }
 
     override fun reset() {

@@ -32,4 +32,10 @@ Risus nullam eget felis eget nunc lobortis mattis. Nascetur ridiculus mus mauris
 Turpis egestas integer eget aliquet nibh praesent tristique. Sagittis orci a scelerisque purus semper eget duis. Diam quis enim lobortis scelerisque fermentum. Adipiscing vitae proin sagittis nisl. Mus mauris vitae ultricies leo integer malesuada nunc vel. Tristique sollicitudin nibh sit amet commodo nulla facilisi nullam. Et pharetra pharetra massa massa ultricies mi quis. Massa tempor nec feugiat nisl pretium fusce id velit. Euismod lacinia at quis risus sed vulputate odio. Sit amet consectetur adipiscing elit. Tortor consequat id porta nibh venenatis. Est ultricies integer quis auctor.
 
 Risus nullam eget felis eget nunc lobortis mattis. Nascetur ridiculus mus mauris vitae ultricies leo integer malesuada nunc. Platea dictumst quisque sagittis purus sit amet volutpat consequat mauris. Volutpat commodo sed egestas egestas fringilla phasellus faucibus scelerisque. Mauris ultrices eros in cursus turpis. Et tortor at risus viverra adipiscing at in tellus. Non curabitur gravida arcu ac. Platea dictumst quisque sagittis purus. Ornare lectus sit amet est placerat in egestas erat imperdiet. Id leo in vitae turpis massa sed. Id interdum velit laoreet id donec. Diam donec adipiscing tristique risus."</string>
+    <string name="length">Length</string>
+    <string name="has_attachment">Has attachment</string><!--TODO should the second word alse be capital? viz. "Has Attachment"-->
+    <string name="has_description">Has description</string>
+    <string name="date_uploaded">Date uploaded</string>
+    <string name="date_added_to_personal_collection">Date added to personal collection</string>
+    <string name="language">Language</string><!--TODO ^-->
 </resources>
