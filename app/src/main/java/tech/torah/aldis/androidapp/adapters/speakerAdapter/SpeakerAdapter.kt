@@ -18,7 +18,7 @@ import tech.torah.aldis.androidapp.dataClassesAndInterfaces.ShiurFilterOption
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TorahFilterable
 
 
-
+private const val TAG = "SpeakerAdapter"
 class SpeakerAdapter(private val originalSpeakerList: List<Speaker>) : RecyclerView.Adapter<SpeakerAdapter.SpeakerViewHolder>(),
     FastScroller.SectionIndexer, TorahFilterable {
     private var speakerPictureCount = 0
@@ -88,7 +88,7 @@ class SpeakerAdapter(private val originalSpeakerList: List<Speaker>) : RecyclerV
         R.drawable.cn,
     )
     private lateinit var speakerImageView: ImageView
-    private val speakerList: MutableList<Speaker> = originalSpeakerList.toMutableList()
+    private val workingSpeakerList: MutableList<Speaker> = originalSpeakerList.toMutableList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SpeakerViewHolder {
         val v = LayoutInflater.from(parent.context)
@@ -96,12 +96,12 @@ class SpeakerAdapter(private val originalSpeakerList: List<Speaker>) : RecyclerV
         return SpeakerViewHolder(v)
     }
 
-    override fun getItemCount(): Int = speakerList.size
+    override fun getItemCount(): Int = workingSpeakerList.size
 
-    override fun getSectionText(position: Int): CharSequence = speakerList[position].last_name.first().toUpperCase().toString()
+    override fun getSectionText(position: Int): CharSequence = workingSpeakerList[position].last_name.first().toUpperCase().toString()
 
     override fun onBindViewHolder(holder: SpeakerViewHolder, position: Int) = holder.bindItems(
-        speakerList[position]
+        workingSpeakerList[position]
     )
 
     inner class SpeakerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -135,7 +135,7 @@ class SpeakerAdapter(private val originalSpeakerList: List<Speaker>) : RecyclerV
         FunctionLibrary.filter(
             constraint,
             originalSpeakerList,
-            speakerList,
+            workingSpeakerList,
             this,
             shiurFilterOption,
             exactMatch
@@ -145,7 +145,7 @@ class SpeakerAdapter(private val originalSpeakerList: List<Speaker>) : RecyclerV
     override fun reset() {
         FunctionLibrary.reset(
             originalSpeakerList,
-            speakerList,
+            workingSpeakerList,
             this)
     }
 }

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textview.MaterialTextView
@@ -16,57 +17,54 @@ import tech.torah.aldis.androidapp.dataClassesAndInterfaces.FunctionLibrary
 private const val TAG = "TestingActivity"
 
 class TestingActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.plain_recycler_view_layout)
         val recyclerView: RecyclerView? = findViewById(R.id.recycler_view)
-        recyclerView?.layoutManager = LinearLayoutManager(this)
+        recyclerView?.layoutManager = GridLayoutManager(this,2)
         val listItems = listOf(
-            "Rabbi Yisroel Ades",
-            "Rabbi Eliyahu Reingold",
-            "Hilchos Brachos",
-            "Take Ten for Talmud",
-            "(Filter Condition)",
-            "(Filter Condition)",
-            "(Filter Condition)",
-            "(Filter Condition)",
-            "(Filter Condition)",
-            "(Filter Condition)",
-            "(Filter Condition)",
-            "(Filter Condition)",
-            "(Filter Condition)",
-            "(Filter Condition)",
-            "(Filter Condition)",
-            "(Filter Condition)",
-            "(Filter Condition)",
-            "(Filter Condition)",
-            "(Filter Condition)",
-            "(Filter Condition)",
-            "(Filter Condition)",
-            "(Filter Condition)",
-            "(Filter Condition)",
-            "(Filter Condition)",
-            "(Filter Condition)",
-            "(Filter Condition)",
-            "(Filter Condition)",
-            "(Filter Condition)",
-            "(Filter Condition)",
-            "(Filter Condition)",
-            "(Filter Condition)",
-            "(Filter Condition)",
-            "(Filter Condition)",
-            "(Filter Condition)",
-            "(Filter Condition)",
-            "(Filter Condition)",
-            "(Filter Condition)",
-            "(Filter Condition)",
-            "(Filter Condition)",
-            "(Filter Condition)",
-            "(Filter Condition)",
-            "(Filter Condition)",
-            "(Filter Condition)",
-            "(Filter Condition)",
-            "(Filter Condition)",
+            "Condition",
+            "Condition",
+            "Condition",
+            "Condition",
+            "Condition",
+            "Condition",
+            "Condition",
+            "Condition",
+            "Condition",
+            "Condition",
+            "Condition",
+            "Condition",
+            "Condition",
+            "Condition",
+            "Condition",
+            "Condition",
+            "Condition",
+            "Condition",
+            "Condition",
+            "Condition",
+            "Condition",
+            "Condition",
+            "Condition",
+            "Condition",
+            "Condition",
+            "Condition",
+            "Condition",
+            "Condition",
+            "Condition",
+            "Condition",
+            "Condition",
+            "Condition",
+            "Condition",
+            "Condition",
+            "Condition",
+            "Condition",
+            "Condition",
+            "Condition",
+            "Condition",
+            "Condition",
+            "Condition",
         )
         val itemAdapter = ItemAdapter(listItems)
         recyclerView?.adapter = (itemAdapter)
@@ -75,6 +73,11 @@ class TestingActivity : AppCompatActivity() {
     class ItemAdapter(private val listItems: List<String>) :
         RecyclerView.Adapter<ItemAdapter.ViewHolder>(), FastScroller.SectionIndexer {
         private val tempListItems = listItems.toMutableList()
+        private val LAYOUTS = listOf(
+            R.layout.selected_filter_option_card_view,
+            R.layout.deselected_filter_option_card_view
+        )
+        private var layoutIndex = 0
 
         inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             val textView: MaterialTextView = view.findViewById(R.id.text_view)
@@ -99,7 +102,7 @@ class TestingActivity : AppCompatActivity() {
         override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder =
             ViewHolder(
                 LayoutInflater.from(viewGroup.context)
-                    .inflate(R.layout.selected_filter_option_card_view, viewGroup, false)
+                    .inflate(LAYOUTS[layoutIndex++ % 2], viewGroup, false)
             )
 
         override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
@@ -110,14 +113,13 @@ class TestingActivity : AppCompatActivity() {
 
         override fun getItemCount(): Int = tempListItems.size
         fun filter(constraint: String) {
-FunctionLibrary.filter(
-    constraint,
-    listItems,
-    tempListItems,
-    this,
-    exactMatch = false
-)
+            FunctionLibrary.filter(
+                constraint,
+                listItems,
+                tempListItems,
+                this,
+                exactMatch = false
+            )
         }
-
     }
 }

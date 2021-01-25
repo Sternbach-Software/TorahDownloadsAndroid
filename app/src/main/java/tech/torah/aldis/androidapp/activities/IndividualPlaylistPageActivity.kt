@@ -10,10 +10,9 @@ import tech.torah.aldis.androidapp.dataClassesAndInterfaces.shiurVariants.ShiurF
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.ShiurFilterOption
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TorahFilterable
 import tech.torah.aldis.androidapp.adapters.shiurAdapter.ShiurAdapter
-import tech.torah.aldis.androidapp.dataClassesAndInterfaces.HoldsShiurCard
 import tech.torah.aldis.androidapp.dialogs.ShiurOptionsBottomSheetDialog
 
-class IndividualPlaylistPageActivity: AppCompatActivity(), TorahFilterable, HoldsShiurCard {
+class IndividualPlaylistPageActivity: AppCompatActivity(), TorahFilterable {
     private lateinit var shiurAdapter: ShiurAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -123,15 +122,15 @@ class IndividualPlaylistPageActivity: AppCompatActivity(), TorahFilterable, Hold
             "Playlist 17",
             "Playlist 18",)*/
 
-        val shiurAdapter = ShiurAdapter(listOfPlaylists)
+        val shiurAdapter = ShiurAdapter(listOfPlaylists, fragmentManagerForInflatingBottomSheet=supportFragmentManager)
         recyclerView?.adapter = shiurAdapter
     }
 
-    override fun openOptionsMenu(view: View) {
+    /*override fun openOptionsMenu(view: View) {
         ShiurOptionsBottomSheetDialog().apply {
             show(supportFragmentManager, tag)
         }
-    }
+    }*/
 
     override fun filter(constraint: String, shiurFilterOption: ShiurFilterOption, exactMatch: Boolean) {
         shiurAdapter.filter(constraint, shiurFilterOption, exactMatch = exactMatch)

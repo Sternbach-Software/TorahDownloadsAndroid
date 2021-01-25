@@ -12,7 +12,7 @@ import tech.torah.aldis.androidapp.dataClassesAndInterfaces.*
 import tech.torah.aldis.androidapp.dialogs.ShiurOptionsBottomSheetDialog
 
 private const val TAG = "ListOfPlaylistsPageActivity"
-class ListOfPlaylistsPageActivity: AppCompatActivity(), TorahFilterable, HoldsShiurCard {
+class ListOfPlaylistsPageActivity: AppCompatActivity(), TorahFilterable {
     private lateinit var playlistAdapter: PlaylistAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,11 +53,11 @@ class ListOfPlaylistsPageActivity: AppCompatActivity(), TorahFilterable, HoldsSh
         return true
     }
 
-    override fun openOptionsMenu(view: View) {
+    /*override fun openOptionsMenu(view: View) {
         ShiurOptionsBottomSheetDialog().apply {
             show(supportFragmentManager, tag)
         }
-    }
+    }*/
   /*  override fun filter(constraint: String) {
         TODO("Not yet implemented")
     }*/

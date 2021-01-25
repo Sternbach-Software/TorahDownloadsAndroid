@@ -54,7 +54,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="32dp"
-        android:text="second_rv"
+        android:text="Selected"
         android:textStyle="bold" />
 
     <tech.torah.aldis.androidapp.layouts.NestedScrollableHost
@@ -67,8 +67,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/second_rv"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#FFFFFF" />
+            android:layout_height="match_parent" />
     </tech.torah.aldis.androidapp.layouts.NestedScrollableHost>
 
 </LinearLayout>

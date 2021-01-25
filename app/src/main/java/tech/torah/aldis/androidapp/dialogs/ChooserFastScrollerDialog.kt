@@ -148,8 +148,7 @@ class ChooserFastScrollerDialog(
                 exactMatch
             )
 
-        override fun reset() = FunctionLibrary.reset(originalList,workingList,this)
-
+        override fun reset() = TODO("I don't think this should ever be called, being that ChooserFastScrollerDialog only has a search bar and not a filter button")//FunctionLibrary.reset(originalList,workingList,this)
     }
 
 }

@@ -138,7 +138,7 @@ class ParallelNestedScrollingActivity : AppCompatActivity() {
             Log.d(TAG,"RvAdapter.onCreateViewHolder ran")
 
             val v = LayoutInflater.from(parent.context)
-                .inflate(R.layout.simple_grey_text_view_card, parent, false)
+                .inflate(R.layout.selected_filter_option_card_view, parent, false)
             return RvViewHolder(v)
         }
 

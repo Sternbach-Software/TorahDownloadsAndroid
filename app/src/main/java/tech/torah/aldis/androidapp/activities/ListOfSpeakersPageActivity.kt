@@ -133,12 +133,12 @@ private fun parseSpeakerFromJSON(json: String): Speaker {
 
     val name =
         "(?<=\"name\": \")[\\w\\s]+(?=\")".toRegex().find(json)?.value ?: "Rabbi Yisroel Belsky"
-    val last_name = "(?<=\"last_name\":\")\\w+(?=\")".toRegex().find(json)?.value ?: "Belsky"
-    val image_path = "(?<=\"image_path\":\")[\\w/.\\d\\\\]+(?=\")".toRegex().find(json)?.value
+    val last_name = "(?<=\"last_name\": \")\\w+(?=\")".toRegex().find(json)?.value ?: "Belsky"
+    val image_path ="(?<=\"image_path\": \")[\\w/.\\d\\\\]+(?=\")".toRegex().find(json)?.value
         ?: "assets/speakers/64.jpg"
-    val link = "(?<=\"link\":\")[\\w.\\d-]+(?=\")".toRegex().find(json)?.value
+    val link = "(?<=\"link\": \")[\\w.\\d-]+(?=\")".toRegex().find(json)?.value
         ?: "s-64-rabbi-yisroel-belsky.html"
-    val shiur_count = "(?<=\"link\":\")\\d+".toRegex().find(json)?.value?.toInt() ?: 31
+    val shiur_count = "(?<=\"link\": \")\\d+".toRegex().find(json)?.value?.toInt() ?: 31
     val speaker = Speaker(id, name, last_name, image_path, link, shiur_count)
     return speaker
 }

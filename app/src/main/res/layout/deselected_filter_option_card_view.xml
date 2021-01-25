@@ -8,10 +8,11 @@
     android:layout_height="50dp"
 
     android:layout_marginTop="5dp"
-    android:layout_marginEnd="25dp"
     android:layout_marginStart="5dp"
+    android:layout_marginEnd="5dp"
     app:cardElevation="3dp">
-
+<!--    android:layout_marginEnd="25dp"
+-->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/shiur_card_constraint_layout_after_image"
         android:layout_width="match_parent"
@@ -46,13 +47,14 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:gravity="start|center"
+            android:layout_marginStart="5dp"
             tools:text="abcdeghijklmnopqrstuvwxyz"
             android:text="abcdeghijklmnopqrstuvwxyz"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
-    <include tools:layout="@layout/selected_filter_option_card_view"/>
+<!--    <include tools:layout="@layout/selected_filter_option_card_view"/>-->
 <!--    <include tools:layout="@layout/selected_filter_option_card_view"/>-->
 </com.google.android.material.card.MaterialCardView>
     <!--

@@ -45,7 +45,7 @@ class HomePageActivity : AppCompatActivity() {
             this@HomePageActivity.startActivity(intent)
         }
         findViewById<MaterialButton>(R.id.open_testing_page_2_button).setOnClickListener {
-            val intent = Intent(this@HomePageActivity, TabsActivity::class.java)
+            val intent = Intent(this@HomePageActivity, TestingActivity::class.java)
             this@HomePageActivity.startActivity(intent)
         }
     }

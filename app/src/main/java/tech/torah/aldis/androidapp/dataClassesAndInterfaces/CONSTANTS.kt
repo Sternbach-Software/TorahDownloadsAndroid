@@ -511,207 +511,301 @@ object CONSTANTS {
     val genericListOfAvailableSeries = listOf("Amud Yomi", "Daf Yomi", "a")
     val serverUrl = "https://www.torahdownloads.org"
     val sampleListOfShiurim = arrayListOf<Parcelable>(
-        ShiurCategoryPage(
-            ShiurID = "23691",
-            Title = "Rambam #0014: Ch. 2: Laws of the fundamentals of the Torah",
-            Length = "1080",
-            FormattedLength = "18",
-            SpeakerID = "165",
-            Speaker = "Rabbi Berel Bell",
-            SpeakerSE = "rabbi-berel-bell"
-        ), ShiurCategoryPage(
-            ShiurID = "13659",
-            Title = "Ntroduction To Pirkei Avot",
-            Length = "3829",
-            FormattedLength = "63",
-            SpeakerID = "14",
-            Speaker = "Rabbi Mordechai Becher",
-            SpeakerSE = "rabbi-mordechai-becher"
-        ), ShiurCategoryPage(
-            ShiurID = "23690",
-            Title = "Rambam #0013: Ch. 1: Laws of the fundamentals of the Torah",
-            Length = "1060",
-            FormattedLength = "17",
-            SpeakerID = "165",
-            Speaker = "Rabbi Berel Bell",
-            SpeakerSE = "rabbi-berel-bell"
-        ), ShiurCategoryPage(
-            ShiurID = "23691",
-            Title = "Rambam #0014: Ch. 2: Laws of the fundamentals of the Torah",
-            Length = "1080",
-            FormattedLength = "18",
-            SpeakerID = "165",
-            Speaker = "Rabbi Berel Bell",
-            SpeakerSE = "rabbi-berel-bell"
-        ), ShiurCategoryPage(
-            ShiurID = "23692",
-            Title = "Rambam #0015: Ch. 3: Laws of the fundamentals of the Torah",
-            Length = "1032",
-            FormattedLength = "17",
-            SpeakerID = "165",
-            Speaker = "Rabbi Berel Bell",
-            SpeakerSE = "rabbi-berel-bell"
-        ), ShiurCategoryPage(
-            ShiurID = "23693",
-            Title = "Rambam #0016: Ch. 4: Laws of the fundamentals of the Torah",
-            Length = "1519",
-            FormattedLength = "25",
-            SpeakerID = "165",
-            Speaker = "Rabbi Berel Bell",
-            SpeakerSE = "rabbi-berel-bell"
-        ), ShiurCategoryPage(
-            ShiurID = "23694",
-            Title = "Rambam #0017: Ch. 5: Laws of the fundamentals of the Torah",
-            Length = "1374",
-            FormattedLength = "22",
-            SpeakerID = "165",
-            Speaker = "Rabbi Berel Bell",
-            SpeakerSE = "rabbi-berel-bell"
-        ), ShiurCategoryPage(
-            ShiurID = "23695",
-            Title = "Rambam #0018: Ch. 6: Laws of the fundamentals of the Torah",
-            Length = "996",
-            FormattedLength = "16",
-            SpeakerID = "165",
-            Speaker = "Rabbi Berel Bell",
-            SpeakerSE = "rabbi-berel-bell"
-        ), ShiurCategoryPage(
-            ShiurID = "23696",
-            Title = "Rambam #0019: Ch. 7: Laws of the fundamentals of the Torah",
-            Length = "1187",
-            FormattedLength = "19",
-            SpeakerID = "165",
-            Speaker = "Rabbi Berel Bell",
-            SpeakerSE = "rabbi-berel-bell"
-        ), ShiurCategoryPage(
-            ShiurID = "23697",
-            Title = "Rambam #0020: Ch. 8: Laws of the fundamentals of the Torah",
-            Length = "543",
-            FormattedLength = "9",
-            SpeakerID = "165",
-            Speaker = "Rabbi Berel Bell",
-            SpeakerSE = "rabbi-berel-bell"
-        ), ShiurCategoryPage(
-            ShiurID = "23698",
-            Title = "Rambam #0021: Ch. 9: Laws of the fundamentals of the Torah",
-            Length = "745",
-            FormattedLength = "12",
-            SpeakerID = "165",
-            Speaker = "Rabbi Berel Bell",
-            SpeakerSE = "rabbi-berel-bell"
-        ), ShiurCategoryPage(
-            ShiurID = "23699",
-            Title = "Rambam #0022: Ch. 10: Laws of the fundamentals of the Torah",
-            Length = "840",
-            FormattedLength = "14",
-            SpeakerID = "165",
-            Speaker = "Rabbi Berel Bell",
-            SpeakerSE = "rabbi-berel-bell"
-        ), ShiurCategoryPage(
-            ShiurID = "23666",
-            Title = "Rambam #0023: Ch. 1: Laws of Deyos (Character)",
-            Length = "853",
-            FormattedLength = "14",
-            SpeakerID = "165",
-            Speaker = "Rabbi Berel Bell",
-            SpeakerSE = "rabbi-berel-bell"
-        ), ShiurCategoryPage(
-            ShiurID = "23667",
-            Title = "Rambam #0024: Ch. 2: Laws of Deyos (Character)",
-            Length = "1093",
-            FormattedLength = "18",
-            SpeakerID = "165",
-            Speaker = "Rabbi Berel Bell",
-            SpeakerSE = "rabbi-berel-bell"
-        ), ShiurCategoryPage(
-            ShiurID = "23668",
-            Title = "Rambam #0025: Ch. 3: Laws of Deyos (Character)",
-            Length = "662",
-            FormattedLength = "11",
-            SpeakerID = "165",
-            Speaker = "Rabbi Berel Bell",
-            SpeakerSE = "rabbi-berel-bell"
-        ), ShiurCategoryPage(
-            ShiurID = "23669",
-            Title = "Rambam #0026: Ch. 4: Laws of Deyos (Character)",
-            Length = "1819",
-            FormattedLength = "30",
-            SpeakerID = "165",
-            Speaker = "Rabbi Berel Bell",
-            SpeakerSE = "rabbi-berel-bell"
-        ), ShiurCategoryPage(
-            ShiurID = "23670",
-            Title = "Rambam #0027: Ch. 5: Laws of Deyos (Character)",
-            Length = "1637",
-            FormattedLength = "27",
-            SpeakerID = "165",
-            Speaker = "Rabbi Berel Bell",
-            SpeakerSE = "rabbi-berel-bell"
-        ), ShiurCategoryPage(
-            ShiurID = "23671",
-            Title = "Rambam #0028: Ch. 6: Laws of Deyos (Character)",
-            Length = "947",
-            FormattedLength = "15",
-            SpeakerID = "165",
-            Speaker = "Rabbi Berel Bell",
-            SpeakerSE = "rabbi-berel-bell"
-        ), ShiurCategoryPage(
-            ShiurID = "23672",
-            Title = "Rambam #0029: Ch. 7: Laws of Deyos (Character)",
-            Length = "869",
-            FormattedLength = "14",
-            SpeakerID = "165",
-            Speaker = "Rabbi Berel Bell",
-            SpeakerSE = "rabbi-berel-bell"
-        ), ShiurCategoryPage(
-            ShiurID = "23673",
-            Title = "Rambam #0030: Ch. 1: Laws of learning Torah",
-            Length = "933",
-            FormattedLength = "15",
-            SpeakerID = "165",
-            Speaker = "Rabbi Berel Bell",
-            SpeakerSE = "rabbi-berel-bell"
-        ), ShiurCategoryPage(
-            ShiurID = "23674",
-            Title = "Rambam #0031: Ch. 2: Laws of learning Torah",
-            Length = "443",
-            FormattedLength = "7",
-            SpeakerID = "165",
-            Speaker = "Rabbi Berel Bell",
-            SpeakerSE = "rabbi-berel-bell"
-        ), ShiurCategoryPage(
-            ShiurID = "23675",
-            Title = "Rambam #0032: Ch. 3: Laws of learning Torah",
-            Length = "1095",
-            FormattedLength = "18",
-            SpeakerID = "165",
-            Speaker = "Rabbi Berel Bell",
-            SpeakerSE = "rabbi-berel-bell"
-        ), ShiurCategoryPage(
-            ShiurID = "23676",
-            Title = "Rambam #0033: Ch. 4: Laws of learning Torah",
-            Length = "1009",
-            FormattedLength = "16",
-            SpeakerID = "165",
-            Speaker = "Rabbi Berel Bell",
-            SpeakerSE = "rabbi-berel-bell"
-        ), ShiurCategoryPage(
-            ShiurID = "23677",
-            Title = "Rambam #0034: Ch. 5: Laws of learning Torah",
-            Length = "1480",
-            FormattedLength = "24",
-            SpeakerID = "165",
-            Speaker = "Rabbi Berel Bell",
-            SpeakerSE = "rabbi-berel-bell"
-        ), ShiurCategoryPage(
-            ShiurID = "23678",
-            Title = "Rambam #0035: Ch. 6: Laws of learning Torah",
-            Length = "1589",
-            FormattedLength = "26",
-            SpeakerID = "165",
-            Speaker = "Rabbi Berel Bell",
-            SpeakerSE = "rabbi-berel-bell"
-        )
+        ShiurFullPage(
+        title = "Halachos of Neir Havdala; Emulating HASHEM's Chesed  (Agudah Parsha Shiur Beraishis  5777)",
+        speaker = "Rabbi Yehuda Ades",
+        category = "Chayei Sarah"
+        ),
+        ShiurFullPage(
+            title = "Halachos of Neir Havdala; Emulating HASHEM's Chesed  (Agudah Parsha Shiur Beraishis  5777)",
+            speaker = "Rabbi Gedaliah Anemer",
+            category = "Chayei Sarah"
+        ),
+        ShiurFullPage(
+            title = "Languages- Parshas Beraishis 5779",
+            speaker = "Rabbi David Ashear",
+            category = "Chayei Sarah"
+        ),
+        ShiurFullPage(
+            title = "Languages- Parshas Beraishis 5779",
+            speaker = "Rabbi Baruch Shalom HaLevi Ashlag",
+            category = "Chayei Sarah"
+        ),
+        ShiurFullPage(
+            title = "Parshas B01 Beraishis 5776",
+            speaker = "Rabbi Shmuel Auerbach",
+            category = "Chayei Sarah"
+        ),
+        ShiurFullPage(
+            title = "Parshas B01 Beraishis 5779",
+            speaker = "Rabbi Elkanah Austern",
+            category = "Toldos"
+        ),
+        ShiurFullPage(
+            title = "Parshas B01 Beraishis 5780",
+            speaker = "Rabbi Stephen Baars",
+            category = "Toldos"
+        ),
+        ShiurFullPage(
+            title = "Parshas B01 Bereshis 5773",
+            speaker = "Rabbi Shmuel Eliezer Baddiel",
+            category = "Toldos"
+        ),
+        ShiurFullPage(
+            title = "Why We left Gan Eden; Teshuva is Now, and Defining Ourselves  (Parshas Beraishis 5777)",
+            speaker = "Rabbi Yudi Bakst",
+            category = "Toldos"
+        ),
+        ShiurFullPage(
+            title = "Why We left Gan Eden; Teshuva is Now, and Defining Ourselves  (Parshas Beraishis 5777)",
+            speaker = "Rabbi Chaim Balter",
+            category = "Toldos"
+        ),
+        ShiurFullPage(
+            title = "Yom Hashishi; Purpose and Function- Parshas Beraishis 5780",
+            speaker = "Rabbi Yitzchok Basser",
+            category = "Toldos"
+        ),
+        ShiurFullPage(
+            title = "Yom Hashishi; Purpose and Function- Parshas Beraishis 5780.MP3",
+            speaker = "Rabbi David Ashear",
+            category = "Toldos"
+        ),
+        ShiurFullPage(
+            title = "Bracha on the Keshes and Thunder and Lightning  (Agudah Parsha Shiur Noach 5779)",
+            speaker = "Rabbi Baruch Shalom HaLevi Ashlag",
+            category = "Toldos"
+        ),
+        ShiurFullPage(
+            title = "Bracha on the Keshes and Thunder and Lightning  (Agudah Parsha Shiur Noach 5779)",
+            speaker = "Rabbi Shmuel Auerbach",
+            category = "Toldos"
+        ),
+        ShiurFullPage(
+            title = "Chassidus and Tzidkus; Ahavah and Yirah- Parshas Noach 5779",
+            speaker = "Rabbi Elkanah Austern",
+            category = "Toldos"
+        ),
+        ShiurFullPage(
+            title = "Chassidus and Tzidkus; Ahavah and Yirah- Parshas Noach 5779",
+            speaker = "Rabbi Stephen Baars",
+            category = "Toldos"
+        ),
+        ShiurFullPage(
+            title = "Dor Haflagah and History of the World Until Our Generation; 5 Explanations (Parshas Noach 5777)",
+            speaker = "Rabbi Shmuel Eliezer Baddiel",
+            category = "Toldos"
+        ),
+        ShiurFullPage(
+            title = "Dor Haflagah and History of the World Until Our Generation; 5 Explanations (Parshas Noach 5777)",
+            speaker = "Rabbi Yudi Bakst",
+            category = "Toldos"
+        ),
+        ShiurFullPage(
+            title = "Nation-States and Checks and Balances; Seeing Humanity in Others- Parshas Noach 5780",
+            speaker = "Rabbi Chaim Balter",
+            category = "Toldos"
+        ),
+        ShiurFullPage(
+            title = "Nation-States and Checks and Balances; Seeing Humanity in Others- Parshas Noach 5780",
+            speaker = "Rabbi Yitzchok Basser",
+            category = "Toldos"
+        ),
+        ShiurFullPage(
+            title = "Parshas B02 Noach (2) 5779",
+            speaker = "Rabbi David Ashear",
+            category = "Vayeitzei"
+        ),
+        ShiurFullPage(
+            title = "Parshas B02 Noach 5773",
+            speaker = "Rabbi Baruch Shalom HaLevi Ashlag",
+            category = "Vayeitzei"
+        ),
+        ShiurFullPage(
+            title = "Parshas B02 Noach 5775",
+            speaker = "Rabbi Shmuel Auerbach",
+            category = "Vayeitzei"
+        ),
+        ShiurFullPage(
+            title = "Parshas B02 Noach 5778",
+            speaker = "Rabbi Elkanah Austern",
+            category = "Vayeitzei"
+        ),
+        ShiurFullPage(
+            title = "Parshas B02 Noach 5779",
+            speaker = "Rabbi Stephen Baars",
+            category = "Vayeitzei"
+        ),
+        ShiurFullPage(
+            title = "Parshas B02 Noach 5780",
+            speaker = "Rabbi Shmuel Eliezer Baddiel",
+            category = "Vayeitzei"
+        ),
+        ShiurFullPage(
+            title = "Parshas Noach 5777",
+            speaker = "Rabbi Yudi Bakst",
+            category = "Vayeitzei"
+        ),
+        ShiurFullPage(
+            title = "Vegetarianism-Parshas Noach 5778",
+            speaker = "Rabbi Chaim Balter",
+            category = "Vayeitzei"
+        ),
+        ShiurFullPage(
+            title = "Vegetarianism-Parshas Noach 5778",
+            speaker = "Rabbi Yitzchok Basser",
+            category = "Vayeitzei"
+        ),
+        ShiurFullPage(
+            title = "Vegetarianism; Halacha and Hashkafa (Agudah Parsha Shiur Parshas Noach 5778)",
+            speaker = "Rabbi David Ashear",
+            category = "Vayeitzei"
+        ),
+        ShiurFullPage(
+            title = "Vegetarianism; Halacha and Hashkafa (Agudah Parsha Shiur Parshas Noach 5778)",
+            speaker = "Rabbi Baruch Shalom HaLevi Ashlag",
+            category = "Vayeitzei"
+        ),
+        ShiurFullPage(
+            title = "Bris and Os Bris- Parshas Lech Lecha 5779",
+            speaker = "Rabbi Shmuel Auerbach",
+            category = "Vayeitzei"
+        ),
+        ShiurFullPage(
+            title = "Bris and Os Bris- Parshas Lech Lecha 5779",
+            speaker = "Rabbi Elkanah Austern",
+            category = "Vayeitzei"
+        ),
+        ShiurFullPage(
+            title = "Parshas B03 Lech Lecha 5773",
+            speaker = "Rabbi Stephen Baars",
+            category = "Vayishlach"
+        ),
+        ShiurFullPage(
+            title = "Parshas B03 Lech Lecha 5774",
+            speaker = "Rabbi Shmuel Eliezer Baddiel",
+            category = "Vayishlach"
+        ),
+        ShiurFullPage(
+            title = "Parshas B03 Lech Lecha 5775",
+            speaker = "Rabbi Yudi Bakst",
+            category = "Vayishlach"
+        ),
+        ShiurFullPage(
+            title = "Parshas B03 Lech Lecha 5776",
+            speaker = "Rabbi Chaim Balter",
+            category = "Vayishlach"
+        ),
+        ShiurFullPage(
+            title = "Parshas B03 Lech Lecha 5778",
+            speaker = "Rabbi Yitzchok Basser",
+            category = "Vayishlach"
+        ),
+        ShiurFullPage(
+            title = "Parshas B03 Lech Lecha 5779",
+            speaker = "Rabbi David Ashear",
+            category = "Vayishlach"
+        ),
+        ShiurFullPage(
+            title = "Parshas B03 Lech Lecha 5780",
+            speaker = "Rabbi Baruch Shalom HaLevi Ashlag",
+            category = "Vayishlach"
+        ),
+        ShiurFullPage(
+            title = "Self Esteem and Emunah- Parshas Lech Lecha 5780",
+            speaker = "Rabbi Shmuel Auerbach",
+            category = "Vayishlach"
+        ),
+        ShiurFullPage(
+            title = "Simcha and Schok-Parshas Lech Lecha 5778",
+            speaker = "Rabbi Elkanah Austern",
+            category = "Vayishlach"
+        ),
+        ShiurFullPage(
+            title = "Simcha and Schok-Parshas Lech Lecha 5778",
+            speaker = "Rabbi Stephen Baars",
+            category = "Vayishlach"
+        ),
+        ShiurFullPage(
+            title = "Bikur Cholim; Halacha and Hashkafa (Agudah Parsha Shiur Parshas Vayera 5778)",
+            speaker = "Rabbi Shmuel Eliezer Baddiel",
+            category = "Vayishlach"
+        ),
+        ShiurFullPage(
+            title = "Hachnasas Orchim (Agudah Parsha Shiur Vayera 5777)",
+            speaker = "Rabbi Yudi Bakst",
+            category = "Vayishlach"
+        ),
+        ShiurFullPage(
+            title = "Hachnasas Orchim (Agudah Parsha Shiur Vayera 5777)",
+            speaker = "Rabbi Chaim Balter",
+            category = "Vayishlach"
+        ),
+        ShiurFullPage(
+            title = "Kiddush Hashem and Chillul Hashem- Parshas Vayeira 5779",
+            speaker = "Rabbi Yitzchok Basser",
+            category = "Vayishlach"
+        ),
+        ShiurFullPage(
+            title = "Kiddush Hashem and Chillul Hashem- Parshas Vayeira 5779",
+            speaker = "Rabbi Mordechai Becher",
+            category = "Vayishlach"
+        ),
+        ShiurFullPage(
+            title = "Parshas  Vayera 5777",
+            speaker = "Rabbi Yosef Bechhofer",
+            category = "Vayishlach"
+        ),
+        ShiurFullPage(
+            title = "Parshas B04 Vayeira 5773",
+            speaker = "Rabbi Ian Beider",
+            category = "Vayishlach"
+        ),
+        ShiurFullPage(
+            title = "Parshas B04 VaYeira 5774",
+            speaker = "Rabbi Berel Bell",
+            category = "Vayeshev"
+        ),
+        ShiurFullPage(
+            title = "Parshas B04 Vayera 5775",
+            speaker = "Rabbi Yisroel Belsky",
+            category = "Vayeshev"
+        ),
+        ShiurFullPage(
+            title = "Parshas B04 Vayera 5778",
+            speaker = "Rabbi Yaakov Bender",
+            category = "Vayeshev"
+        ),
+        ShiurFullPage(
+            title = "Parshas B04 Vayera 5780",
+            speaker = "Rabbi Yosef Berger",
+            category = "Vayeshev"
+        ),
+        ShiurFullPage(
+            title = "Sederes Bnai Torah 01-Shimush Talmidei Chachamim(Vayera 5773)",
+            speaker = "Rabbi Motty Berger",
+            category = "Vayeshev"
+        ),
+        ShiurFullPage(
+            title = "Mishnah Berurah Siman 352 Hakorei b'Sefer v'Nisgalgal meReshus l'reshus Seif 2; Siman 353 Dinei Zizin b'Reshus HaRabim Seif 1-2",
+            speaker = "Rabbi Michael Berger"
+        ),
+        ShiurFullPage(
+            title = "Mishnah Berurah Siman 353 Dinei Zizin b'Reshus HaRabim Seif 2-3; Siman 354 Dinei Bor v'Ashpa BeReshus Harabim Seif 1",
+            speaker = "Rabbi Moshe Bergman"
+        ),
+        ShiurFullPage(
+            title = "Mishnah Berurah Siman Siman 310 Dinei Muktzeh Seif 7 5778",
+            speaker = "Rabbi Yitzchak Berkovits"
+        ),
+        ShiurFullPage(
+            title = "Mishnah Berurah Siman Siman 310 Dinei Muktzeh Seif 7-9",
+            speaker = "Rabbi Tzvi Berkowitz"
+        ),
+        ShiurFullPage(
+            title = "Mishnah Berurah Siman Siman 311 Dinei Mais and Tiltul Min Hatzad Seif 1-2",
+            speaker = "Rabbi Yitzchak Berkowitz"
+        ),
     )
     val regexForTitle = """(?<="Title": ")[\w\s-()\.'-,;]+(?=",)"""
     val randomWord = { wordLength:Int ->
@@ -748,5 +842,7 @@ object CONSTANTS {
     val INTENT_EXTRA_MORE_FROM_THIS_SPEAKER = "tech.torah.aldis.android.more_for_this.speaker"
     val INTENT_EXTRA_MORE_FROM_THIS_CATEGORY = "tech.torah.aldis.android.more_for_this.category"
     val INTENT_EXTRA_MORE_FROM_THIS_SERIES = "tech.torah.aldis.android.more_for_this.series"
+    val INTENT_EXTRA_SHIURIM_PAGE_TITLE = "tech.torah.aldis.android.shiurim_page.title"
+    val INTENT_EXTRA_SHIURIM_PAGE_SHIURIM = "tech.torah.aldis.android.shiurim_page.shiurim"
 
 }
