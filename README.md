@@ -1,0 +1,2 @@
+# TorahDownloadsAndroid
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/33aa00b911a24ca094871d03b3553151)](https://app.codacy.com/gh/shmueldabomb441/TorahDownloadsAndroid?utm_source=github.com&utm_medium=referral&utm_content=shmueldabomb441/TorahDownloadsAndroid&utm_campaign=Badge_Grade_Settings)
