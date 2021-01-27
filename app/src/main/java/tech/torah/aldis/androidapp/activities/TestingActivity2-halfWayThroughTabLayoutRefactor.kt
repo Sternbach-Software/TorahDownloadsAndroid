@@ -126,6 +126,8 @@ class ViewPagerOfRecyclerViews1 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.view_pager_and_tab_layout_1)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         Log.d(TAG,"onCreate ran")
         tabLayout = findViewById(R.id.tabs)
         viewPager = findViewById<ViewPager2>(R.id.view_pager).apply {

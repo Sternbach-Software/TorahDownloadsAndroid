@@ -18,7 +18,6 @@ import tech.torah.aldis.androidapp.dataClassesAndInterfaces.FunctionLibrary.getS
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.ShiurFilterOption
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TorahFilterable
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.shiurVariants.Shiur
-import tech.torah.aldis.androidapp.dataClassesAndInterfaces.shiurVariants.ShiurFullPage
 
 
 open class BaseShiurimPageActivity : AppCompatActivity(), TorahFilterable {
@@ -39,8 +38,10 @@ open class BaseShiurimPageActivity : AppCompatActivity(), TorahFilterable {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.plain_recycler_view_layout)
-        pageTitle = intent.getStringExtra(CONSTANTS.INTENT_EXTRA_SHIURIM_PAGE_TITLE).toString()
+        intent.getStringExtra(CONSTANTS.INTENT_EXTRA_SHIURIM_PAGE_TITLE)?.let{pageTitle = it}
         supportActionBar?.title = pageTitle
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         listOfShiurim =
             (intent.getParcelableArrayExtra(CONSTANTS.INTENT_EXTRA_SHIURIM_PAGE_SHIURIM) as ArrayList<Shiur>?)?.toMutableList()
                 ?: CONSTANTS.sampleListOfShiurim.toMutableList() as MutableList<Shiur>
@@ -125,6 +126,14 @@ open class BaseShiurimPageActivity : AppCompatActivity(), TorahFilterable {
     override fun reset() {
         clearEditTextAndCollapseSearchView()
         shiurAdapter.reset()
+    }
+
+    override fun sort(shiurFilterOptions: List<ShiurFilterOption>, ascending: List<Boolean>) {
+        shiurAdapter.sort(shiurFilterOptions,ascending)
+    }
+
+    override fun sort(shiurFilterOption: ShiurFilterOption, ascending: Boolean) {
+        shiurAdapter.sort(shiurFilterOption,ascending)
     }
 
     private fun clearEditTextAndCollapseSearchView() {

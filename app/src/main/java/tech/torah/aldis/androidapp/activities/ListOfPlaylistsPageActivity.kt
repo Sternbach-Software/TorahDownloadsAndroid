@@ -17,6 +17,8 @@ class ListOfPlaylistsPageActivity: AppCompatActivity(), TorahFilterable {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.plain_recycler_view_layout)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         val recyclerView: RecyclerView? = findViewById(R.id.recycler_view)
         recyclerView?.layoutManager = LinearLayoutManager(this)
         val listOfPlaylists = listOf(
@@ -65,6 +67,14 @@ class ListOfPlaylistsPageActivity: AppCompatActivity(), TorahFilterable {
     override fun filter(constraint: String, shiurFilterOption: ShiurFilterOption, exactMatch: Boolean) {
         TODO("Not yet implemented")
     //       playlistAdapter.filter(constraint , shiurFilterOption = shiurFilterOption)
+    }
+
+    override fun sort(shiurFilterOptions: List<ShiurFilterOption>, ascending: List<Boolean>) {
+        TODO("Not yet implemented")
+    }
+
+    override fun sort(shiurFilterOption: ShiurFilterOption, ascending: Boolean) {
+        TODO("Not yet implemented")
     }
 
     override fun reset() {

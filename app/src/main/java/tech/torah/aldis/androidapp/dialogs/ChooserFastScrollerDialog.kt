@@ -36,6 +36,7 @@ class ChooserFastScrollerDialog(
     private lateinit var chooserFastScrollerAdapter: ChooserFastScrollerAdapter
     private lateinit var toolbar: Toolbar
     private lateinit var selectedListItem: String
+    val shouldNeverBeCalled:Nothing = TODO("I don't think this should ever be called, being that ChooserFastScrollerDialog only has a search bar and not a filter button")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -148,7 +149,11 @@ class ChooserFastScrollerDialog(
                 exactMatch
             )
 
-        override fun reset() = TODO("I don't think this should ever be called, being that ChooserFastScrollerDialog only has a search bar and not a filter button")//FunctionLibrary.reset(originalList,workingList,this)
+        override fun sort(shiurFilterOptions: List<ShiurFilterOption>, ascending: List<Boolean>) = shouldNeverBeCalled
+
+        override fun sort(shiurFilterOption: ShiurFilterOption, ascending: Boolean) = shouldNeverBeCalled
+
+        override fun reset() = shouldNeverBeCalled
     }
 
 }

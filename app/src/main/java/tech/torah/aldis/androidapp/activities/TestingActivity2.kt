@@ -31,6 +31,8 @@ private var otherRecyclerViewNeedsUpdating = false
 class ParallelNestedScrollingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         Log.d(TAG,"onCreate ran")
         val viewPager = ViewPager2(this).apply {
             layoutParams = LayoutParams(MATCH_PARENT, MATCH_PARENT)

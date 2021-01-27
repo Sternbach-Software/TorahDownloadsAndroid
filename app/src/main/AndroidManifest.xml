@@ -19,44 +19,58 @@
         </activity>
         <activity
             android:name=".activities.BaseShiurimPageActivity"
-            android:label="@string/shiurim_activity_name"/>
+            android:label="@string/shiurim_activity_name"
+            android:parentActivityName=".activities.HomePageActivity"/>
         <activity
             android:name=".activities.ListOfSpeakerPageActivity"
-            android:label="@string/speakers_activity_name"/>
+            android:label="@string/speakers_activity_name"
+            android:parentActivityName=".activities.HomePageActivity"/>
         <activity
             android:name=".activities.RecentlyAddedShiurimPageActivity"
-            android:label="@string/recently_added_shiurim" />
+            android:label="@string/recently_added_shiurim"
+            android:parentActivityName=".activities.HomePageActivity"/>
         <activity
             android:name=".activities.ListOfPlaylistsPageActivity"
-            android:label="@string/playlists" />
+            android:label="@string/playlists"
+            android:parentActivityName=".activities.HomePageActivity"/>
         <activity
             android:name=".activities.FavoritesPageActivity"
-            android:label="@string/favorites" />
+            android:label="@string/favorites"
+            android:parentActivityName=".activities.HomePageActivity"/>
         <activity
             android:name=".activities.DownloadsPageActivity"
-            android:label="@string/downloads" />
+            android:label="@string/downloads"
+            android:parentActivityName=".activities.HomePageActivity"/>
         <activity
             android:name=".activities.ParentCategoriesPageActivity"
-            android:label="@string/categories" />
+            android:label="@string/categories"
+            android:parentActivityName=".activities.HomePageActivity"/>
         <activity
             android:name=".activities.HistoryPageActivity"
-            android:label="@string/history" />
+            android:label="@string/history"
+            android:parentActivityName=".activities.HomePageActivity"/>
         <activity
-            android:name=".activities.IndividualPlaylistPageActivity"/> <!--label will change on a case-by-case basis-->
+            android:name=".activities.IndividualPlaylistPageActivity"
+            android:parentActivityName=".activities.HomePageActivity"/> <!--label will change on a case-by-case basis-->
         <activity
-            android:name=".activities.SubcategoriesPageActivity" /> <!--label will change on a case-by-case basis-->
+            android:name=".activities.SubcategoriesPageActivity"
+            android:parentActivityName=".activities.HomePageActivity"/> <!--label will change on a case-by-case basis-->
         <activity
             android:name=".activities.TestingActivity"
-            android:label="Testing Activity" />
+            android:label="Testing Activity"
+            android:parentActivityName=".activities.HomePageActivity" />
         <activity
             android:name=".activities.ParallelNestedScrollingActivity"
-            android:label="Testing Activity" />
+            android:label="Testing Activity"
+            android:parentActivityName=".activities.HomePageActivity"/>
         <activity
             android:name=".activities.IndividualSpeakerPageActivity"
-            android:label="Testing Activity" />
+            android:label="Testing Activity"
+            android:parentActivityName=".activities.HomePageActivity"/>
         <activity
             android:name=".activities.TabsActivity"
-            android:label="Testing Activity" />
+            android:label="Testing Activity"
+            android:parentActivityName=".activities.HomePageActivity"/>
     </application>
 
 </manifest>

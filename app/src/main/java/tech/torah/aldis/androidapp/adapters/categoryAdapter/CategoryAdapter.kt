@@ -125,6 +125,14 @@ class CategoryAdapter(private val originalList: ArrayList<Category>) :
         )
     }
 
+    override fun sort(shiurFilterOptions: List<ShiurFilterOption>, ascending: List<Boolean>) {
+        FunctionLibrary.sort(workingList, this, shiurFilterOptions, ascending)
+    }
+
+    override fun sort(shiurFilterOption: ShiurFilterOption, ascending: Boolean) {
+        FunctionLibrary.sort(workingList, this, shiurFilterOption, ascending)
+    }
+
     override fun reset() {
         TODO("Not yet implemented")
     }

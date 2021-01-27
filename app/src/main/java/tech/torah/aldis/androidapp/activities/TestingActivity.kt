@@ -21,6 +21,8 @@ class TestingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.plain_recycler_view_layout)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         val recyclerView: RecyclerView? = findViewById(R.id.recycler_view)
         recyclerView?.layoutManager = GridLayoutManager(this,2)
         val listItems = listOf(

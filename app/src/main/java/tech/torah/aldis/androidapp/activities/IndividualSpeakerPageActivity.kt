@@ -20,6 +20,7 @@ class IndividualSpeakerPageActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.individual_speaker_page)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         listOfInformation = intent.extras?.getStringArrayList(INTENT_EXTRA_SPEAKER_DETAILS)
         name = listOfInformation?.get(0)
         description = listOfInformation?.get(1)

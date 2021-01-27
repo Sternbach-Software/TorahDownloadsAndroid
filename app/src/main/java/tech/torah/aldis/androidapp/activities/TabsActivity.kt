@@ -15,6 +15,8 @@ class TabsActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.plain_recycler_view_layout)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
     }
 
 }

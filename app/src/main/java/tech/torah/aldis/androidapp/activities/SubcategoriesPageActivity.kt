@@ -18,6 +18,8 @@ class SubcategoriesPageActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.plain_recycler_view_layout)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         val listOfCategories = intent.extras?.getParcelableArrayList<Category>(CONSTANTS.INTENT_EXTRA_CATEGORY_DETAILS)
         parentCategoryName = intent.extras?.getString(CONSTANTS.INTENT_EXTRA_SUBCATEGORY_PARENT_NAME)
         Log.d(TAG,"List of categories = $listOfCategories")

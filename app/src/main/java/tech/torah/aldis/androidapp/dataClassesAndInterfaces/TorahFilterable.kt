@@ -24,7 +24,7 @@ interface TorahFilterable {
     /**
      * This is for most activities, which need to know which [ShiurFilterOption] is being filtered for. filter(constraint: String) will call through to this function, passing ShiurFilterOption as ShiurFilterOption.NONE
      * Most of the time, [filter] is being called by ChooserFastScrollerDialog which should be
-     an exact match, so that is the default.
+    an exact match, so that is the default.
      */
     fun /*<T, VH : RecyclerView.VpViewHolder>*/ filter(
         constraint: String,
@@ -38,21 +38,31 @@ interface TorahFilterable {
 //        exactMatch: Boolean = false
     )
 
+    /**
+     * If user indicated that the [ShiurFilterOption] at shiurFilterOptions[index] should be sorted in
+     * ascending order, ascending[index] will be true.
+     * */
+    fun sort(shiurFilterOptions: List<ShiurFilterOption>, ascending: List<Boolean>)
+
+    fun sort(shiurFilterOption: ShiurFilterOption, ascending: Boolean)
+
     fun /*<T, VH : RecyclerView.VpViewHolder>*/ reset(/*
         originalList: MutableList<T>,
         workingList: MutableList<T>,
         recyclerView: RecyclerView.Adapter<VH>*/
     )
+
     /**
-    * This function is used by [SearchView]s, so the list should be filterd by a partial match.
-    */
+     * This function is used by [SearchView]s, so the list should be filterd by a partial match.
+     */
     fun search(
         constraint: String,
         /*originalList: List<T>,
         workingList: MutableList<T>,
         recyclerView: RecyclerView.Adapter<VH>,
         filterWithinPreviousResults: Boolean = false,
-        animation: Boolean = false,*/){
-        filter(constraint,exactMatch = false)
+        animation: Boolean = false,*/
+    ) {
+        filter(constraint, exactMatch = false)
     }
 }

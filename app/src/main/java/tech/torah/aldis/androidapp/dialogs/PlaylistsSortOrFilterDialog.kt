@@ -27,7 +27,7 @@ class PlaylistsSortOrFilterDialog(
     private val listOfCategoryNames: List<String>,
     private val listOfSeriesNames: List<String>
 ) :
-    DialogFragment(), CallbackListener {
+    DialogFragment(), CallbackListener /*TODO consider making this a subclass of a BaseSortOrFilterDialog*/ {
     private val listOfPossibleListItems = listOf(
         listOfSpeakerNames,
         listOfCategoryNames,

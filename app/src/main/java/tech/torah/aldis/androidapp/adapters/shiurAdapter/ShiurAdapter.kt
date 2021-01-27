@@ -16,10 +16,16 @@ import tech.torah.aldis.androidapp.dataClassesAndInterfaces.shiurVariants.Shiur
 import tech.torah.aldis.androidapp.dialogs.ShiurOptionsBottomSheetDialog
 
 private const val TAG = "ShiurAdapter"
-class ShiurAdapter(private val originalShiurList: List<Shiur/*FullPage*/>, private val fragmentManagerForInflatingBottomSheet: FragmentManager) :
-    RecyclerView.Adapter<ShiurAdapter.ShiurViewHolder>(), FastScroller.SectionIndexer, TorahFilterable {
+
+class ShiurAdapter(
+    private val originalShiurList: List<Shiur/*FullPage*/>,
+    private val fragmentManagerForInflatingBottomSheet: FragmentManager
+) :
+    RecyclerView.Adapter<ShiurAdapter.ShiurViewHolder>(), FastScroller.SectionIndexer,
+    TorahFilterable {
     //TODO consider making originalShiurFullPageList an immutable set (it never changes and it doesn't need doubles
-    private val shiurFullPageList: MutableList<Shiur/*FullPage*/> = originalShiurList.toMutableList()
+    private val shiurFullPageList: MutableList<Shiur/*FullPage*/> =
+        originalShiurList.toMutableList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShiurViewHolder {
         val v = LayoutInflater.from(parent.context)
@@ -38,7 +44,8 @@ class ShiurAdapter(private val originalShiurList: List<Shiur/*FullPage*/>, priva
     override fun filter(
         constraint: String,
         shiurFilterOption: ShiurFilterOption,
-        exactMatch: Boolean) {
+        exactMatch: Boolean
+    ) {
         FunctionLibrary.filter(
             constraint,
             originalShiurList,
@@ -50,7 +57,15 @@ class ShiurAdapter(private val originalShiurList: List<Shiur/*FullPage*/>, priva
     }
 
     override fun reset() {
-       FunctionLibrary.reset(originalShiurList,shiurFullPageList, this)
+        FunctionLibrary.reset(originalShiurList, shiurFullPageList, this)
+    }
+
+    override fun sort(shiurFilterOptions: List<ShiurFilterOption>, ascending: List<Boolean>) {
+        FunctionLibrary.sort(shiurFullPageList, this, shiurFilterOptions, ascending)
+    }
+
+    override fun sort(shiurFilterOption: ShiurFilterOption, ascending: Boolean) {
+        FunctionLibrary.sort(shiurFullPageList, this, shiurFilterOption, ascending)
     }
 
     inner class ShiurViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -59,10 +74,10 @@ class ShiurAdapter(private val originalShiurList: List<Shiur/*FullPage*/>, priva
             val shiurTitle = itemView.findViewById(R.id.shiur_title) as TextView?
             val shiurSpeaker = itemView.findViewById(R.id.shiur_speaker) as TextView?
             val expandBottomSheetButton = itemView.findViewById<ImageView>(R.id.more_options_button)
-                shiurTitle?.text = shiurFullPage.baseTitle
-                shiurSpeaker?.text = shiurFullPage.baseSpeaker
-                //TODO add circular ripple to expandBottomSheetButton and other icons
-            expandBottomSheetButton.setOnClickListener{
+            shiurTitle?.text = shiurFullPage.baseTitle
+            shiurSpeaker?.text = shiurFullPage.baseSpeaker
+            //TODO add circular ripple to expandBottomSheetButton and other icons
+            expandBottomSheetButton.setOnClickListener {
                 ShiurOptionsBottomSheetDialog(shiurFullPage).apply {
                     show(fragmentManagerForInflatingBottomSheet, tag)
                 }
@@ -70,3 +85,4 @@ class ShiurAdapter(private val originalShiurList: List<Shiur/*FullPage*/>, priva
         }
     }
 }
+

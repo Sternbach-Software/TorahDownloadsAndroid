@@ -142,6 +142,14 @@ class SpeakerAdapter(private val originalSpeakerList: List<Speaker>) : RecyclerV
         )
     }
 
+    override fun sort(shiurFilterOptions: List<ShiurFilterOption>, ascending: List<Boolean>) {
+        FunctionLibrary.sort(workingSpeakerList, this, shiurFilterOptions, ascending)
+    }
+
+    override fun sort(shiurFilterOption: ShiurFilterOption, ascending: Boolean) {
+        FunctionLibrary.sort(workingSpeakerList, this, shiurFilterOption, ascending)
+    }
+
     override fun reset() {
         FunctionLibrary.reset(
             originalSpeakerList,

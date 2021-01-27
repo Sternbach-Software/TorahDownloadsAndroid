@@ -20,6 +20,8 @@ class ParentCategoriesPageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.categories_page_top_level_scroll_view)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         val categories = arrayListOf(
             Category(
                 name = "Chumash",

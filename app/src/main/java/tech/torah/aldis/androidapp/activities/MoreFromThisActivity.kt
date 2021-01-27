@@ -19,6 +19,7 @@ class MoreFromThisActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.tabs_layout)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
 
         val a:java.util.ArrayList<Shiur>? = intent.getParcelableArrayListExtra<Shiur>(CONSTANTS.INTENT_EXTRA_MORE_FROM_THIS_CATEGORY) //TODO implement this

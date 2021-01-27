@@ -79,47 +79,17 @@ object FunctionLibrary {
             Equality.LESS_THAN_OR_EQUAL -> this <= constraint
             Equality.LESS_THAN -> this < constraint
         }*/
-        fun String.matchesConstraint(constraint: String) = when (exactMatch) {
-            true -> {//request is coming from filter dialog; will only ever be inexact match when searching from SearchView, which should only search through name and possibly description
-                if (this.isDigitsOnly() && intRange != null) this.toInt() in intRange //if it is a number, theoretically the only thing it could be is a length of a shiur
-                else this == constraint
-            }
-            false -> {
-                this.contains(constraint)
-            }
-        }
-
-        if (animation) {
-            //not sure how this works, just copying it from the popular SO question about filtering with SearchView
-            if (filterWithinPreviousResults) TODO("animation version of fiter does not currently take into account whether they are searching within previous results (i.e. it ignores it and only filters within the original list), and therefore does not supprt filtering within previous results.")
-            var completeListIndex = 0
-            var filteredListIndex = 0
-            //TODO does not account for wmpty constraint
-            while (completeListIndex < originalList.size) {
-                val element: T = originalList[completeListIndex]
-                val filter: T = workingList[filteredListIndex]
-                val elementReceiver = element.getReceiver(shiurFilterOption)
-                val filterReceiver = filter.getReceiver(shiurFilterOption)//no clue what this does
-                if (elementReceiver.toLowerCase(Locale.ROOT).trim().matchesConstraint(constraint)) {
-                    if (filteredListIndex < workingList.size) {
-                        if (elementReceiver != filterReceiver) {
-                            workingList.add(filteredListIndex, element)
-                            recyclerView.notifyItemInserted(filteredListIndex)
-                        }
-                    } else {
-                        workingList.add(filteredListIndex, element)
-                        recyclerView.notifyItemInserted(filteredListIndex)
-                    }
-                    filteredListIndex++
-                } else if (filteredListIndex < workingList.size) {
-                    if (elementReceiver == filterReceiver) {
-                        workingList.removeAt(filteredListIndex)
-                        recyclerView.notifyItemRemoved(filteredListIndex)
-                    }
-                }
-                completeListIndex++
-            }
-        } else {
+        if (animation) if (intRange == null) TODO("Did not implement filter animated to support filtering by length") else filterAnimated(
+            constraint,
+            originalList,
+            workingList,
+            filterWithinPreviousResults,
+            exactMatch,
+            shiurFilterOption,
+            recyclerView,
+            intRange
+        )
+        else {
 /* // */if (!filterWithinPreviousResults) workingList.clear()
             if (constraint.isEmpty()) { //TODO I feel like i should add "&& workingList.size > 0" but I feel like when i first wrote this code i worked through it better than i have it now. I hope I remember to test it by filtering letter by letter, and then selecting the whole searchphrase and deleting it at one time. I am assuming that this TODO is only applicable for
                 if (workingList.size != 0) workingList.clear()
@@ -133,7 +103,7 @@ object FunctionLibrary {
                 for (element in listToFilterWithin) {
                     val filterCondition =
                         element.getReceiver(shiurFilterOption).toLowerCase(Locale.ROOT)
-                            .matchesConstraint(filterPattern)
+                            .matchesConstraint(filterPattern, exactMatch, intRange)
                     val filterConditionMet =
                         if (filterWithinPreviousResults) filterCondition.not() else filterCondition
                     if (filterConditionMet) {
@@ -147,6 +117,49 @@ object FunctionLibrary {
         Log.d(TAG, "Working List (After mutation) = $workingList")
     }
 
+    private fun <T, VH : RecyclerView.ViewHolder> filterAnimated(
+        constraint: String,
+        originalList: List<T>,
+        workingList: MutableList<T>,
+        filterWithinPreviousResults: Boolean,
+        exactMatch: Boolean,
+        shiurFilterOption: ShiurFilterOption,
+        recyclerView: RecyclerView.Adapter<VH>,
+        intRange: IntRange?
+    ) {
+        //not sure how this works, just copying it from the popular SO question about filtering with SearchView
+        if (filterWithinPreviousResults) TODO("animation version of fiter does not currently take into account whether they are searching within previous results (i.e. it ignores it and only filters within the original list), and therefore does not supprt filtering within previous results.")
+        var completeListIndex = 0
+        var filteredListIndex = 0
+        //TODO does not account for wmpty constraint
+        while (completeListIndex < originalList.size) {
+            val element: T = originalList[completeListIndex]
+            val filter: T = workingList[filteredListIndex]
+            val elementReceiver = element.getReceiver(shiurFilterOption)
+            val filterReceiver = filter.getReceiver(shiurFilterOption)//no clue what this does
+            if (elementReceiver.toLowerCase(Locale.ROOT).trim()
+                    .matchesConstraint(constraint, exactMatch, intRange)
+            ) {
+                if (filteredListIndex < workingList.size) {
+                    if (elementReceiver != filterReceiver) {
+                        workingList.add(filteredListIndex, element)
+                        recyclerView.notifyItemInserted(filteredListIndex)
+                    }
+                } else {
+                    workingList.add(filteredListIndex, element)
+                    recyclerView.notifyItemInserted(filteredListIndex)
+                }
+                filteredListIndex++
+            } else if (filteredListIndex < workingList.size) {
+                if (elementReceiver == filterReceiver) {
+                    workingList.removeAt(filteredListIndex)
+                    recyclerView.notifyItemRemoved(filteredListIndex)
+                }
+            }
+            completeListIndex++
+        }
+    }
+
     fun <T, VH : RecyclerView.ViewHolder> reset(
         originalList: List<T>,
         workingList: MutableList<T>,
@@ -155,6 +168,48 @@ object FunctionLibrary {
         //TODO make reset more efficient by using indices?
         workingList.clear()
         workingList.addAll(originalList)
+        recyclerView.notifyDataSetChanged()
+    }
+
+    /**
+     * Sorts a recyclerview by multiple conditions
+     * @param ascending a list of booleans whether the condition is ascending (true if ascending);
+     * If user indicated that the [ShiurFilterOption] at shiurFilterOptions[index] should be sorted in
+     * ascending order, ascending[index] will be true.
+     * */
+    fun <T, VH : RecyclerView.ViewHolder> sort(
+        workingList: MutableList<T>,
+        recyclerView: RecyclerView.Adapter<VH>,
+        shiurFilterOptions: List<ShiurFilterOption>,
+        ascending: List<Boolean>
+    ) {
+        var compareBy: Comparator<T> =
+            if (ascending[0]) compareBy { it.getReceiver(shiurFilterOptions[0]) }
+            else compareByDescending { it.getReceiver(shiurFilterOptions[0]) }
+        for (shiurFilterOption in 1..shiurFilterOptions.size) {
+            val selector: (T) -> Comparable<*>? =
+                { it.getReceiver(shiurFilterOptions[shiurFilterOption]) }
+            compareBy = compareBy.apply {
+                if (ascending[shiurFilterOption]) thenBy(selector)
+                else thenByDescending(selector)
+            }
+        }
+        workingList.sortWith(compareBy)
+        recyclerView.notifyDataSetChanged() //TODO is there a more efficient way to do this?
+    }
+
+    /**
+     * Sorts a [RecyclerView] by a single condition
+     * */
+    fun <T, VH : RecyclerView.ViewHolder> sort(
+        workingList: MutableList<T>,
+        recyclerView: RecyclerView.Adapter<VH>,
+        shiurFilterOption: ShiurFilterOption,
+        ascending: Boolean
+    ) {
+        val selector: (T) -> String? = { it.getReceiver(shiurFilterOption) }
+        if (ascending) workingList.sortBy(selector)
+        else workingList.sortByDescending(selector)
         recyclerView.notifyDataSetChanged()
     }
 
@@ -366,39 +421,6 @@ object FunctionLibrary {
         mEntireApplicationContext.resources.getString(nameStringResourceId)
 
     /**
-     * From [com.google.android.material.textfield.DropdownMenuEndIconDelegate]
-     * */
-    private fun addRippleEffectOnOutlinedLayout(
-        editText: AutoCompleteTextView,
-        rippleColor: Int,
-        states: Array<IntArray>,
-        boxBackground: MaterialShapeDrawable
-    ) {
-        //TODO to implement
-        val editTextBackground: LayerDrawable
-        val surfaceColor = MaterialColors.getColor(editText, R.attr.colorSurface)
-        val rippleBackground = MaterialShapeDrawable(boxBackground.shapeAppearanceModel)
-        val pressedBackgroundColor = MaterialColors.layer(rippleColor, surfaceColor, 0.1f)
-        val rippleBackgroundColors = intArrayOf(pressedBackgroundColor, Color.TRANSPARENT)
-        rippleBackground.fillColor = ColorStateList(states, rippleBackgroundColors)
-        editTextBackground = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            rippleBackground.setTint(surfaceColor)
-            val colors = intArrayOf(pressedBackgroundColor, surfaceColor)
-            val rippleColorStateList = ColorStateList(states, colors)
-            val mask = MaterialShapeDrawable(boxBackground.shapeAppearanceModel)
-            mask.setTint(Color.WHITE)
-            val rippleDrawable: Drawable =
-                RippleDrawable(rippleColorStateList, rippleBackground, mask)
-            val layers = arrayOf(rippleDrawable, boxBackground)
-            LayerDrawable(layers)
-        } else {
-            val layers = arrayOf<Drawable>(rippleBackground, boxBackground)
-            LayerDrawable(layers)
-        }
-        ViewCompat.setBackground(editText, editTextBackground)
-    }
-
-    /**
      * Converts seconds ([this]) to hours, minutes, seconds format
      * @receiver seconds to convert
      * @return a [Triple] of final hour, minute, second
@@ -457,6 +479,17 @@ object FunctionLibrary {
         return true
     }
 
+    fun String.matchesConstraint(constraint: String, exactMatch: Boolean, intRange: IntRange?) =
+        when (exactMatch) {
+            true -> {//request is coming from filter dialog; will only ever be inexact match when searching from SearchView, which should only search through name and possibly description
+                if (this.isDigitsOnly() && intRange != null /*TODO /*make sure this works: */ && shiurFilterOption is ShiurFilterOption.LENGTH*/) this.toInt() in intRange //if it is a number, theoretically the only thing it could be is a length of a shiur
+                else this == constraint
+            }
+            false -> {
+                this.contains(constraint)
+            }
+        }
+
     fun setupShiurimButton(
         menu: Menu?,
         menuInflater: MenuInflater,
@@ -480,4 +513,38 @@ object FunctionLibrary {
             true
         }
     }
+
+    /**
+     * From [com.google.android.material.textfield.DropdownMenuEndIconDelegate]
+     * */
+    private fun addRippleEffectOnOutlinedLayout(
+        editText: AutoCompleteTextView,
+        rippleColor: Int,
+        states: Array<IntArray>,
+        boxBackground: MaterialShapeDrawable
+    ) {
+        //TODO to implement
+        val editTextBackground: LayerDrawable
+        val surfaceColor = MaterialColors.getColor(editText, R.attr.colorSurface)
+        val rippleBackground = MaterialShapeDrawable(boxBackground.shapeAppearanceModel)
+        val pressedBackgroundColor = MaterialColors.layer(rippleColor, surfaceColor, 0.1f)
+        val rippleBackgroundColors = intArrayOf(pressedBackgroundColor, Color.TRANSPARENT)
+        rippleBackground.fillColor = ColorStateList(states, rippleBackgroundColors)
+        editTextBackground = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            rippleBackground.setTint(surfaceColor)
+            val colors = intArrayOf(pressedBackgroundColor, surfaceColor)
+            val rippleColorStateList = ColorStateList(states, colors)
+            val mask = MaterialShapeDrawable(boxBackground.shapeAppearanceModel)
+            mask.setTint(Color.WHITE)
+            val rippleDrawable: Drawable =
+                RippleDrawable(rippleColorStateList, rippleBackground, mask)
+            val layers = arrayOf(rippleDrawable, boxBackground)
+            LayerDrawable(layers)
+        } else {
+            val layers = arrayOf<Drawable>(rippleBackground, boxBackground)
+            LayerDrawable(layers)
+        }
+        ViewCompat.setBackground(editText, editTextBackground)
+    }
+
 }

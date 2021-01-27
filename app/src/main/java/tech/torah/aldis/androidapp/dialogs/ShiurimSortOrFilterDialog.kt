@@ -32,7 +32,7 @@ private const val TAG = "ShiurimSortOrFilterDial"
 class ShiurimSortOrFilterDialog(
     private val torahFilterableCallback: TorahFilterable,
     private val mapOfFilterCriteriaData: Map<ShiurFilterOption, List<String>>//e.g. "Speaker" to listOf("Rabbi...",...)
-) : DialogFragment(), CallbackListener {
+) : DialogFragment(), CallbackListener /*TODO consider making this a subclass of a BaseSortOrFilterDialog*/{
     //private lateinit var progressiveFilterExplanationImageButton: ImageButton
     private lateinit var filterButton: MaterialButton
     private lateinit var cancelButton: MaterialButton

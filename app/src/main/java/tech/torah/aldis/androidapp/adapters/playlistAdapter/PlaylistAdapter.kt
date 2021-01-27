@@ -68,6 +68,14 @@ class PlaylistAdapter(private val originalListOfPlaylists: List<Playlist>) :
         )
     }
 
+    override fun sort(shiurFilterOptions: List<ShiurFilterOption>, ascending: List<Boolean>) {
+        TODO("Not yet implemented")
+    }
+
+    override fun sort(shiurFilterOption: ShiurFilterOption, ascending: Boolean) {
+        TODO("Not yet implemented")
+    }
+
     override fun reset() {
         //TODO would it make reset more efficient by using indices?
         temporaryListOfPlaylists.clear()

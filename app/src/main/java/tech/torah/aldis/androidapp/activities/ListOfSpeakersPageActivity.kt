@@ -23,6 +23,7 @@ class ListOfSpeakerPageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fast_scroll_recycler_view_layout)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val recyclerView: FastScrollRecyclerView? = findViewById(R.id.fast_scroller)
         recyclerView?.layoutManager = LinearLayoutManager(this)
