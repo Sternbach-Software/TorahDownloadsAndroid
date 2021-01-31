@@ -5,12 +5,15 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.michaelflisar.dragselectrecyclerview.DragSelectTouchListener
+import com.michaelflisar.dragselectrecyclerview.DragSelectionProcessor
 import tech.torah.aldis.androidapp.R
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.shiurVariants.ShiurFullPage
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.ShiurFilterOption
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TorahFilterable
 import tech.torah.aldis.androidapp.adapters.shiurAdapter.ShiurAdapter
 import tech.torah.aldis.androidapp.dialogs.ShiurOptionsBottomSheetDialog
+import java.util.HashSet
 
 class IndividualPlaylistPageActivity: AppCompatActivity(), TorahFilterable {
     private lateinit var shiurAdapter: ShiurAdapter
@@ -123,8 +126,26 @@ class IndividualPlaylistPageActivity: AppCompatActivity(), TorahFilterable {
             "Playlist 16",
             "Playlist 17",
             "Playlist 18",)*/
+        val mDragSelectionProcessor = DragSelectionProcessor(object : DragSelectionProcessor.ISelectionHandler {
+            override fun getSelection(): HashSet<Int> {
+                return shiurAdapter.mSelected
+            }
 
-        val shiurAdapter = ShiurAdapter(listOfPlaylists, fragmentManagerForInflatingBottomSheet=supportFragmentManager)
+            override fun isSelected(index: Int): Boolean {
+                return shiurAdapter.mSelected.contains(index)
+            }
+
+            override fun updateSelection(
+                start: Int,
+                end: Int,
+                isSelected: Boolean,
+                calledFromOnStart: Boolean
+            ) {
+                shiurAdapter.selectRange(start, end, isSelected)
+            }
+        }).withMode(DragSelectionProcessor.Mode.FirstItemDependent)
+        val mDragSelectTouchListener = DragSelectTouchListener().withSelectListener(mDragSelectionProcessor)
+        val shiurAdapter = ShiurAdapter(listOfPlaylists, fragmentManagerForInflatingBottomSheet=supportFragmentManager,mDragSelectTouchListener)
         recyclerView?.adapter = shiurAdapter
     }
 

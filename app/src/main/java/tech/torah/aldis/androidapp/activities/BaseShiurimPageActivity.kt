@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.michaelflisar.dragselectrecyclerview.DragSelectTouchListener
+import com.michaelflisar.dragselectrecyclerview.DragSelectionProcessor
 import tech.torah.aldis.androidapp.R
 import tech.torah.aldis.androidapp.adapters.shiurAdapter.ShiurAdapter
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.CONSTANTS
@@ -18,14 +20,18 @@ import tech.torah.aldis.androidapp.dataClassesAndInterfaces.FunctionLibrary.getS
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.ShiurFilterOption
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TorahFilterable
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.shiurVariants.Shiur
+import java.util.HashSet
 
 
 open class BaseShiurimPageActivity : AppCompatActivity(), TorahFilterable {
+    private lateinit var mDragSelectTouchListener: DragSelectTouchListener
     open val TAG = "BaseShiurimPageActivity"
     protected lateinit var shiurAdapter: ShiurAdapter
     private var menu: Menu? = null
     open lateinit var listOfShiurim: MutableList<Shiur>
     open var pageTitle = "Shiurim"
+    private val mMode = DragSelectionProcessor.Mode.FirstItemDependent
+    private var mDragSelectionProcessor: DragSelectionProcessor? = null
 
     /*
     TODO figure out how to handle the boolean conditions HAS_ATTACHMENT and HAS_DESCRIPTION. list of "yes" or "no" based on index?*/
@@ -63,7 +69,34 @@ open class BaseShiurimPageActivity : AppCompatActivity(), TorahFilterable {
         //TODO I have a feeling that all of this new object creating is using a lot of RAM.
         // I do a significant amount of this also in ShiurAdapter, and anywhere which interfaces
         // with ShiurimSortOrFilterDialog.
-        shiurAdapter = ShiurAdapter(listOfShiurim, fragmentManagerForInflatingBottomSheet=supportFragmentManager)
+
+        val selectionHandler = object :
+            DragSelectionProcessor.ISelectionHandler {
+            override fun getSelection(): HashSet<Int> {
+                return shiurAdapter.mSelected
+            }
+
+            override fun isSelected(index: Int): Boolean {
+                return shiurAdapter.mSelected.contains(index)
+            }
+
+            override fun updateSelection(
+                start: Int,
+                end: Int,
+                isSelected: Boolean,
+                calledFromOnStart: Boolean
+            ) {
+                shiurAdapter.selectRange(start, end, isSelected)
+            }
+        }
+        mDragSelectionProcessor = DragSelectionProcessor(selectionHandler).withMode(mMode)
+        mDragSelectTouchListener = DragSelectTouchListener().withSelectListener(mDragSelectionProcessor)
+        recyclerView?.addOnItemTouchListener(mDragSelectTouchListener)
+        shiurAdapter = ShiurAdapter(
+            listOfShiurim,
+            fragmentManagerForInflatingBottomSheet = supportFragmentManager,
+            mDragSelectTouchListener
+        )
         recyclerView?.adapter = shiurAdapter
     }
 
@@ -114,7 +147,7 @@ open class BaseShiurimPageActivity : AppCompatActivity(), TorahFilterable {
     }
 
 
-    //    override fun filter(constraint: String) = shiurAdapter.filter(constraint , shiurFilterOption =  ShiurFilterOption.NONE)
+    //    override fun filter(constraint: String) = shiurAdapter.filter(constraint , shiurFilterOption =  ShiurFilterOption.TITLE)
     override fun filter(
         constraint: String,
         shiurFilterOption: ShiurFilterOption,
@@ -129,11 +162,11 @@ open class BaseShiurimPageActivity : AppCompatActivity(), TorahFilterable {
     }
 
     override fun sort(shiurFilterOptions: List<ShiurFilterOption>, ascending: List<Boolean>) {
-        shiurAdapter.sort(shiurFilterOptions,ascending)
+        shiurAdapter.sort(shiurFilterOptions, ascending)
     }
 
     override fun sort(shiurFilterOption: ShiurFilterOption, ascending: Boolean) {
-        shiurAdapter.sort(shiurFilterOption,ascending)
+        shiurAdapter.sort(shiurFilterOption, ascending)
     }
 
     private fun clearEditTextAndCollapseSearchView() {

@@ -18,7 +18,7 @@ class PlaceholderFragment(shiurim: List<Shiur>, moreFromThis: Boolean) : Fragmen
         super.onCreate(savedInstanceState)
         pageViewModel = ViewModelProvider(this).get(PageViewModel::class.java).apply {
             val shiurFilterOption: ShiurFilterOption = when(arguments?.getInt(ARG_SECTION_NUMBER) ?: 0){
-                0 -> ShiurFilterOption.NONE
+                0 -> ShiurFilterOption.TITLE
                 1 -> ShiurFilterOption.CATEGORY
                 2 -> ShiurFilterOption.SPEAKER
                 else -> ShiurFilterOption.SERIES
