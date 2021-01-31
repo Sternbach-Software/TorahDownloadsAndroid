@@ -18,11 +18,11 @@ interface TorahFilterable {
         recyclerView: RecyclerView.Adapter<VH>,
         filterWithinPreviousResults: Boolean = false,
         animation: Boolean = false,
-        tabType: ShiurFilterOption = ShiurFilterOption.NONE,
+        tabType: ShiurFilterOption = ShiurFilterOption.TITLE,
         exactMatch: Boolean = false*//*
     )*/
     /**
-     * This is for most activities, which need to know which [ShiurFilterOption] is being filtered for. filter(constraint: String) will call through to this function, passing ShiurFilterOption as ShiurFilterOption.NONE
+     * This is for most activities, which need to know which [ShiurFilterOption] is being filtered for. filter(constraint: String) will call through to this function, passing ShiurFilterOption as [ShiurFilterOption.TITLE]
      * Most of the time, [filter] is being called by ChooserFastScrollerDialog which should be
     an exact match, so that is the default.
      */
@@ -33,7 +33,7 @@ interface TorahFilterable {
         recyclerView: RecyclerView.Adapter<VH>,
         filterWithinPreviousResults: Boolean = false,
         animation: Boolean = false,*/
-        shiurFilterOption: ShiurFilterOption = ShiurFilterOption.NONE,
+        shiurFilterOption: ShiurFilterOption = ShiurFilterOption.TITLE,
         exactMatch: Boolean = true,
 //        exactMatch: Boolean = false
     )

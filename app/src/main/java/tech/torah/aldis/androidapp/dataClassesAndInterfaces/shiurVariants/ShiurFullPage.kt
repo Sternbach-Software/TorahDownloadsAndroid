@@ -2,6 +2,7 @@ package tech.torah.aldis.androidapp.dataClassesAndInterfaces.shiurVariants
 
 import android.os.Parcel
 import android.os.Parcelable
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.OneOfMyClasses
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TorahFilter
 
 data class ShiurFullPage(
@@ -32,7 +33,7 @@ data class ShiurFullPage(
     val series: String? = "C",
     val quickseries: String? = "",
     val quickseries_name: String? = ""
-) : Shiur(id,title,length,speaker), TorahFilter, Parcelable {
+) : Shiur(id,title,length,speaker), TorahFilter, Parcelable, OneOfMyClasses {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
         parcel.readString(),
@@ -51,8 +52,7 @@ data class ShiurFullPage(
         parcel.readString(),
         parcel.readString(),
         parcel.readString()
-    ) {
-    }
+    )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(id)

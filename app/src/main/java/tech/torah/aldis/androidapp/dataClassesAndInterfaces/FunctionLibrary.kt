@@ -33,7 +33,10 @@ import tech.torah.aldis.androidapp.dataClassesAndInterfaces.shiurVariants.Shiur
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.shiurVariants.ShiurFullPage
 import tech.torah.aldis.androidapp.dialogs.ShiurimSortOrFilterDialog
 import tech.torah.aldis.androidapp.mEntireApplicationContext
+import java.io.InvalidClassException
 import java.util.*
+import kotlin.reflect.KClass
+import kotlin.reflect.KProperty1
 
 
 /**
@@ -65,7 +68,7 @@ object FunctionLibrary {
         originalList: List<T>,
         workingList: MutableList<T>,
         recyclerView: RecyclerView.Adapter<VH>,
-        shiurFilterOption: ShiurFilterOption = ShiurFilterOption.NONE,
+        shiurFilterOption: ShiurFilterOption = ShiurFilterOption.TITLE,
         exactMatch: Boolean = false,
         filterWithinPreviousResults: Boolean = false,
         animation: Boolean = false,
@@ -171,49 +174,7 @@ object FunctionLibrary {
         recyclerView.notifyDataSetChanged()
     }
 
-    /**
-     * Sorts a recyclerview by multiple conditions
-     * @param ascending a list of booleans whether the condition is ascending (true if ascending);
-     * If user indicated that the [ShiurFilterOption] at shiurFilterOptions[index] should be sorted in
-     * ascending order, ascending[index] will be true.
-     * */
-    fun <T, VH : RecyclerView.ViewHolder> sort(
-        workingList: MutableList<T>,
-        recyclerView: RecyclerView.Adapter<VH>,
-        shiurFilterOptions: List<ShiurFilterOption>,
-        ascending: List<Boolean>
-    ) {
-        var compareBy: Comparator<T> =
-            if (ascending[0]) compareBy { it.getReceiver(shiurFilterOptions[0]) }
-            else compareByDescending { it.getReceiver(shiurFilterOptions[0]) }
-        for (shiurFilterOption in 1..shiurFilterOptions.size) {
-            val selector: (T) -> Comparable<*>? =
-                { it.getReceiver(shiurFilterOptions[shiurFilterOption]) }
-            compareBy = compareBy.apply {
-                if (ascending[shiurFilterOption]) thenBy(selector)
-                else thenByDescending(selector)
-            }
-        }
-        workingList.sortWith(compareBy)
-        recyclerView.notifyDataSetChanged() //TODO is there a more efficient way to do this?
-    }
-
-    /**
-     * Sorts a [RecyclerView] by a single condition
-     * */
-    fun <T, VH : RecyclerView.ViewHolder> sort(
-        workingList: MutableList<T>,
-        recyclerView: RecyclerView.Adapter<VH>,
-        shiurFilterOption: ShiurFilterOption,
-        ascending: Boolean
-    ) {
-        val selector: (T) -> String? = { it.getReceiver(shiurFilterOption) }
-        if (ascending) workingList.sortBy(selector)
-        else workingList.sortByDescending(selector)
-        recyclerView.notifyDataSetChanged()
-    }
-
-    private fun <T> T.getReceiver(
+    fun <T : OneOfMyClasses> T.getReceiver(
         shiurFilterOption: ShiurFilterOption
     ): String = when (this) {
         //TODO What about when the user is filtering for only playlists with e.g. 5 or more shiurim? What about searching for a category or series? add support all search criteria
@@ -222,7 +183,7 @@ object FunctionLibrary {
             ShiurFilterOption.CATEGORY -> category!!
             ShiurFilterOption.SERIES -> series!!
             ShiurFilterOption.SPEAKER -> speaker!!
-            ShiurFilterOption.NONE -> title!!
+            ShiurFilterOption.TITLE -> title!!
             ShiurFilterOption.HAS_DESCRIPTION -> if (description!!.isBlank()) "no" /*doesn't have a description*/ else "yes" /*does have a description*/ //used yes/no because the user presented options in the dropdown menu for these are yes and no
             ShiurFilterOption.HAS_ATTACHMENT -> if (attachment!!.isBlank()) "no" /*doesn't have an attachment link*/ else "yes" /*does have an attachment link*/ //^^^
             ShiurFilterOption.LENGTH -> length!!
@@ -230,8 +191,23 @@ object FunctionLibrary {
             ShiurFilterOption.DATE_UPLOADED -> uploaded!! //TODO should probably implement this using date picker
             ShiurFilterOption.LANGUAGE -> language!!
         }
+        is Shiur -> when (shiurFilterOption) {
+            ShiurFilterOption.TITLE -> baseTitle!!
+            ShiurFilterOption.SPEAKER -> baseSpeaker!!
+            ShiurFilterOption.LENGTH -> baseLength!!.toInt().toHrMinSec().formatted(false)
+            else -> TODO("Not sure why this would be called")
+        }
         is Playlist -> playlistName
-        else -> this as String
+        else -> TODO("Not sure why this would be called") /*this as String*/
+    }
+
+    fun <T> T.getReceiver(
+        shiurFilterOption: ShiurFilterOption
+    ): String = when (this) {
+        is String -> this
+        is Int -> this.toString()
+        is OneOfMyClasses -> getReceiver(shiurFilterOption)
+        else -> throw InvalidClassException("`this`($this) is not a recognized class and cannot be converted to a proper receiver.")
     }
 
     fun setupFilterAndSearch(
@@ -547,4 +523,132 @@ object FunctionLibrary {
         ViewCompat.setBackground(editText, editTextBackground)
     }
 
+     /**
+     * Sorts a [RecyclerView] by mutliple [ShiurFilterOption]s
+      * NOTE: mutates the provided list in the process
+      @param recyclerView is nullable so that the function can be tested without having to create an
+      actual recyclerview by passing in null.
+      */
+     @JvmName("sortWithListGivenAsParameters")
+    fun <T : OneOfMyClasses, VH : RecyclerView.ViewHolder?> sort(
+        workingList: MutableList<T>,
+        recyclerView: RecyclerView.Adapter<VH>?,
+        shiurFilterOptions: List<ShiurFilterOption>,
+        ascending: List<Boolean>
+    ) {
+        val oneOfMyClasses = workingList[0]::class
+        val firstSelector = oneOfMyClasses.getPropertyToSortBy(shiurFilterOptions[0])
+        val compareBy = getComparator(ascending, firstSelector, shiurFilterOptions, oneOfMyClasses)
+        workingList.sortWith(compareBy)
+        recyclerView?.notifyDataSetChanged()//TODO use androidx.recyclerview.widget.DiffUtil to optimize this call to update only the positions of the elements.
+    }
+
+    /**
+     * Sorts a recyclerview by multiple conditions; a wrapper using maps to the version of [sort] which uses lists
+     * NOTE: mutates the provided list in the process
+     @param recyclerView is nullable so that the function can be tested without having to create an
+      actual recyclerview by passing in null.
+     * @param shiurFilterOptionsMappedToAscending a map of shiur filter condition to whether the
+     * shiur should be sorted by the condition in ascending order (true if ascending).
+     * Implemented as a map because it is easier for the caller to read and understand.
+     * */
+    @JvmName("sortWithListGivenAsParameters")
+    fun <T : OneOfMyClasses, VH : RecyclerView.ViewHolder?> sort(
+        workingList: MutableList<T>,
+        recyclerView: RecyclerView.Adapter<VH>?,
+        shiurFilterOptionsMappedToAscending: Map<ShiurFilterOption, Boolean>
+    ) {
+        val shiurFilterOptions: List<ShiurFilterOption> =
+            shiurFilterOptionsMappedToAscending.keys.toList()
+        val ascending: List<Boolean> = shiurFilterOptionsMappedToAscending.values.toList()
+        sort(workingList, recyclerView, shiurFilterOptions, ascending)
+    }
+
+    @JvmName("sortWithListGivenAsReceiver")
+
+    fun <T : OneOfMyClasses, VH : RecyclerView.ViewHolder?> MutableList<T>.sort(
+        recyclerView: RecyclerView.Adapter<VH>?,
+        shiurFilterOptions: List<ShiurFilterOption>,
+        ascending: List<Boolean>
+    ) = sort(this, recyclerView, shiurFilterOptions, ascending)
+
+    @JvmName("sortWithListGivenAsReceiver")
+    fun <T : OneOfMyClasses, VH : RecyclerView.ViewHolder?> MutableList<T>.sort(
+        recyclerView: RecyclerView.Adapter<VH>?,
+        shiurFilterOptionsMappedToAscending: Map<ShiurFilterOption, Boolean>
+    ) = sort(this, recyclerView, shiurFilterOptionsMappedToAscending)
+
+    /**
+     * Sorts a [RecyclerView] by a single condition
+     * NOTE: mutates the provided list in the process
+     @param recyclerView is nullable so that the function can be tested without having to create an
+      actual recyclerview by passing in null.
+     * */
+    fun <T : OneOfMyClasses, VH : RecyclerView.ViewHolder?> sort(
+        workingList: MutableList<T>,
+        recyclerView: RecyclerView.Adapter<VH>?,
+        shiurFilterOption: ShiurFilterOption,
+        ascending: Boolean
+    ) {
+        val selector: (T) -> String? = { it.getReceiver(shiurFilterOption) }
+        if (ascending) workingList.sortBy(selector)
+        else workingList.sortByDescending(selector)
+        recyclerView?.notifyDataSetChanged()
+    }
+
+    /**
+     * Creates the [Comparator] which is used to filter a list of [OneOfMyClasses], e.g. Shiurim, by multiple [ShiurFilterOption]s
+     * Can be thought of as a chain resembling something like
+     * val comparator = compareBy(ShiurFullPage::speaker).thenBy { it.title }.thenByDescending { it.length }.thenByDescending { it.series }.thenBy { it.language }
+     * which will then be fed into list.sortedWith(comparator), except the calls to thenBy() and thenByDescending() will also be passed [KProperty]s
+     * @param firstSelector used to start the chain of comparators with ascending or descending order;
+     * should be the first of the list of conditions to be sorted by. The iteration through the [ShiurFilterOption]s
+     * will continue with the [ShiurFilterOption] after [firstSelector]
+     * */
+    private fun getComparator(
+        ascending: List<Boolean>,
+        firstSelector: KProperty1<OneOfMyClasses, String?>,
+        shiurFilterOptions: List<ShiurFilterOption>,
+        classType: KClass<out OneOfMyClasses>
+    ): Comparator<OneOfMyClasses> {
+        var compareBy =
+            if (ascending[0]) compareBy(firstSelector) else compareByDescending(firstSelector)
+        for (index in 1 until shiurFilterOptions.size) {
+            val shiurFilterOption = shiurFilterOptions[index]
+            val isAscending = ascending[index]
+            val propertyToSortBy = classType.getPropertyToSortBy(shiurFilterOption)
+            compareBy = if (isAscending) compareBy.thenBy(propertyToSortBy)
+            else compareBy.thenByDescending(propertyToSortBy)
+        }
+        return compareBy
+    }
+
+    private fun <T : OneOfMyClasses> KClass<T>.getPropertyToSortBy(
+        shiurFilterOption: ShiurFilterOption
+    ): KProperty1<OneOfMyClasses, String?> = when {
+        this == Speaker::class -> Speaker::name
+        this == ShiurFullPage::class -> when (shiurFilterOption) {
+            ShiurFilterOption.CATEGORY -> ShiurFullPage::category
+            ShiurFilterOption.SERIES -> ShiurFullPage::series
+            ShiurFilterOption.SPEAKER -> ShiurFullPage::speaker
+            ShiurFilterOption.TITLE -> ShiurFullPage::title
+            ShiurFilterOption.HAS_DESCRIPTION -> TODO("Not yet sure how to implement this")
+//if (description!!.isBlank()) "no" /*doesn't have a description*/ else "yes" /*does have a description*/ //used yes/no because the user presented options in the dropdown menu for these are yes and no
+            ShiurFilterOption.HAS_ATTACHMENT -> TODO("Not yet sure how to implement this")
+//if (attachment!!.isBlank()) "no" /*doesn't have an attachment link*/ else "yes" /*does have an attachment link*/ //^^^
+            ShiurFilterOption.LENGTH -> ShiurFullPage::length
+            ShiurFilterOption.DATE_ADDED_TO_PERSONAL_COLLECTION -> TODO("Not yet sure how to implement this")
+            ShiurFilterOption.DATE_UPLOADED -> ShiurFullPage::uploaded //TODO should probably implement this using date picker
+            ShiurFilterOption.LANGUAGE -> ShiurFullPage::language
+        }
+        this == Shiur::class -> when (shiurFilterOption) {
+            ShiurFilterOption.SPEAKER -> Shiur::baseSpeaker
+            ShiurFilterOption.LENGTH -> Shiur::baseLength
+            ShiurFilterOption.TITLE -> Shiur::baseTitle
+            else -> TODO("Not sure why this would be called; `this` = $this, shiurFilterOption = $shiurFilterOption ")
+        }
+        this == Playlist::class -> Playlist::playlistName
+        this == Category::class -> Category::name //TODO enable sorting by whether has children
+        else -> TODO("Not sure why this would be called; `this` = $this") /*this as String*/
+    } as KProperty1<OneOfMyClasses, String?>
 }

@@ -5,12 +5,9 @@ import tech.torah.aldis.androidapp.R
 /**
  * This enum was originally intended for a 3-tab layout, but the design was reconsidered.
  * It now functions as an enum to enumerate different subjects of which a shiur can be filtered
- * @property NONE functions as a default for the filter function to indicate that
- * the shiur(im) is not being filtered by its category, speaker, etc.
- *
  * */
 enum class ShiurFilterOption(val nameStringResourceId: Int) {
-    NONE(R.string.tab_name_none),
+    TITLE(R.string.tab_name_none),
     CATEGORY(R.string.tab_name_category),
     SPEAKER(R.string.tab_name_speaker),
     SERIES(R.string.tab_name_series),

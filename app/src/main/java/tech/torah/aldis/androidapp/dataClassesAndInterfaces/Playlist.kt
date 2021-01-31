@@ -12,4 +12,4 @@ data class Playlist(
     ),
     val totalLengthInSeconds:Int = 578,
     val numberOfSpeakers: Int = 3
-)
+): OneOfMyClasses

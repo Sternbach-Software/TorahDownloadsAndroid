@@ -10,7 +10,7 @@ data class Category(
     val url: String = "c-6-torah.html",
     val label: String = "<a href=\"c-6-torah.html\">Chumash</a>",
     val children: ArrayList<Category>? = arrayListOf()
-) : TorahFilter, Parcelable {
+) : TorahFilter, Parcelable, OneOfMyClasses {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readString().toString(),

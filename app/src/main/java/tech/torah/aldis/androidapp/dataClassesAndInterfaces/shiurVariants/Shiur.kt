@@ -2,9 +2,10 @@ package tech.torah.aldis.androidapp.dataClassesAndInterfaces.shiurVariants
 
 import android.os.Parcel
 import android.os.Parcelable
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.OneOfMyClasses
 
 open class Shiur(val baseId: String? = "test", val baseTitle: String? ="test", val baseLength: String?="test", val baseSpeaker: String?="test") :
-    Parcelable {
+    Parcelable, OneOfMyClasses {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
         parcel.readString(),
@@ -22,6 +23,11 @@ open class Shiur(val baseId: String? = "test", val baseTitle: String? ="test", v
 
     override fun describeContents(): Int {
         return 0
+    }
+
+    override fun toString(): String {
+//        return "baseSpeaker=$baseSpeaker,baseLength=$baseLength,baseTitle=$baseTitle" //for testing
+      return "baseId=$baseId,baseTitle=$baseTitle,baseLength=$baseLength,baseSpeaker=$baseSpeaker"
     }
 
     companion object CREATOR : Parcelable.Creator<Shiur> {
