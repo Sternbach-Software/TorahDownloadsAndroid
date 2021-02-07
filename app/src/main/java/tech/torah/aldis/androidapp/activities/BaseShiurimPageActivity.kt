@@ -36,7 +36,7 @@ open class BaseShiurimPageActivity : AppCompatActivity(), TorahFilterable, DragS
 
 
     override var dragSelectModeEnabled: Boolean = false
-    override var actionMenu: Menu? = null //TODO will this always be null?
+    override var actionMenu: Menu? = null
     override fun clearSelection() {
         shiurAdapter.deselectAll()
     }

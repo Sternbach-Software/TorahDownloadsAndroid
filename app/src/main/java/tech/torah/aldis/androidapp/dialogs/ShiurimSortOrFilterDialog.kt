@@ -82,6 +82,7 @@ class ShiurimSortOrFilterDialog(
         super.onViewCreated(view, savedInstanceState)
 
         //<editor-fold desc="variable initializations">
+            //TODO add single or multiple button and do performClick() on single
 //        progressiveFilterExplanationImageButton = view.findViewById(R.id.progressive_filter_explanation_image_button)
         filterButton = view.findViewById(R.id.filter_button_simple)
         cancelButton = view.findViewById(R.id.cancel_button_simple)

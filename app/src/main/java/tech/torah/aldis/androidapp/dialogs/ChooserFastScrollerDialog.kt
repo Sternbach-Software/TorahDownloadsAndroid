@@ -36,7 +36,8 @@ class ChooserFastScrollerDialog(
     private lateinit var chooserFastScrollerAdapter: ChooserFastScrollerAdapter
     private lateinit var toolbar: Toolbar
     private lateinit var selectedListItem: String
-    val shouldNeverBeCalled:Nothing = TODO("I don't think this should ever be called, being that ChooserFastScrollerDialog only has a search bar and not a filter button")
+    fun <T> shouldNeverBeCalled(x:T) : Nothing =
+         TODO("I don't think this should ever be called, being that ChooserFastScrollerDialog only has a search bar and not a filter button, t: $x")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -149,11 +150,11 @@ class ChooserFastScrollerDialog(
                 exactMatch
             )
 
-        override fun sort(shiurFilterOptions: List<ShiurFilterOption>, ascending: List<Boolean>) = shouldNeverBeCalled
+        override fun sort(shiurFilterOptions: List<ShiurFilterOption>, ascending: List<Boolean>) = shouldNeverBeCalled(listOf("Sort",shiurFilterOptions,ascending))
 
-        override fun sort(shiurFilterOption: ShiurFilterOption, ascending: Boolean) = shouldNeverBeCalled
+        override fun sort(shiurFilterOption: ShiurFilterOption, ascending: Boolean) = shouldNeverBeCalled(listOf("Sort", shiurFilterOption,ascending))
 
-        override fun reset() = shouldNeverBeCalled
+        override fun reset() = shouldNeverBeCalled("Reset")
     }
 
 }
