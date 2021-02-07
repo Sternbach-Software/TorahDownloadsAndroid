@@ -1,7 +1,7 @@
 package tech.torah.aldis.androidapp.activities
 
 import android.os.Bundle
-import android.view.View
+import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -12,11 +12,20 @@ import tech.torah.aldis.androidapp.dataClassesAndInterfaces.shiurVariants.ShiurF
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.ShiurFilterOption
 import tech.torah.aldis.androidapp.dataClassesAndInterfaces.TorahFilterable
 import tech.torah.aldis.androidapp.adapters.shiurAdapter.ShiurAdapter
-import tech.torah.aldis.androidapp.dialogs.ShiurOptionsBottomSheetDialog
+import tech.torah.aldis.androidapp.dataClassesAndInterfaces.DragSelectableActivity
 import java.util.HashSet
 
-class IndividualPlaylistPageActivity: AppCompatActivity(), TorahFilterable {
+class IndividualPlaylistPageActivity: AppCompatActivity(), TorahFilterable, DragSelectableActivity {
     private lateinit var shiurAdapter: ShiurAdapter
+
+    override var dragSelectModeEnabled: Boolean = false
+    override var actionMenu: Menu?
+        get() = TODO("Not yet implemented")
+        set(value) {}
+
+    override fun clearSelection() {
+        TODO("Not yet implemented")
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -132,7 +141,7 @@ class IndividualPlaylistPageActivity: AppCompatActivity(), TorahFilterable {
             }
 
             override fun isSelected(index: Int): Boolean {
-                return shiurAdapter.mSelected.contains(index)
+                return shiurAdapter.mSelectedList[index]
             }
 
             override fun updateSelection(
@@ -145,7 +154,7 @@ class IndividualPlaylistPageActivity: AppCompatActivity(), TorahFilterable {
             }
         }).withMode(DragSelectionProcessor.Mode.FirstItemDependent)
         val mDragSelectTouchListener = DragSelectTouchListener().withSelectListener(mDragSelectionProcessor)
-        val shiurAdapter = ShiurAdapter(listOfPlaylists, fragmentManagerForInflatingBottomSheet=supportFragmentManager,mDragSelectTouchListener)
+        val shiurAdapter = ShiurAdapter(listOfPlaylists, fragmentManagerForInflatingBottomSheet=supportFragmentManager,mDragSelectTouchListener,this)
         recyclerView?.adapter = shiurAdapter
     }
 
@@ -170,5 +179,6 @@ class IndividualPlaylistPageActivity: AppCompatActivity(), TorahFilterable {
     override fun reset() {
         shiurAdapter.reset()
     }
+
 
 }

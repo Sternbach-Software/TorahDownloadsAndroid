@@ -37,5 +37,6 @@ Risus nullam eget felis eget nunc lobortis mattis. Nascetur ridiculus mus mauris
     <string name="has_description">Has description</string>
     <string name="date_uploaded">Date uploaded</string>
     <string name="date_added_to_personal_collection">Date added to personal collection</string>
-    <string name="language">Language</string><!--TODO ^-->
+    <string name="language">Language</string>
+    <string name="id">ID</string><!--TODO ^-->
 </resources>

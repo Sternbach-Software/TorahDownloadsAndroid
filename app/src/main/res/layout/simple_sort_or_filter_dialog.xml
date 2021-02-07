@@ -35,8 +35,34 @@
                 android:id="@+id/sort_radio_button_simple"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="7dp"
                 android:padding="5dp"
                 android:text="Sort" />
+            <!--^ Margin to make "sort" button in-line with "Multiple"-->
+        </RadioGroup>
+
+        <RadioGroup
+            android:id="@+id/single_or_multiple_radio_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="40dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <RadioButton
+                android:id="@+id/single_radio_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="Single" />
+
+            <RadioButton
+                android:id="@+id/multiple_radio_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="Multiple" />
         </RadioGroup>
 
 
@@ -104,6 +130,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="none"
+                tools:text="ABCDE FGHI JKLMNO"
                 android:maxLines="1" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -133,18 +160,24 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/individual_filter_criterion_chooser_text_input_layout"
-            style="@style/DropdownMenuWithNoEndIcon"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:background="?attr/selectableItemBackground"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
             android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
             android:clickable="true"
             android:focusable="true"
             android:minWidth="240dp">
-            <!--TODO find this function and make the style of this TextInputLayout into "Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+            <!--TODO fix that the ripple extends above the box because of the paddings-->
             <AutoCompleteTextView
                 android:id="@+id/individual_filter_criterion_chooser_chooser_auto_complete_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:minHeight="44dp"
+                android:padding="8dp"
+                tools:text="ABCDEFGHIJKLMNOjPQn RSTUVWXYZ ABCDEFGHIJK LMNOPQR STUVWXYZ ABCDEFGHIJKL MNOPQRSTUVWXYZ"
                 android:clickable="true"
                 android:focusable="true"
                 android:inputType="none" />

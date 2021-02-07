@@ -15,5 +15,10 @@
         android:title="Filter"
         android:icon="@drawable/ic_filter"
         app:showAsAction="always"/>
+    <item
+        android:id="@+id/start_selection_button"
+        android:title="Start selection"
+        android:icon="@drawable/ic_select_all"
+        app:showAsAction="ifRoom"/>
 
 </menu>

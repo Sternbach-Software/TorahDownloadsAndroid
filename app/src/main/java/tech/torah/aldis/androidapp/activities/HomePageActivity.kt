@@ -2,6 +2,8 @@ package tech.torah.aldis.androidapp.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.animation.AnimationUtils
+import android.widget.ScrollView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.button.MaterialButton
 import tech.torah.aldis.androidapp.R
@@ -11,7 +13,8 @@ class HomePageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.home_page_scroll_view)
-
+        val scrollView = findViewById<ScrollView>(R.id.home_page_scroll_view)
+        scrollView.layoutAnimation = AnimationUtils.loadLayoutAnimation(this,R.anim.bottom_up)
         findViewById<MaterialButton>(R.id.open_speaker_page_button).setOnClickListener {
             val intent = Intent(this@HomePageActivity, ListOfSpeakerPageActivity::class.java)
             this@HomePageActivity.startActivity(intent)

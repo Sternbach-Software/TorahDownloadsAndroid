@@ -35,6 +35,7 @@ class ShiurOptionsBottomSheetDialog(private val shiur: Shiur) : BottomSheetDialo
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.shiur_bottom_sheet_layout, container, false)
+
         shiurTitleTextView = view.findViewById(R.id.bottom_sheet_shiur_title)
         shiurCategoryTextView = view.findViewById(R.id.bottom_sheet_shiur_category)
         shiurSeriesTextView = view.findViewById(R.id.bottom_sheet_shiur_series)
@@ -44,6 +45,8 @@ class ShiurOptionsBottomSheetDialog(private val shiur: Shiur) : BottomSheetDialo
         bottomSheetViewAddToPlaylistButton = view.findViewById(R.id.bottom_sheet_add_to_playlist_button)
         return view
     }
+
+    override fun getTheme(): Int =  R.style.Theme_MaterialComponents_DayNight_BottomSheetDialog //TODO is this neccessary? The app theme is Material DayNight anyway.
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

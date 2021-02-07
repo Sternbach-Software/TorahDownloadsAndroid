@@ -21,6 +21,7 @@ import android.widget.AutoCompleteTextView
 import android.widget.EditText
 import android.widget.ImageView
 import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat
 import androidx.core.text.isDigitsOnly
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.FragmentManager
@@ -52,6 +53,214 @@ object FunctionLibrary {
      * closed and the query is set to "" - thereby updating the list.
      * */
     private const val userWantsToCancelSearchBarOnFirstCancelButtonClick = true
+/**
+ * I assume that if an activity is calling this function, it is also going to setup the selection button
+ * */
+    fun setupFilterAndSearch(
+        menu: Menu?,
+        menuInflater: MenuInflater,
+        torahFilterableCallback: TorahFilterable,
+        fragmentManager: FragmentManager,
+        TAG: String,
+        mapOfFilterCriteriaData: Map<ShiurFilterOption, List<String>>,
+        callingFromActivity: Boolean,
+        callingActivity: Activity?,
+        contextForClosingKeyboard: Context?,
+        viewForClosingKeyboard: View?
+    ) {
+        if (menu != null) {
+            setupFilterButton(
+                menuInflater,
+                menu,
+                torahFilterableCallback,
+                mapOfFilterCriteriaData,
+                fragmentManager,
+                TAG,
+                alsoUsingSearchButton = true,
+                shouldInflateLayout = true
+            )
+            setupSearchView(
+                menuInflater, menu, torahFilterableCallback,
+                alsoUsingFilterButton = true,
+                shouldInflateLayout = false,
+                callingFromActivity,
+                callingActivity,
+                contextForClosingKeyboard,
+                viewForClosingKeyboard
+            )
+        }
+    }
+
+    // Practically, this function is never called without also calling [setupSearchView], but it can
+    // be if need be.
+    fun setupFilterButton(
+        menuInflater: MenuInflater,
+        menu: Menu,
+        torahFilterableCallback: TorahFilterable,
+        mapOfFilterCriteriaData: Map<ShiurFilterOption, List<String>>,
+        fragmentManager: FragmentManager,
+        TAG: String,
+        alsoUsingSearchButton: Boolean,
+        shouldInflateLayout: Boolean
+    ) {
+        if (shouldInflateLayout) menuInflater.inflate(
+            if (alsoUsingSearchButton) R.menu.search_bar_filter_button_and_selection else R.menu.filter_button_only,
+            menu
+        )
+        val filterItem: MenuItem? = menu.findItem(R.id.filter_button)
+        filterItem?.setOnMenuItemClickListener {
+            ShiurimSortOrFilterDialog(
+                torahFilterableCallback,
+                mapOfFilterCriteriaData
+            )
+                // I figure that it is worth the cost of passing new objects to the sort dialog to avoid the cost of
+                // eventual bugs due to passing in a reference to a mutable list
+                .show(fragmentManager, TAG)
+            true
+        }
+    }
+
+    /**
+     * Sets up [SearchView] in a toolbar.
+     * @param callingFromActivity the steps need to close the keyboard when the user submits are different
+     * for an activity and for a [Fragment]. See https://stackoverflow.com/questions/1109022/how-do-you-close-hide-the-android-soft-keyboard-using-java
+     * @param callingActivity needed for closing keyboard, [null] if not an activity
+     * @param contextForClosingKeyboard ^ [null] if not a [Fragment]
+     * @param viewForClosingKeyboard ^
+     * */
+    fun setupSearchView(
+        menuInflater: MenuInflater,
+        menu: Menu,
+        torahFilterableCallback: TorahFilterable,
+        alsoUsingFilterButton: Boolean,
+        shouldInflateLayout: Boolean,
+        callingFromActivity: Boolean,
+        callingActivity: Activity?,
+        contextForClosingKeyboard: Context?,
+        viewForClosingKeyboard: View?
+
+    ) {
+        if (shouldInflateLayout) menuInflater.inflate(
+            if (alsoUsingFilterButton) R.menu.search_bar_filter_button_and_selection else R.menu.search_bar_only,
+            menu
+        )
+
+        val searchView = menu.findItem(R.id.actionSearch)?.actionView as SearchView?
+        searchView?.imeOptions = EditorInfo.IME_ACTION_DONE
+
+
+        if (userWantsToCancelSearchBarOnFirstCancelButtonClick) {
+            // Get the search close button image view
+            val closeButton: ImageView? =
+                searchView?.findViewById(R.id.search_close_btn) as ImageView?
+
+            // Set on click listener
+            closeButton?.setOnClickListener {
+                Log.d(TAG, "Search close button clicked")
+                //Find EditText view
+                val editText = searchView?.findViewById(R.id.search_src_text) as EditText?
+
+                //Clear the text from EditText view
+                editText?.setText("")
+
+                //Clear query
+                searchView?.setQuery("", false)
+                //Collapse the action view
+                searchView?.onActionViewCollapsed()
+                //Collapse the search widget
+                menu.findItem(R.id.actionSearch).collapseActionView()
+            }
+        }
+        searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                if (callingFromActivity) {
+                    Log.d(TAG, "Keyboard closing from activity $callingActivity")
+                    hideKeyboard(callingActivity!!)
+                } else {
+                    Log.d(
+                        TAG,
+                        "Keyboard closing from fragment; context = $contextForClosingKeyboard, view = $viewForClosingKeyboard"
+                    )
+                    hideKeyboardFromFragment(
+                        contextForClosingKeyboard!!,
+                        viewForClosingKeyboard!!
+                    )
+                }
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                torahFilterableCallback.search(newText ?: "")
+                return false
+            }
+        })
+    }
+
+    /**
+     * Used for subcategory page and individual speaker page to add button to menu which says "SHIURIM"
+     * and takes the user to the child shiurim page
+     * */
+    fun setupShiurimButton(
+        menu: Menu?,
+        menuInflater: MenuInflater,
+        packageContext: Context,
+        putExtrasLambda: Intent.() -> Unit
+    ): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.speaker_page, menu)
+        val viewShiurimButtton: MenuItem? = menu?.findItem(R.id.view_shiurim)
+        viewShiurimButtton?.setOnMenuItemClickListener {
+            val intent = Intent(packageContext, BaseShiurimPageActivity::class.java)
+            intent.apply(putExtrasLambda)
+            packageContext.startActivity(intent)
+            true
+        }
+        return true
+    }
+
+    fun setupShiurimButton(
+        menu: Menu?,
+        menuInflater: MenuInflater,
+        packageContext: Context,
+        title: String?,
+        shiurim: ArrayList<Parcelable>
+    ) {
+        menuInflater.inflate(R.menu.speaker_page, menu)
+        val viewShiurimButtton: MenuItem? = menu?.findItem(R.id.view_shiurim)
+        viewShiurimButtton?.setOnMenuItemClickListener {
+            val intent = Intent(packageContext, BaseShiurimPageActivity::class.java)
+            intent.apply {
+                putExtra(CONSTANTS.INTENT_EXTRA_SHIURIM_PAGE_TITLE, title)
+                putParcelableArrayListExtra(
+                    CONSTANTS.INTENT_EXTRA_SHIURIM_PAGE_SHIURIM,
+                    shiurim
+                )
+            }
+            packageContext.startActivity(intent)
+            true
+        }
+    }
+
+    fun setupStartSelectionButton(menu: Menu?, dragSelectableActivity: DragSelectableActivity) {
+        val startSelectionButton = menu?.findItem(R.id.start_selection_button)
+        startSelectionButton?.setOnMenuItemClickListener{
+            when(dragSelectableActivity.dragSelectModeEnabled){
+              false ->{
+                  dragSelectableActivity.dragSelectModeEnabled = true
+                  startSelectionButton.icon = ContextCompat.getDrawable(mEntireApplicationContext,R.drawable.ic_cancel)
+              }
+                true->{
+                    dragSelectableActivity.dragSelectModeEnabled = false
+                    startSelectionButton.icon = ContextCompat.getDrawable(mEntireApplicationContext,R.drawable.ic_select_all)
+                    dragSelectableActivity.clearSelection()
+                }
+            }
+            //TODO should I make a toast which lets the user know that they can long click and drag?
+            // I feel like that won't neccesarily be an easy thing to figure out, and it is one of
+            // the best parts about the feature.
+            true
+        }
+    }
 
     /**
      * Filters a recycler view based on a constraint
@@ -174,12 +383,143 @@ object FunctionLibrary {
         recyclerView.notifyDataSetChanged()
     }
 
+    /**
+     * Sorts a [RecyclerView] by mutliple [ShiurFilterOption]s
+     * NOTE: mutates the provided list in the process
+    @param recyclerView is nullable so that the function can be tested without having to create an
+    actual recyclerview by passing in null.
+     */
+    @JvmName("sortWithListGivenAsParameters")
+    fun <T : OneOfMyClasses, VH : RecyclerView.ViewHolder?> sort(
+        workingList: MutableList<T>,
+        recyclerView: RecyclerView.Adapter<VH>?,
+        shiurFilterOptions: List<ShiurFilterOption>,
+        ascending: List<Boolean>
+    ) {
+        val oneOfMyClasses = workingList[0]::class
+        val firstSelector = oneOfMyClasses.getPropertyToSortBy(shiurFilterOptions[0])
+        val compareBy = getComparator(ascending, firstSelector, shiurFilterOptions, oneOfMyClasses)
+        workingList.sortWith(compareBy)
+        recyclerView?.notifyDataSetChanged()//TODO use androidx.recyclerview.widget.DiffUtil to optimize this call to update only the positions of the elements.
+    }
+
+    /**
+     * Sorts a recyclerview by multiple conditions; a wrapper using maps to the version of [sort] which uses lists
+     * NOTE: mutates the provided list in the process
+    @param recyclerView is nullable so that the function can be tested without having to create an
+    actual recyclerview by passing in null.
+     * @param shiurFilterOptionsMappedToAscending a map of shiur filter condition to whether the
+     * shiur should be sorted by the condition in ascending order (true if ascending).
+     * Implemented as a map because it is easier for the caller to read and understand.
+     * */
+    @JvmName("sortWithListGivenAsParameters")
+    fun <T : OneOfMyClasses, VH : RecyclerView.ViewHolder?> sort(
+        workingList: MutableList<T>,
+        recyclerView: RecyclerView.Adapter<VH>?,
+        shiurFilterOptionsMappedToAscending: Map<ShiurFilterOption, Boolean>
+    ) {
+        val shiurFilterOptions: List<ShiurFilterOption> =
+            shiurFilterOptionsMappedToAscending.keys.toList()
+        val ascending: List<Boolean> = shiurFilterOptionsMappedToAscending.values.toList()
+        sort(workingList, recyclerView, shiurFilterOptions, ascending)
+    }
+
+    @JvmName("sortWithListGivenAsReceiver")
+
+    fun <T : OneOfMyClasses, VH : RecyclerView.ViewHolder?> MutableList<T>.sort(
+        recyclerView: RecyclerView.Adapter<VH>?,
+        shiurFilterOptions: List<ShiurFilterOption>,
+        ascending: List<Boolean>
+    ) = sort(this, recyclerView, shiurFilterOptions, ascending)
+
+    @JvmName("sortWithListGivenAsReceiver")
+    fun <T : OneOfMyClasses, VH : RecyclerView.ViewHolder?> MutableList<T>.sort(
+        recyclerView: RecyclerView.Adapter<VH>?,
+        shiurFilterOptionsMappedToAscending: Map<ShiurFilterOption, Boolean>
+    ) = sort(this, recyclerView, shiurFilterOptionsMappedToAscending)
+
+    /**
+     * Sorts a [RecyclerView] by a single condition
+     * NOTE: mutates the provided list in the process
+    @param recyclerView is nullable so that the function can be tested without having to create an
+    actual recyclerview by passing in null.
+     * */
+    fun <T : OneOfMyClasses, VH : RecyclerView.ViewHolder?> sort(
+        workingList: MutableList<T>,
+        recyclerView: RecyclerView.Adapter<VH>?,
+        shiurFilterOption: ShiurFilterOption,
+        ascending: Boolean
+    ) {
+        val selector: (T) -> String? = { it.getReceiver(shiurFilterOption) }
+        if (ascending) workingList.sortBy(selector)
+        else workingList.sortByDescending(selector)
+        recyclerView?.notifyDataSetChanged()
+    }
+
+    /**
+     * Creates the [Comparator] which is used to filter a list of [OneOfMyClasses], e.g. Shiurim, by multiple [ShiurFilterOption]s
+     * Can be thought of as a chain resembling something like
+     * val comparator = compareBy(ShiurFullPage::speaker).thenBy { it.title }.thenByDescending { it.length }.thenByDescending { it.series }.thenBy { it.language }
+     * which will then be fed into list.sortedWith(comparator), except the calls to thenBy() and thenByDescending() will also be passed [KProperty]s
+     * @param firstSelector used to start the chain of comparators with ascending or descending order;
+     * should be the first of the list of conditions to be sorted by. The iteration through the [ShiurFilterOption]s
+     * will continue with the [ShiurFilterOption] after [firstSelector]
+     * */
+    private fun getComparator(
+        ascending: List<Boolean>,
+        firstSelector: KProperty1<OneOfMyClasses, String?>,
+        shiurFilterOptions: List<ShiurFilterOption>,
+        classType: KClass<out OneOfMyClasses>
+    ): Comparator<OneOfMyClasses> {
+        var compareBy =
+            if (ascending[0]) compareBy(firstSelector) else compareByDescending(firstSelector)
+        for (index in 1 until shiurFilterOptions.size) {
+            val shiurFilterOption = shiurFilterOptions[index]
+            val isAscending = ascending[index]
+            val propertyToSortBy = classType.getPropertyToSortBy(shiurFilterOption)
+            compareBy = if (isAscending) compareBy.thenBy(propertyToSortBy)
+            else compareBy.thenByDescending(propertyToSortBy)
+        }
+        return compareBy
+    }
+
+    private fun <T : OneOfMyClasses> KClass<T>.getPropertyToSortBy(
+        shiurFilterOption: ShiurFilterOption
+    ): KProperty1<OneOfMyClasses, String?> = when {
+        this == Speaker::class -> Speaker::name
+        this == ShiurFullPage::class -> when (shiurFilterOption) {
+            ShiurFilterOption.ID -> ShiurFullPage::id
+            ShiurFilterOption.CATEGORY -> ShiurFullPage::category
+            ShiurFilterOption.SERIES -> ShiurFullPage::series
+            ShiurFilterOption.SPEAKER -> ShiurFullPage::speaker
+            ShiurFilterOption.TITLE -> ShiurFullPage::title
+            ShiurFilterOption.HAS_DESCRIPTION -> TODO("Not yet sure how to implement this")
+//if (description!!.isBlank()) "no" /*doesn't have a description*/ else "yes" /*does have a description*/ //used yes/no because the user presented options in the dropdown menu for these are yes and no
+            ShiurFilterOption.HAS_ATTACHMENT -> TODO("Not yet sure how to implement this")
+//if (attachment!!.isBlank()) "no" /*doesn't have an attachment link*/ else "yes" /*does have an attachment link*/ //^^^
+            ShiurFilterOption.LENGTH -> ShiurFullPage::length
+            ShiurFilterOption.DATE_ADDED_TO_PERSONAL_COLLECTION -> TODO("Not yet sure how to implement this")
+            ShiurFilterOption.DATE_UPLOADED -> ShiurFullPage::uploaded //TODO should probably implement this using date picker
+            ShiurFilterOption.LANGUAGE -> ShiurFullPage::language
+        }
+        this == Shiur::class -> when (shiurFilterOption) {
+            ShiurFilterOption.SPEAKER -> Shiur::baseSpeaker
+            ShiurFilterOption.LENGTH -> Shiur::baseLength
+            ShiurFilterOption.TITLE -> Shiur::baseTitle
+            else -> TODO("Not sure why this would be called; `this` = $this, shiurFilterOption = $shiurFilterOption ")
+        }
+        this == Playlist::class -> Playlist::playlistName
+        this == Category::class -> Category::name //TODO enable sorting by whether has children
+        else -> TODO("Not sure why this would be called; `this` = $this") /*this as String*/
+    } as KProperty1<OneOfMyClasses, String?>
+
     fun <T : OneOfMyClasses> T.getReceiver(
         shiurFilterOption: ShiurFilterOption
     ): String = when (this) {
         //TODO What about when the user is filtering for only playlists with e.g. 5 or more shiurim? What about searching for a category or series? add support all search criteria
         is Speaker -> name
         is ShiurFullPage -> when (shiurFilterOption) {
+            ShiurFilterOption.ID -> id!!
             ShiurFilterOption.CATEGORY -> category!!
             ShiurFilterOption.SERIES -> series!!
             ShiurFilterOption.SPEAKER -> speaker!!
@@ -195,7 +535,8 @@ object FunctionLibrary {
             ShiurFilterOption.TITLE -> baseTitle!!
             ShiurFilterOption.SPEAKER -> baseSpeaker!!
             ShiurFilterOption.LENGTH -> baseLength!!.toInt().toHrMinSec().formatted(false)
-            else -> TODO("Not sure why this would be called")
+            ShiurFilterOption.ID -> baseId!!
+            else -> TODO("Not sure why a regular Shiur would be being filtered by $shiurFilterOption")
         }
         is Playlist -> playlistName
         else -> TODO("Not sure why this would be called") /*this as String*/
@@ -210,146 +551,16 @@ object FunctionLibrary {
         else -> throw InvalidClassException("`this`($this) is not a recognized class and cannot be converted to a proper receiver.")
     }
 
-    fun setupFilterAndSearch(
-        menu: Menu?,
-        menuInflater: MenuInflater,
-        torahFilterableCallback: TorahFilterable,
-        fragmentManager: FragmentManager,
-        TAG: String,
-        mapOfFilterCriteriaData: Map<ShiurFilterOption, List<String>>,
-        callingFromActivity: Boolean,
-        callingActivity: Activity?,
-        contextForClosingKeyboard: Context?,
-        viewForClosingKeyboard: View?
-    ) {
-//        menu as Menu // let the compiler know that i want to treat menu:Menu? as Menu
-        if (menu != null) {
-            setupFilterButton(
-                menuInflater,
-                menu,
-                torahFilterableCallback,
-                mapOfFilterCriteriaData,
-                fragmentManager,
-                TAG,
-                alsoUsingSearchButton = true,
-                shouldInflateLayout = true
-            )
-            setupSearchView(
-                menuInflater, menu, torahFilterableCallback,
-                alsoUsingFilterButton = true,
-                shouldInflateLayout = false,
-                callingFromActivity,
-                callingActivity,
-                contextForClosingKeyboard,
-                viewForClosingKeyboard
-            )
-        }
-    }
-
-    // Practically, this function is never called without also calling [setupSearchView], but it can
-    // be if need be.
-    fun setupFilterButton(
-        menuInflater: MenuInflater,
-        menu: Menu,
-        torahFilterableCallback: TorahFilterable,
-        mapOfFilterCriteriaData: Map<ShiurFilterOption, List<String>>,
-        fragmentManager: FragmentManager,
-        TAG: String,
-        alsoUsingSearchButton: Boolean,
-        shouldInflateLayout: Boolean
-    ) {
-        if (shouldInflateLayout) menuInflater.inflate(
-            if (alsoUsingSearchButton) R.menu.search_bar_and_filter_button else R.menu.filter_button_only,
-            menu
-        )
-        val filterItem: MenuItem? = menu.findItem(R.id.filter_button)
-        filterItem?.setOnMenuItemClickListener {
-            ShiurimSortOrFilterDialog(
-                torahFilterableCallback,
-                mapOfFilterCriteriaData
-            )
-                // I figure that it is worth the cost of passing new objects to the sort dialog to avoid the cost of
-                // eventual bugs due to passing in a reference to a mutable list
-                .show(fragmentManager, TAG)
-            true
-        }
-    }
-
-    /**
-     * Sets up [SearchView] in a toolbar.
-     * @param callingFromActivity the steps need to close the keyboard when the user submits are different
-     * for an activity and for a [Fragment]. See https://stackoverflow.com/questions/1109022/how-do-you-close-hide-the-android-soft-keyboard-using-java
-     * @param callingActivity needed for closing keyboard, [null] if not an activity
-     * @param contextForClosingKeyboard ^ [null] if not a [Fragment]
-     * @param viewForClosingKeyboard ^
-     * */
-    fun setupSearchView(
-        menuInflater: MenuInflater,
-        menu: Menu,
-        torahFilterableCallback: TorahFilterable,
-        alsoUsingFilterButton: Boolean,
-        shouldInflateLayout: Boolean,
-        callingFromActivity: Boolean,
-        callingActivity: Activity?,
-        contextForClosingKeyboard: Context?,
-        viewForClosingKeyboard: View?
-
-    ) {
-        if (shouldInflateLayout) menuInflater.inflate(
-            if (alsoUsingFilterButton) R.menu.search_bar_and_filter_button else R.menu.search_bar_only,
-            menu
-        )
-
-        val searchView = menu.findItem(R.id.actionSearch)?.actionView as SearchView?
-        searchView?.imeOptions = EditorInfo.IME_ACTION_DONE
-
-
-        if (userWantsToCancelSearchBarOnFirstCancelButtonClick) {
-            // Get the search close button image view
-            val closeButton: ImageView? =
-                searchView?.findViewById(R.id.search_close_btn) as ImageView?
-
-            // Set on click listener
-            closeButton?.setOnClickListener {
-                Log.d(TAG, "Search close button clicked")
-                //Find EditText view
-                val editText = searchView?.findViewById(R.id.search_src_text) as EditText?
-
-                //Clear the text from EditText view
-                editText?.setText("")
-
-                //Clear query
-                searchView?.setQuery("", false)
-                //Collapse the action view
-                searchView?.onActionViewCollapsed()
-                //Collapse the search widget
-                menu.findItem(R.id.actionSearch).collapseActionView()
+    fun String.matchesConstraint(constraint: String, exactMatch: Boolean, intRange: IntRange?) =
+        when (exactMatch) {
+            true -> {//request is coming from filter dialog; will only ever be inexact match when searching from SearchView, which should only search through name and possibly description
+                if (this.isDigitsOnly() && intRange != null /*TODO /*make sure this works: */ && shiurFilterOption is ShiurFilterOption.LENGTH*/) this.toInt() in intRange //if it is a number, theoretically the only thing it could be is a length of a shiur
+                else this == constraint
+            }
+            false -> {
+                this.contains(constraint)
             }
         }
-        searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                if (callingFromActivity) {
-                    Log.d(TAG, "Keyboard closing from activity $callingActivity")
-                    hideKeyboard(callingActivity!!)
-                } else {
-                    Log.d(
-                        TAG,
-                        "Keyboard closing from fragment; context = $contextForClosingKeyboard, view = $viewForClosingKeyboard"
-                    )
-                    hideKeyboardFromFragment(
-                        contextForClosingKeyboard!!,
-                        viewForClosingKeyboard!!
-                    )
-                }
-                return false
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                torahFilterableCallback.search(newText ?: "")
-                return false
-            }
-        })
-    }
 
     fun hideKeyboard(activity: Activity) {
         val imm = activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -434,63 +645,6 @@ object FunctionLibrary {
     }
 
     /**
-     * Used for subcategory page and individual speaker page to add button to menu which says "SHIURIM"
-     * and takes the user to the child shiurim page
-     * */
-    fun setupShiurimButton(
-        menu: Menu?,
-        menuInflater: MenuInflater,
-        packageContext: Context,
-        putExtrasLambda: Intent.() -> Unit
-    ): Boolean {
-        val inflater = menuInflater
-        inflater.inflate(R.menu.speaker_page, menu)
-        val viewShiurimButtton: MenuItem? = menu?.findItem(R.id.view_shiurim)
-        viewShiurimButtton?.setOnMenuItemClickListener {
-            val intent = Intent(packageContext, BaseShiurimPageActivity::class.java)
-            intent.apply(putExtrasLambda)
-            packageContext.startActivity(intent)
-            true
-        }
-        return true
-    }
-
-    fun String.matchesConstraint(constraint: String, exactMatch: Boolean, intRange: IntRange?) =
-        when (exactMatch) {
-            true -> {//request is coming from filter dialog; will only ever be inexact match when searching from SearchView, which should only search through name and possibly description
-                if (this.isDigitsOnly() && intRange != null /*TODO /*make sure this works: */ && shiurFilterOption is ShiurFilterOption.LENGTH*/) this.toInt() in intRange //if it is a number, theoretically the only thing it could be is a length of a shiur
-                else this == constraint
-            }
-            false -> {
-                this.contains(constraint)
-            }
-        }
-
-    fun setupShiurimButton(
-        menu: Menu?,
-        menuInflater: MenuInflater,
-        packageContext: Context,
-        title: String?,
-        shiurim: ArrayList<Parcelable>
-    ) {
-        val inflater = menuInflater
-        inflater.inflate(R.menu.speaker_page, menu)
-        val viewShiurimButtton: MenuItem? = menu?.findItem(R.id.view_shiurim)
-        viewShiurimButtton?.setOnMenuItemClickListener {
-            val intent = Intent(packageContext, BaseShiurimPageActivity::class.java)
-            intent.apply {
-                putExtra(CONSTANTS.INTENT_EXTRA_SHIURIM_PAGE_TITLE, title)
-                putParcelableArrayListExtra(
-                    CONSTANTS.INTENT_EXTRA_SHIURIM_PAGE_SHIURIM,
-                    shiurim
-                )
-            }
-            packageContext.startActivity(intent)
-            true
-        }
-    }
-
-    /**
      * From [com.google.android.material.textfield.DropdownMenuEndIconDelegate]
      * */
     private fun addRippleEffectOnOutlinedLayout(
@@ -522,133 +676,4 @@ object FunctionLibrary {
         }
         ViewCompat.setBackground(editText, editTextBackground)
     }
-
-     /**
-     * Sorts a [RecyclerView] by mutliple [ShiurFilterOption]s
-      * NOTE: mutates the provided list in the process
-      @param recyclerView is nullable so that the function can be tested without having to create an
-      actual recyclerview by passing in null.
-      */
-     @JvmName("sortWithListGivenAsParameters")
-    fun <T : OneOfMyClasses, VH : RecyclerView.ViewHolder?> sort(
-        workingList: MutableList<T>,
-        recyclerView: RecyclerView.Adapter<VH>?,
-        shiurFilterOptions: List<ShiurFilterOption>,
-        ascending: List<Boolean>
-    ) {
-        val oneOfMyClasses = workingList[0]::class
-        val firstSelector = oneOfMyClasses.getPropertyToSortBy(shiurFilterOptions[0])
-        val compareBy = getComparator(ascending, firstSelector, shiurFilterOptions, oneOfMyClasses)
-        workingList.sortWith(compareBy)
-        recyclerView?.notifyDataSetChanged()//TODO use androidx.recyclerview.widget.DiffUtil to optimize this call to update only the positions of the elements.
-    }
-
-    /**
-     * Sorts a recyclerview by multiple conditions; a wrapper using maps to the version of [sort] which uses lists
-     * NOTE: mutates the provided list in the process
-     @param recyclerView is nullable so that the function can be tested without having to create an
-      actual recyclerview by passing in null.
-     * @param shiurFilterOptionsMappedToAscending a map of shiur filter condition to whether the
-     * shiur should be sorted by the condition in ascending order (true if ascending).
-     * Implemented as a map because it is easier for the caller to read and understand.
-     * */
-    @JvmName("sortWithListGivenAsParameters")
-    fun <T : OneOfMyClasses, VH : RecyclerView.ViewHolder?> sort(
-        workingList: MutableList<T>,
-        recyclerView: RecyclerView.Adapter<VH>?,
-        shiurFilterOptionsMappedToAscending: Map<ShiurFilterOption, Boolean>
-    ) {
-        val shiurFilterOptions: List<ShiurFilterOption> =
-            shiurFilterOptionsMappedToAscending.keys.toList()
-        val ascending: List<Boolean> = shiurFilterOptionsMappedToAscending.values.toList()
-        sort(workingList, recyclerView, shiurFilterOptions, ascending)
-    }
-
-    @JvmName("sortWithListGivenAsReceiver")
-
-    fun <T : OneOfMyClasses, VH : RecyclerView.ViewHolder?> MutableList<T>.sort(
-        recyclerView: RecyclerView.Adapter<VH>?,
-        shiurFilterOptions: List<ShiurFilterOption>,
-        ascending: List<Boolean>
-    ) = sort(this, recyclerView, shiurFilterOptions, ascending)
-
-    @JvmName("sortWithListGivenAsReceiver")
-    fun <T : OneOfMyClasses, VH : RecyclerView.ViewHolder?> MutableList<T>.sort(
-        recyclerView: RecyclerView.Adapter<VH>?,
-        shiurFilterOptionsMappedToAscending: Map<ShiurFilterOption, Boolean>
-    ) = sort(this, recyclerView, shiurFilterOptionsMappedToAscending)
-
-    /**
-     * Sorts a [RecyclerView] by a single condition
-     * NOTE: mutates the provided list in the process
-     @param recyclerView is nullable so that the function can be tested without having to create an
-      actual recyclerview by passing in null.
-     * */
-    fun <T : OneOfMyClasses, VH : RecyclerView.ViewHolder?> sort(
-        workingList: MutableList<T>,
-        recyclerView: RecyclerView.Adapter<VH>?,
-        shiurFilterOption: ShiurFilterOption,
-        ascending: Boolean
-    ) {
-        val selector: (T) -> String? = { it.getReceiver(shiurFilterOption) }
-        if (ascending) workingList.sortBy(selector)
-        else workingList.sortByDescending(selector)
-        recyclerView?.notifyDataSetChanged()
-    }
-
-    /**
-     * Creates the [Comparator] which is used to filter a list of [OneOfMyClasses], e.g. Shiurim, by multiple [ShiurFilterOption]s
-     * Can be thought of as a chain resembling something like
-     * val comparator = compareBy(ShiurFullPage::speaker).thenBy { it.title }.thenByDescending { it.length }.thenByDescending { it.series }.thenBy { it.language }
-     * which will then be fed into list.sortedWith(comparator), except the calls to thenBy() and thenByDescending() will also be passed [KProperty]s
-     * @param firstSelector used to start the chain of comparators with ascending or descending order;
-     * should be the first of the list of conditions to be sorted by. The iteration through the [ShiurFilterOption]s
-     * will continue with the [ShiurFilterOption] after [firstSelector]
-     * */
-    private fun getComparator(
-        ascending: List<Boolean>,
-        firstSelector: KProperty1<OneOfMyClasses, String?>,
-        shiurFilterOptions: List<ShiurFilterOption>,
-        classType: KClass<out OneOfMyClasses>
-    ): Comparator<OneOfMyClasses> {
-        var compareBy =
-            if (ascending[0]) compareBy(firstSelector) else compareByDescending(firstSelector)
-        for (index in 1 until shiurFilterOptions.size) {
-            val shiurFilterOption = shiurFilterOptions[index]
-            val isAscending = ascending[index]
-            val propertyToSortBy = classType.getPropertyToSortBy(shiurFilterOption)
-            compareBy = if (isAscending) compareBy.thenBy(propertyToSortBy)
-            else compareBy.thenByDescending(propertyToSortBy)
-        }
-        return compareBy
-    }
-
-    private fun <T : OneOfMyClasses> KClass<T>.getPropertyToSortBy(
-        shiurFilterOption: ShiurFilterOption
-    ): KProperty1<OneOfMyClasses, String?> = when {
-        this == Speaker::class -> Speaker::name
-        this == ShiurFullPage::class -> when (shiurFilterOption) {
-            ShiurFilterOption.CATEGORY -> ShiurFullPage::category
-            ShiurFilterOption.SERIES -> ShiurFullPage::series
-            ShiurFilterOption.SPEAKER -> ShiurFullPage::speaker
-            ShiurFilterOption.TITLE -> ShiurFullPage::title
-            ShiurFilterOption.HAS_DESCRIPTION -> TODO("Not yet sure how to implement this")
-//if (description!!.isBlank()) "no" /*doesn't have a description*/ else "yes" /*does have a description*/ //used yes/no because the user presented options in the dropdown menu for these are yes and no
-            ShiurFilterOption.HAS_ATTACHMENT -> TODO("Not yet sure how to implement this")
-//if (attachment!!.isBlank()) "no" /*doesn't have an attachment link*/ else "yes" /*does have an attachment link*/ //^^^
-            ShiurFilterOption.LENGTH -> ShiurFullPage::length
-            ShiurFilterOption.DATE_ADDED_TO_PERSONAL_COLLECTION -> TODO("Not yet sure how to implement this")
-            ShiurFilterOption.DATE_UPLOADED -> ShiurFullPage::uploaded //TODO should probably implement this using date picker
-            ShiurFilterOption.LANGUAGE -> ShiurFullPage::language
-        }
-        this == Shiur::class -> when (shiurFilterOption) {
-            ShiurFilterOption.SPEAKER -> Shiur::baseSpeaker
-            ShiurFilterOption.LENGTH -> Shiur::baseLength
-            ShiurFilterOption.TITLE -> Shiur::baseTitle
-            else -> TODO("Not sure why this would be called; `this` = $this, shiurFilterOption = $shiurFilterOption ")
-        }
-        this == Playlist::class -> Playlist::playlistName
-        this == Category::class -> Category::name //TODO enable sorting by whether has children
-        else -> TODO("Not sure why this would be called; `this` = $this") /*this as String*/
-    } as KProperty1<OneOfMyClasses, String?>
 }

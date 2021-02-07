@@ -2,9 +2,12 @@ package tech.torah.aldis.androidapp
 
 import android.app.Application
 import android.content.Context
+import android.util.Log
+import java.util.HashSet
+import kotlin.system.measureNanoTime
 
 lateinit var mEntireApplicationContext: Context
-private const val TAG = "TorahDownloadsApplication"
+private const val TAG = "TorahDownloadsApplicati"
 
 class TorahDownloadsApplication: Application() {
    override fun onCreate() {
